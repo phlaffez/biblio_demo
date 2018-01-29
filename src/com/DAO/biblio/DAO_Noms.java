@@ -9,6 +9,6 @@ public interface DAO_Noms <T> {
 
 	
 	public Object getByNom(String n);
-	public Object getAll();
+
 	// une List<T> n'est pas acceptée. Que faut il faire ? Un Objet pour essayer
 }
