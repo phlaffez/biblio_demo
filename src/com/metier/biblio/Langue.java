@@ -11,6 +11,7 @@ public class Langue {
 	
 	private int idLangue;
 	private String nomLangue;
+	private int nbre;
 	
 	
 	 /**  Constructeur par défaut
@@ -23,6 +24,7 @@ public class Langue {
 	{
 		this.idLangue = 0;
 		this.nomLangue = "";
+		this.nbre=0;
 	}
 	
 	
@@ -37,10 +39,11 @@ public class Langue {
 	  *   Le nom de la langue
 	 * 
 	 */
-	public Langue(int id, String nom)
+	public Langue(int id, String nom,int nbre)
 	{
 		this.idLangue = id;
 		this.nomLangue = nom;
+		this.nbre=nbre;
 	}
 	
 	
@@ -71,6 +74,28 @@ public class Langue {
 	  {
 		  return this.nomLangue;
 	  }
+	  
+	  /** affecte le nombre d'ouvrage dans cette langue */
+	  
+	  public void setNombre(int nombre)
+	  {
+		  this.nbre = nombre;
+	  }
+	  /** renvoie le nombre d'ouvrages dans cette langue */
+	  
+	  public int getNombre()
+	  {
+		  return this.nbre;
+	  }
+	  
+	  public String toString()
+	  {
+	    String l = "Langue: "+this.getNombre()+"\n";
+	    l=l+"Id = "+this.getId()+"   Nombre: "+this.getNombre();
+	    return l;
+	  }
+	  
+	   
 
 }
 

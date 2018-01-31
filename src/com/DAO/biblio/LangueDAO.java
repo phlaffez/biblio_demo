@@ -50,14 +50,11 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 
 	@Override
 	public Object getByNom(String n) {
-		// TODO Auto-generated method stub
+		// Retourne un objet "Langue"
 		return null;
 	}
 
-	@Override
-	public Object getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 
 }
