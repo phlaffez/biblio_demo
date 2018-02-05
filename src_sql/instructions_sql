@@ -1,0 +1,127 @@
+CREATE DATABASE biblio CHARACTER SET 'utf8';
+USE biblio;
+
+-- Table des genres
+
+CREATE TABLE genres (
+  id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom_genre VARCHAR(20) NOT NULL UNIQUE, 
+  PRIMARY KEY pk_genre(id),
+  INDEX ind_genres(nom_genre)
+)
+ENGINE = INNODB;
+
+
+-- table des pays
+
+CREATE TABLE pays (
+  id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom_p VARCHAR(30) NOT NULL UNIQUE,
+  nbre INT UNSIGNED,
+  PRIMARY KEY pk_pays(id),
+  INDEX ind_pays(nom_p),
+  INDEX ind_nbre(nbre)
+  )
+  ENGINE = INNODB;
+
+-- table des langues
+
+CREATE TABLE langues (
+  id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom_lan VARCHAR(30) NOT NULL UNIQUE,
+  nbre INT UNSIGNED,
+  PRIMARY KEY pk_langues(id),
+  INDEX ind_pays(nom_lan),
+  INDEX ind_nbre(nbre)
+  )
+  ENGINE = INNODB;
+
+-- Table des auteurs
+
+CREATE TABLE auteurs (
+  id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom_aut VARCHAR(40) NOT NULL,
+  prenom_aut VARCHAR(40),
+  pays_aut INT UNSIGNED,
+  PRIMARY KEY pk_auteur(id),
+  FOREIGN KEY fk_pays (pays_aut) REFERENCES pays(id),
+  INDEX ind_aut(nom_aut,prenom_aut)
+)
+ENGINE = INNODB;
+
+-- Table des livres  pourquoi les fk ne passent elles pas ?
+
+CREATE TABLE livres (
+id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom_liv VARCHAR(100) NOT NULL,
+  genre INT UNSIGNED NOT NULL,
+  langue INT UNSIGNED NOT NULL,
+  date_pub DATE,
+  un_resume BOOLEAN,
+  PRIMARY KEY pk_livre(id),
+  FOREIGN KEY fk_genre(genre) REFERENCES genres(id),
+  FOREIGN KEY fk_langue(langue) REFERENCES langues(id)
+  )
+ENGINE = INNODB;
+
+-- table auteurs / genre : un auteur peut écrire dans plusieurs genres, dans plusieurs langues, et un livre peut avoir plusieurs auteurs
+
+CREATE TABLE auteur_genre (
+  id_auteur INT UNSIGNED NOT NULL,
+  id_genre INT UNSIGNED NOT NULL,
+  PRIMARY KEY pk_auteur_genre (id_auteur,id_genre),
+  FOREIGN KEY fk_aut (id_auteur) REFERENCES auteurs(id),
+  FOREIGN KEY fk_genre(id_genre) REFERENCES genres(id)
+  )
+ENGINE = INNODB;
+
+CREATE TABLE auteur_langue (
+  id_auteur INT UNSIGNED NOT NULL,
+  id_langue INT UNSIGNED NOT NULL,
+  PRIMARY KEY pk_auteur_langue (id_auteur,id_langue),
+  FOREIGN KEY fk_aut (id_auteur) REFERENCES auteurs(id),
+  FOREIGN KEY fk_langue(id_langue) REFERENCES langues(id)
+  )
+ENGINE = INNODB;
+
+CREATE TABLE  livre_auteurs(
+  id_auteur INT UNSIGNED NOT NULL,
+  id_livre INT UNSIGNED NOT NULL,
+  PRIMARY KEY pk_livre_auteur (id_livre,id_auteur),
+  FOREIGN KEY fk_aut (id_auteur) REFERENCES auteurs(id),
+  FOREIGN KEY fk_livre(id_livre) REFERENCES livres(id)
+  )
+ENGINE = INNODB;
+
+-- Je trouve que ce serait bien d'aboir une table pour enregitrer des résumés et avoir une recherche en fulltext que ne permet pas INNODB
+
+CREATE TABLE resume_livres (
+  id_livre INT UNSIGNED NOT NULL,             -- pas d'auto increment. Ce sera le même identifiant que dans la fiche livre
+  resume TEXT,
+  PRIMARY KEY pk_resume(id_livre),
+  FULLTEXT INDEX ind_resume (resume)
+  )
+ENGINE = MYISAM;
+
+-- fonction pour mettre une majuscule en début d'un mot (pour les noms propre et les noms de genre)
+
+-- Triggers pour homogénéiser les noms dans les bases de données
+
+-- J'ajoute des champs, car comme ça ce sera fait, et ça change pas grand choseà la charge de travail
+ALTER TABLE auteurs ADD COLUMN  anneee_naiss INT;
+ALTER TABLE auteurs ADD COLUMN  anneee_deces INT;
+ALTER TABLE auteurs ADD COLUMN  infos TEXT;         
+
+// Triggers
+// Sur la table langues:
+
+DELIMITER |
+CREATE TRIGGER before_insert_langues BEFORE INSERT ON langues
+FOR EACH ROW
+BEGIN
+    SET NEW.nom_lan = UPPER(NEW.nom_lan);
+  END; |
+    DELIMITER ;
+
+
+                                                
