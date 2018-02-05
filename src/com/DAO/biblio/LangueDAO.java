@@ -23,10 +23,10 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 		// chercher si elle est dans la base de données
 		// getByNom renvoie un objet, donc il faut caster
 		Langue langue = (Langue)getByNom(obj.getNom());
-		if(langue !=null)
+		if(langue ==null)
 		{
 			//on crée seulement si la langue n'est pas déjà présente
-			String requete = "INSERT INTO langues (nom_lan,nbre) VALUES ("+obj.getNom()+",0)";
+			String requete = "INSERT INTO langues (nom_lan,nbre) VALUES (\'"+obj.getNom()+"\',0)";
 			int res = 0;
 			int mes=0;
 			try
@@ -62,9 +62,9 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 		{
 			try 
 			{
-				String requete = "UPDATE langue SET nom_lan =\""+obj.getNom()+"\"";
-				requete = requete+",set nbre ="+Integer.toString(obj.getNombre());
-				requete = requete+ "WHERE id="+Integer.toString(obj.getId());
+				String requete = "UPDATE langues SET nom_lan =\""+obj.getNom()+"\"";
+				requete = requete + ", nbre = "+Integer.toString(obj.getNombre());
+				requete = requete+" WHERE id ="+Integer.toString(obj.getId());
 				res = this.connex.createStatement(). executeUpdate(requete);
 				if (res==1)
 				{
@@ -93,7 +93,7 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 		{
 			// rien à faire, mais quand même un popup
 			mes=3;
-			System.out.println("La lague "+obj.getNom()+" n'est pas dans la base de donnés");
+			System.out.println("La langue "+obj.getNom()+" n'est pas dans la base de donnés");
 			System.out.println("Suppression inutile");
 			retour = true;
 		}
@@ -125,7 +125,7 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 	public Langue findId(int id) {
 		Langue langue=null;
 		int mes=0;
-		String requete= "SELECT * FROM langue WHERE id ="+Integer.toString(id);
+		String requete= "SELECT * FROM langues WHERE id ="+Integer.toString(id);
 		try
 		{
 			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
@@ -134,12 +134,14 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 				langue = new Langue(id,res.getString("nom_lan"),res.getInt("nbre"));
 				mes=1;
 			}
+			
 		}
 		catch (SQLException e)
 		{
 			mes=2;
 			System.out.println("Problème SQL lors de la recherche de la langue id= "+Integer.toString(id));
 		}
+
 		return langue;
 	}
 
@@ -199,7 +201,7 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 		Langue langue=null;
 		n=n.toUpperCase();
 		int mes=0;
-		String requete= "SELECT * FROM langue WHERE nom_lan ="+n;
+		String requete= "SELECT * FROM langues WHERE nom_lan =\'"+n+"\'";
 		try
 		{
 			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);

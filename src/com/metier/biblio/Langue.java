@@ -90,7 +90,7 @@ public class Langue {
 	  
 	  public String toString()
 	  {
-	    String l = "Langue: "+this.getNombre()+"\n";
+	    String l = "Langue: "+this.getNom()+"\n";
 	    l=l+"Id = "+this.getId()+"   Nombre: "+this.getNombre();
 	    return l;
 	  }

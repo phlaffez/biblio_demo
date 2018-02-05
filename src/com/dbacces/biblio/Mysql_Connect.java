@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class Mysql_Connect {
 	// URL de connexion
-		private String url = "jdbc:mysql://localhost:3306/mediatheque";
+		private String url = "jdbc:mysql://localhost:3306/biblio";
 		// Nom du user
 		private String user = "root";
 		// Mot de passe de l'utilisateur
