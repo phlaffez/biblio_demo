@@ -125,4 +125,14 @@ BEGIN
     DELIMITER ;
 
 
-                                                
+// Sur la table pays:
+
+DELIMITER |
+CREATE TRIGGER before_insert_langues BEFORE INSERT ON langues
+FOR EACH ROW
+BEGIN
+    SET NEW.nom_lan = UPPER(NEW.nom_lan);
+  END; |
+    DELIMITER ;
+
+    // Il faut faire les triggers before_updatesur langue et pays
