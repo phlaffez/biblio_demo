@@ -58,7 +58,10 @@ id INT UNSIGNED AUTO_INCREMENT NOT NULL,
   langue INT UNSIGNED NOT NULL,
   date_pub DATE,
   un_resume BOOLEAN,
+  classement VARCHAR(20),
   PRIMARY KEY pk_livre(id),
+  INDEX ind_titre(nom_liv),
+  INDEX ind_lass(classement),
   FOREIGN KEY fk_genre(genre) REFERENCES genres(id),
   FOREIGN KEY fk_langue(langue) REFERENCES langues(id)
   )
