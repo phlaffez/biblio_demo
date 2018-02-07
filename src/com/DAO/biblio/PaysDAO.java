@@ -19,6 +19,7 @@ public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
 
 	@Override
 	public boolean create(Pays obj) {
+		// teté le 07/02/2018 OK
 		boolean retour = false; // par défaut. Si la langue existe déjà, on ne la crée pas
 		// mettre la langue en majuscules
 		obj.setNom(obj.getNom().toUpperCase());
@@ -59,10 +60,11 @@ public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
 
 	@Override
 	public boolean update(Pays obj) {
+		// testé le 07/02/2018 OK
 		boolean retour = false;
 		int res;
 		int mes=0;
-		// On ne peut faire d'update que si le pays existe. 
+			// On ne peut faire d'update que si le pays existe. 
 		Pays pays = findId(obj.getId());
 		if(pays != null)
 		{
@@ -91,10 +93,11 @@ public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
 
 	@Override
 	public boolean delete(Pays obj) {
+		// testé le 07/02/2018 OK
 		// On vérifie l'existance
 		boolean retour = false;
-		Pays pays = findId(obj.getId());
-		int res=0;
+			Pays pays = findId(obj.getId());
+			int res=0;
 		int mes = 0;
 		if(pays == null)
 		{
@@ -108,8 +111,10 @@ public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
 		{
 			try
 			{
-				String requete = "DELETE FROM pays WHERE id = "+Integer.toBinaryString(obj.getId());
+								String requete = "DELETE FROM pays WHERE id = "+Integer.toString(obj.getId());
+				System.out.println(requete);
 				res = this.connex.createStatement(). executeUpdate(requete);
+				System.out.println("res= "+res);
 				if(res==1)
 				{
 					mes=1;

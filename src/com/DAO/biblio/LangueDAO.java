@@ -101,7 +101,7 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 		{
 			try
 			{
-				String requete = "DELETE FROM langue WHERE id = "+Integer.toBinaryString(obj.getId());
+				String requete = "DELETE FROM langue WHERE id = "+Integer.toString(obj.getId());
 				res = this.connex.createStatement(). executeUpdate(requete);
 				if(res==1)
 				{
