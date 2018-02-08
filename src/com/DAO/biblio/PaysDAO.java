@@ -112,9 +112,9 @@ public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
 			try
 			{
 								String requete = "DELETE FROM pays WHERE id = "+Integer.toString(obj.getId());
-				System.out.println(requete);
+				
 				res = this.connex.createStatement(). executeUpdate(requete);
-				System.out.println("res= "+res);
+		
 				if(res==1)
 				{
 					mes=1;

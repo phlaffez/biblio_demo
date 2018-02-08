@@ -1,7 +1,5 @@
 package com.DAO.biblio;
 
-import java.awt.List;
-
 // Comme certaines tables (correspondances livres/aueurs par exemple, n'ont
 // pas de champs de nom, je place ici les accès par noms
 
