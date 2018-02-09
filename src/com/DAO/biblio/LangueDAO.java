@@ -112,7 +112,7 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 			catch (SQLException e)
 			{
 				mes=2;
-				// popupàmettre
+				// popup à mettre
 				System.out.println("Problème SQL lors de la suppression de la langue "+obj.getNom());;
 	
 			}

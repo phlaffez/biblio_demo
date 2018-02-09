@@ -2,19 +2,20 @@ package com.metier.biblio;
 
 public class AuteurLangue {
 	// classe pour la liaison auteur langues. Un auteur peut écrire dans plusieurs langue
+	// testée ok le 09/02/2018
 	private int idAuteur;
 	private int idLangue;
 	
-	public void AuteurLangue()
+	public  AuteurLangue()
 	{
 		this.idAuteur=0;
 		this.idLangue=0;
 	}
 	
-	public void AuteurLangue(int idA, int idL)
+	public  AuteurLangue(int idA, int idL)
 	{
 		this.idAuteur = idA;
-		this.idAuteur = idL;
+		this.idLangue = idL;
 	}
 	
 	public void setIdAuteur(int idA)
@@ -35,6 +36,11 @@ public class AuteurLangue {
 	public int getIdLangue()
 	{
 		return this.idLangue;
+	}
+	
+	public String toString()
+	{
+		return "idAuteur = "+Integer.toString(this.idAuteur)+" / idLangue = "+Integer.toString(this.idLangue);
 	}
 	
 

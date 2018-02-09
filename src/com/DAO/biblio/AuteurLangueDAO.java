@@ -27,7 +27,7 @@ public class AuteurLangueDAO extends DAO<AuteurLangue> implements DAO_Liaison<Au
 		int mes=0;
 		if(!this.isPresent(obj))
 		{
-		String requete = "INSERT INTO auteur_langue (id_auteur, id_langue";
+		String requete = "INSERT INTO auteur_langue (id_auteur, id_langue)";
 		requete = requete+" VALUES ("+Integer.toString(obj.getIdAuteur())+",";
 		requete = requete + Integer.toString(obj.getIdLangue())+")";
 		try
@@ -77,7 +77,7 @@ public class AuteurLangueDAO extends DAO<AuteurLangue> implements DAO_Liaison<Au
 		boolean retour = false;
 		if(this.isPresent(obj))
 		{
-			String requete = "DELETE FROM auteur_langues WHERE id_auteur = ";
+			String requete = "DELETE FROM auteur_langue WHERE id_auteur = ";
 			requete = requete+Integer.toString(obj.getIdAuteur())+" AND id_langue = ";
 			requete = requete+Integer.toString(obj.getIdLangue());
 			try
@@ -121,7 +121,7 @@ public class AuteurLangueDAO extends DAO<AuteurLangue> implements DAO_Liaison<Au
 	@Override
 	public int lastId() {
 		// TODO Auto-generated method stub
-		// Pas d'iddans cette table.N'et donc pas à écrire
+		// Pas d'id dans cette table.N'et donc pas à écrire
 		return 0;
 	}
 
@@ -175,19 +175,19 @@ public class AuteurLangueDAO extends DAO<AuteurLangue> implements DAO_Liaison<Au
 			champCherche=Cles.id_auteur.toString();
 		}
 		String requete = "SELECT "+champCherche+" FROM auteur_langue WHERE ";
-		requete= requete + "champCle ="+Integer.toString(id);
+		requete= requete + champCle+" ="+Integer.toString(id);
 		try
 		{
 			ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
 			while (res.next())
 			{
-				ii=res.getInt(0);
+				ii=res.getInt(1);
 				resultat.add(ii);
 			}
 			res.close();
 		}
 		catch (SQLException e)
-		{
+		{    e.printStackTrace();
 			System.out.println("Erreur SQL dans la récupération de liaisons:");
 			System.out.println(requete);
 		}
