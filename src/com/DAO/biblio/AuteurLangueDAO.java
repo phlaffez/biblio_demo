@@ -10,6 +10,8 @@ import com.metier.biblio.AuteurLangue;
 import com.metier.biblio.Pays;
 import com.outils.biblio.Cles;
 
+
+// testée à la main le 09/02/2018 . Fonctionne
 public class AuteurLangueDAO extends DAO<AuteurLangue> implements DAO_Liaison<AuteurLangue>
 {
 

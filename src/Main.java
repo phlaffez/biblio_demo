@@ -16,7 +16,6 @@ public class Main {
 		Object les_a = ald.getByCleLiaison(Cles.id_langue, 1);
 		System.out.println(les_a.getClass());
 		System.out.println(les_a.toString());
-		System.out.println((les_a.toString()=="[1,2,3]"));
 	}
 	
 }
