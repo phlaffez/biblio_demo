@@ -116,7 +116,7 @@ public class AuteurLangueDAO extends DAO<AuteurLangue> implements DAO_Liaison<Au
 	@Override
 	public AuteurLangue findId(int id) {
 		// TODO Auto-generated method stub
-		// Pas d'iddans cette table.N'et donc pas à écrire
+		// Pas d'id dans cette table.N'et donc pas à écrire
 		return null;
 	}
 
