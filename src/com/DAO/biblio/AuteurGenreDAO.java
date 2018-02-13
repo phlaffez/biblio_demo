@@ -1,6 +1,9 @@
 package com.DAO.biblio;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.metier.biblio.AuteurGenre;
@@ -16,50 +19,160 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 
 	@Override
 	public boolean create(AuteurGenre obj) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean retour = false;
+		int res=0;
+		int mes=0;
+		if(!this.isPresent(obj))
+		{
+		String requete = "INSERT INTO auteur_langue (id_auteur, id_genre)";
+		requete = requete+" VALUES ("+Integer.toString(obj.getIdAuteur())+",";
+		requete = requete + Integer.toString(obj.GetIdGenre())+")";
+		try
+		{
+			res = this.connex.createStatement(). executeUpdate(requete);
+			 if(res==1)
+				 {
+				 retour = true;
+				 mes=1;
+				 }
+		}
+		catch (SQLException e)
+		{
+			// il faudrait un popup
+			System.out.println("Erreur SQL dans la création de la liaison Auteur Genre");
+			System.out.println("Requete:  "+requete);
+			mes=2;
+		}
+		}
+		else
+		{
+			System.out.println("La liaison dans la table auteur_genre existe déjà");
+			System.out.println("Auteur id = "+obj.getIdAuteur()+"  Langue id=  "+obj.GetIdGenre());
+			mes=1;
+		}
+		return retour;
 	}
 
 	@Override
 	public boolean update(AuteurGenre obj) {
-		// N'est pas  implémenter
+		// N'est pas  à implémenter
 		return false;
 	}
 
 	@Override
 	public boolean delete(AuteurGenre obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		int res=0;
+		int mes=0;
+		boolean retour = false;
+		if(this.isPresent(obj))
+		{
+			String requete = "DELETE FROM auteur_genre WHERE id_auteur = ";
+			requete = requete+Integer.toString(obj.getIdAuteur())+" AND id_genre = ";
+			requete = requete+Integer.toString(obj.GetIdGenre());
+			try
+			{
+				res = this.connex.createStatement(). executeUpdate(requete);
+				if(res==1)
+				{
+					retour=true;
+				}
+			}
+			
+			catch (SQLException e)
+			{
+				// popup
+				System.out.println("Erreur SQL lors de la suppression d'une liaison:");
+				System.out.println(requete);
+			}
+			}
+			
+		else
+		{
+			// ne provoque pas une erreur
+			retour=true;
+			mes=1;
+			System.out.println("Demande de suppression d'une liaison inexistante:");
+			System.out.println("Auteur id= "+obj.getIdAuteur()+"  Langue id= "+obj.GetIdGenre());
+		}
+		
+		return retour;
+		}
 
 	@Override
 	public AuteurGenre findId(int id) {
-		// N'est pas  implémenter
+		// N'est pas  à implémenter
 		return null;
 	}
 
 	@Override
 	public int lastId() {
-		// N'est pas  implémenter
+		// N'est pas  à implémenter
 		return 0;
 	}
 
 	@Override
 	public List<AuteurGenre> selectAll() {
-		// N'est pas  implémenter
+		// N'est pas  à implémenter
 		return null;
 	}
 
 	@Override
 	public Object getByCleLiaison(Cles cle, int id) {
 		// TODO Auto-generated method stub
-		return null;
+		String champCherche;
+		List<Integer> resultat = new ArrayList<Integer>();
+		int ii;
+		String champCle = cle.toString();
+		if(cle==Cles.id_auteur)
+		{
+			champCherche=Cles.id_genre.toString();
+		}
+		else
+		{
+			champCherche=Cles.id_auteur.toString();
+		}
+		String requete = "SELECT "+champCherche+" FROM auteur_genre WHERE ";
+		requete= requete + champCle+" ="+Integer.toString(id);
+		try
+		{
+			ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			while (res.next())
+			{
+				ii=res.getInt(1);
+				resultat.add(ii);
+			}
+			res.close();
+		}
+		catch (SQLException e)
+		{    e.printStackTrace();
+			System.out.println("Erreur SQL dans la récupération de liaisons:");
+			System.out.println(requete);
+		}
+		
+		return resultat;
 	}
 
 	@Override
 	public boolean isPresent(AuteurGenre obj) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean retour = false;
+		String requete = "SELECT * FROM auteur_genre WHERE ";
+		requete = requete + "id_auteur = "+Integer.toString(obj.getIdAuteur());
+		requete = requete+" AND id_genre ="+Integer.toString(obj.GetIdGenre());
+		try
+		{
+			ResultSet res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			if (res1.first())
+			{
+				retour = true;
+			}
+			
+		}
+		catch (SQLException e)
+		{
+			// Il faudra mettre un popup
+			System.out.println("ErreurSQLdans la recherche dans la table de liaison auteur_genre");
+		}
+		return retour;
 	}
 
 }
