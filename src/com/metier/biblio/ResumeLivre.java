@@ -10,13 +10,13 @@ public class ResumeLivre {
 	
 	// constructeurs
 	
-	public void ResumeLivre()
+	public  ResumeLivre()
 	{
 		this.id=0;
 		this.resume="";
 	}
 	
-	public void ResumeLivre(int id, String r)
+	public  ResumeLivre(int id, String r)
 	{
 		this.id=id;
 		this.resume=r;
