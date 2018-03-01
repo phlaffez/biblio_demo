@@ -1,5 +1,7 @@
 package com.metier.biblio;
 
+
+// testée ok le 01/03/2018
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +95,7 @@ public class Livre {
 			this.date_pub=dp;
 		}
 		
-		public String getDaatePublication()
+		public String getDatePublication()
 		{
 			return this.date_pub;
 		}
@@ -140,12 +142,15 @@ public class Livre {
 			{
 				s=s+"Auteur(s) non renseigné(s) ou inconnu(s)";
 			}
-			else
+			else if(this.auteurs.isEmpty())
+			{
+				s=s+"Auteur(s) non renseigné(s) ou inconnu(s)";
+			}
 			{
 				s=s+"Auteur(s):"+"\n";
 				for(int i=0;i<this.auteurs.size();i++)
 				{
-					s=s+this.auteurs.get(i).getNom()+" "+this.auteurs.get(i).getPrenom();
+					s=s+this.auteurs.get(i).getNom()+" "+this.auteurs.get(i).getPrenom()+"\n";
 				}
 			}
 			s=s+"\n";
