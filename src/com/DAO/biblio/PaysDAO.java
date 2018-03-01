@@ -19,8 +19,8 @@ public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
 
 	@Override
 	public boolean create(Pays obj) {
-		// teté le 07/02/2018 OK
-		boolean retour = false; // par défaut. Si la langue existe déjà, on ne la crée pas
+		// testé le 07/02/2018 OK
+		boolean retour = false; // par défaut. Si le pays existe déjà, on ne la crée pas
 		// mettre la langue en majuscules
 		obj.setNom(obj.getNom().toUpperCase());
 		// chercher si elle est dans la base de données
@@ -28,7 +28,7 @@ public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
 		Pays pays = (Pays)getByNom(obj.getNom());
 		if(pays ==null)
 		{
-			//on crée seulement si la langue n'est pas déjà présente
+			//on crée seulement si le pays n'est pas déjà présent
 			String requete = "INSERT INTO pays (nom_p) VALUES (\'"+obj.getNom()+"\')";
 			int res = 0;
 			int mes=0;
