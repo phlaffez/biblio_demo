@@ -1,6 +1,8 @@
 package com.metier.biblio;
 
 public class ResumeLivre {
+	
+	// classe testée OK le 01/03/2018
 
 	private int id;
 	private String resume;    // resume et un champ text mysql. Un String est
