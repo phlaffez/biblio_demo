@@ -4,13 +4,13 @@ public class Genre {
 	private int id;
 	private String nom_genre;
 	
-	public void Genre()
+	public  Genre()
 	{
 		this.id = 0;
 		this.nom_genre="";
 	}
 	
-	public void Genre(int id,String ng)
+	public  Genre(int id,String ng)
 	{
 		this.id = id;
 		this.nom_genre=ng;
