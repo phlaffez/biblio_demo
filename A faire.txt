@@ -10,3 +10,7 @@ d'un livre, tous les livres d'un auteur, d'un genre, etc.) Même remarque que ci
 4) modifier la méthode update de a classe livre pour utiliser cette métode
 
 5) revoir toutes les classes pour une bonne gestion des codes d'erreurs, exceptions. Créer une classe spécifique pour leur affichage en popups
+
+6) implémenter la classe AuteurDAO 
+
+7) Il faut réflechir aux requetes qu'il faudre pouvoir faire, et comment les faire. Ajouter des vues ? De nouvelles interface ? 

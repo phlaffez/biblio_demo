@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.metier.biblio.Auteur;
+import com.metier.biblio.Livre;
 import com.metier.biblio.LivreAuteur;
 import com.outils.biblio.Cles;
 
@@ -179,6 +181,80 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 		}
 		
 		return resultat;
+	}
+
+	@Override
+	public Object getListeByCleLiaison(Cles cle, int id) {
+		// récupérer la liste des entiers correspondants:
+		List<Integer> listeres = (List<Integer>)this.getByCleLiaison(cle, id);
+		if(listeres.size()==0)
+		{
+			return null;   // liste vide
+		}
+		else
+		{
+			if(cle==Cles.id_auteur)
+			{
+				// on retourne la liste des livres de cet auteur
+				DAO livreDAO = new LivreDAO(connex);
+				List<Livre> livres = new ArrayList<Livre>();
+				for(int i=1;i<listeres.size();i++)
+				{
+					livres.add((Livre)livreDAO.findId(listeres.get(i)));
+				}
+				return livres;
+			}
+			else
+				
+			{
+				// on retourne la liste des auteurs de ce livre
+				DAO auteurDAO = new AuteurDAO(connex);
+				List<Auteur> auteurs = new ArrayList<Auteur>();
+				for(int i = 1; i<listeres.size();i++)
+				{
+					auteurs.add(((Auteur)auteurDAO.findId(listeres.get(i))));
+				}
+				return auteurs;
+			}
+		}
+		
+		
+		
+	}
+
+	@Override
+	public boolean deleteByCleLiaison(Cles cle, int id) {
+		String requete;
+		int res;
+		int mes=0;
+		// TODOUne requete à écrire en fonction de la clé de selection
+		if(cle == Cles.id_auteur)
+		{
+			// on efface tous les liaisons livre auteur de cet auteur
+			requete = "DELETE * FROM livres_auteur WHERE id_auteur = "+Integer.toString(id);
+		}
+		else
+		{
+			// le contraire, id on efface toutes les liaisons pour ce livre
+			requete = "DELETE FROM livres_auteur WHERE id_livre ="+Integer.toString(id);
+		}
+		boolean retour = false;
+		try
+		{
+			res = this.connex.createStatement(). executeUpdate(requete);
+			if(res==1)
+			{
+				retour = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			System.out.println("Ereur SQLdans la suppression dans la tablede liaison livres auteurs");
+			System.out.println(cle.toString()+" = "+id);
+			mes=1;
+		}
+		
+		return retour;
 	}
 
 }
