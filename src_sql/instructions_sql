@@ -18,7 +18,7 @@ CREATE TABLE pays (
   id INT UNSIGNED AUTO_INCREMENT NOT NULL,
   nom_p VARCHAR(30) NOT NULL UNIQUE,
   PRIMARY KEY pk_pays(id),
-  INDEX ind_pays(nom_p),
+  INDEX ind_pays(nom_p)
   )
   ENGINE = INNODB;
 

@@ -4,6 +4,7 @@ package com.metier.biblio;
  * @author Philippe LAFFEZ
  * @version 1
  * Date: 18/01/2018
+ * Testée OK
  *
  */
 public class Auteur 
