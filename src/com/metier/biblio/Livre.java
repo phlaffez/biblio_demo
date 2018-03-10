@@ -117,6 +117,7 @@ public class Livre {
 		
 		public String getClassement()
 		{
+			System.out.println(this.classement);
 			return this.classement;
 		}
 		
@@ -138,14 +139,18 @@ public class Livre {
 			s=s+Integer.toString(this.id)+":\n";
 			s=s+this.nom_liv+"\n";
 			
+			
 			if (this.auteurs==null)
 			{
+				System.out.println("glop");
 				s=s+"Auteur(s) non renseigné(s) ou inconnu(s)";
 			}
 			else if(this.auteurs.isEmpty())
-			{
+			{ System.out.println("auteur vide");
 				s=s+"Auteur(s) non renseigné(s) ou inconnu(s)";
 			}
+			
+			else
 			{
 				s=s+"Auteur(s):"+"\n";
 				for(int i=0;i<this.auteurs.size();i++)
