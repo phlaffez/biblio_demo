@@ -41,9 +41,10 @@ public class Genre {
 	
 	// tostring
 	
-	public String toSring()
+	public String  toString()
+	
 	{
-		return Integer.toString(this.id)+" "+this.nom_genre;
+		return "Genre id= "+Integer.toString(this.id)+" /Nom: "+this.nom_genre;
 	}
 	
 	}
