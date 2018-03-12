@@ -22,12 +22,14 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 
 	@Override
 	public boolean create(AuteurGenre obj) {
+		// c'est OK. A n'utiliser cependant qu'avec des auteurs et des genres
+		// existants car il y a des contraintes de clés étrangères
 		boolean retour = false;
 		int res=0;
 		int mes=0;
 		if(!this.isPresent(obj))
 		{
-		String requete = "INSERT INTO auteur_langue (id_auteur, id_genre)";
+		String requete = "INSERT INTO auteur_genre (id_auteur, id_genre)";
 		requete = requete+" VALUES ("+Integer.toString(obj.getIdAuteur())+",";
 		requete = requete + Integer.toString(obj.GetIdGenre())+")";
 		try
@@ -69,6 +71,7 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 		boolean retour = false;
 		if(this.isPresent(obj))
 		{
+			// ok
 			String requete = "DELETE FROM auteur_genre WHERE id_auteur = ";
 			requete = requete+Integer.toString(obj.getIdAuteur())+" AND id_genre = ";
 			requete = requete+Integer.toString(obj.GetIdGenre());
@@ -121,7 +124,8 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 
 	@Override
 	public Object getByCleLiaison(Cles cle, int id) {
-		// TODO Auto-generated method stub
+		// OK. Doit être appelé avec un objet AuteurGenreDAO, pas un objet
+		// DAO<AuteurGenre>
 		String champCherche;
 		List<Integer> resultat = new ArrayList<Integer>();
 		int ii;
@@ -157,6 +161,7 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 
 	@Override
 	public boolean isPresent(AuteurGenre obj) {
+		// ok, à utiliser avec un objet AuteurGenreDAO
 		boolean retour = false;
 		String requete = "SELECT * FROM auteur_genre WHERE ";
 		requete = requete + "id_auteur = "+Integer.toString(obj.getIdAuteur());
@@ -206,7 +211,7 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 				DAO auteurDAO = new AuteurDAO(connex);
 				List<Auteur> auteurs = new ArrayList<Auteur>();
 				for(int i = 1; i<listeres.size();i++)
-				{
+				{ 
 					auteurs.add(((Auteur)auteurDAO.findId(listeres.get(i))));
 				}
 				return auteurs;
@@ -225,12 +230,12 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 		if(cle == Cles.id_auteur)
 		{
 			// on efface tous les liaisons livre auteur de cet auteur
-			requete = "DELETE * FROM auteur_genre WHERE id_auteur = "+Integer.toString(id);
+			requete = "DELETE FROM auteur_genre WHERE id_auteur = "+Integer.toString(id);
 		}
 		else
 		{
 			// le contraire, id on efface toutes les liaisons pour ce livre
-			requete = "DELETE FROM auteur_genre WHERE id_genre ="+Integer.toString(id);
+			requete = "DELETE FROM auteur_genre WHERE id_genre ="+Integer.toString(id);	
 		}
 		boolean retour = false;
 		try
@@ -243,7 +248,7 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 		}
 		catch (SQLException e)
 		{
-			System.out.println("Ereur SQLdans la suppression dans la tablede liaison auteurs genres");
+			System.out.println("Erreur SQLdans la suppression dans la table de liaison auteurs genres");
 			System.out.println(cle.toString()+" = "+id);
 			mes=1;
 		}
