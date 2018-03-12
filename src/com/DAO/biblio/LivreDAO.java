@@ -35,12 +35,11 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		{
 			//on crée seulement si le livre n'est pas déjà présent dans la base
 			String requete = "INSERT INTO livres";
-					requete = requete +"(id,nom_liv,genre,langue,date_pub,un_resume,classement)";
+					requete = requete +"(nom_liv,genre,langue,date_pub,un_resume,classement)";
 					requete = requete +" VALUES (";
-					requete = requete + obj.getId()+",";
 					requete = requete + "'"+obj.getNomLivre()+"',";
-					requete = requete + obj.getGenre()+",";
-					requete = requete + obj.getLangue()+",";
+					requete = requete + Integer.toString(obj.getGenre())+",";
+					requete = requete + Integer.toString(obj.getLangue())+",";
 					requete = requete + "'"+obj.getDatePublication()+"',";
 					requete = requete + obj.getUnResume()+",";
 					requete = requete + "'"+obj.getClassement()+"'";
@@ -88,7 +87,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 			catch (SQLException e)
 			{
 				// remplacer par un popup
-				System.out.println("Erreur SQL lors de la création du livrez: "+obj.getNomLivre());
+				System.out.println("Erreur SQL lors de la création du livre: "+obj.getNomLivre());
 				mes=2;
 			}
 		}
@@ -121,14 +120,13 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				String requete = "UPDATE  livres SET nom_liv = ";
 				requete = requete 	+obj.getNomLivre()+"',";
 				
-				requete = requete + "genre = "+ obj.getGenre()+",";
-				requete = requete + "langue ="+obj.getLangue()+",";
+				requete = requete + "genre = "+ Integer.toString(obj.getGenre())+",";
+				requete = requete + "langue ="+Integer.toString(obj.getLangue())+",";
 				requete = requete + "date_pub"+obj.getDatePublication()+"',";
 				requete = requete + "un_resume = "+obj.getUnResume()+",";
 				requete = requete + "classement = "+"'"+obj.getClassement()+"'";
 				
 				
-				requete = requete +"(id,nom_liv,genre,langue,date_pub,un_resume,classement)";
 	requete = requete  + " WHERE id ="+Integer.toString(obj.getId());
 				
 				

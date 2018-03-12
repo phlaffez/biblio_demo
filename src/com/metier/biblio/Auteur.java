@@ -56,7 +56,7 @@ public class Auteur
 	  this.infos="";
   }
   
-/** Consturcteur complet
+/** Constucteur complet
  * @author Philippe
  * @version 1
  * Date: 18/01/2018
