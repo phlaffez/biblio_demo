@@ -21,12 +21,14 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 
 	@Override
 	public boolean create(LivreAuteur obj) {
+		
+		// teste le 16/3/2018  OK
 		boolean retour = false;
 		int res=0;
 		int mes=0;
 		if(!this.isPresent(obj))
 		{
-		String requete = "INSERT INTO auteur_langue (id_auteur, id_lIVRE)";
+		String requete = "INSERT INTO livre_auteurs (id_auteur, id_livre)";
 		requete = requete+" VALUES ("+Integer.toString(obj.getIdAuteur())+",";
 		requete = requete + Integer.toString(obj.getIdLivre())+")";
 		try
@@ -65,13 +67,15 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 
 	@Override
 	public boolean delete(LivreAuteur obj) {
+		
+		// testée le 16/03/2018  OK
 		int res=0;
 		int mes=0;
 		boolean retour = false;
 		if(this.isPresent(obj))
 		{
-			String requete = "DELETE FROM auteur_livre WHERE id_auteur = ";
-			requete = requete+Integer.toString(obj.getIdAuteur())+" AND id_langue = ";
+			String requete = "DELETE FROM livre_auteurs WHERE id_auteur = ";
+			requete = requete+Integer.toString(obj.getIdAuteur())+" AND id_livre = ";
 			requete = requete+Integer.toString(obj.getIdLivre());
 			try
 			{
@@ -126,10 +130,13 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 
 	@Override
 	public boolean isPresent(LivreAuteur obj) {
+		
+		// teste le 16/3/2018 OK
 		boolean retour = false;
-		String requete = "SELECT * FROM auteur_livre WHERE ";
+		String requete = "SELECT * FROM livre_auteurs WHERE ";
 		requete = requete + "id_auteur = "+Integer.toString(obj.getIdAuteur());
-		requete = requete+" AND id_llivre ="+Integer.toString(obj.getIdLivre());
+		requete = requete+" AND id_livre ="+Integer.toString(obj.getIdLivre());
+	//	System.out.println(requete);
 		try
 		{
 			ResultSet res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
@@ -149,7 +156,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 	
 	@Override
 	public Object getByCleLiaison(Cles cle, int id) {
-		// TODO Auto-generated method stub
+		// Testee le 16/03/2018  OK
 		String champCherche;
 		List<Integer> resultat = new ArrayList<Integer>();
 		int ii;
@@ -162,7 +169,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 		{
 			champCherche=Cles.id_auteur.toString();
 		}
-		String requete = "SELECT "+champCherche+" FROM auteur_livre WHERE ";
+		String requete = "SELECT "+champCherche+" FROM livre_auteurs WHERE ";
 		requete= requete + champCle+" ="+Integer.toString(id);
 		try
 		{
@@ -185,6 +192,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 
 	@Override
 	public Object getListeByCleLiaison(Cles cle, int id) {
+		// teste le 16/3/2018  OK
 		// récupérer la liste des entiers correspondants:
 		List<Integer> listeres = (List<Integer>)this.getByCleLiaison(cle, id);
 		if(listeres.size()==0)
@@ -195,6 +203,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 		{
 			if(cle==Cles.id_auteur)
 			{
+				System.out.println("auteurs");
 				// on retourne la liste des livres de cet auteur
 				DAO livreDAO = new LivreDAO(connex);
 				List<Livre> livres = new ArrayList<Livre>();
@@ -202,10 +211,13 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 				{
 					livres.add((Livre)livreDAO.findId(listeres.get(i)));
 				}
+				
 				return livres;
 			}
 			else
 				
+				
+				System.out.println("livres");
 			{
 				// on retourne la liste des auteurs de ce livre
 				DAO auteurDAO = new AuteurDAO(connex);
@@ -231,7 +243,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 		if(cle == Cles.id_auteur)
 		{
 			// on efface tous les liaisons livre auteur de cet auteur
-			requete = "DELETE * FROM livres_auteur WHERE id_auteur = "+Integer.toString(id);
+			requete = "DELETE * FROM livre_auteurs WHERE id_auteur = "+Integer.toString(id);
 		}
 		else
 		{
