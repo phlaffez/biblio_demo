@@ -20,9 +20,21 @@ public class essais {
 	public static void main(String[] args) {
 		
 		Connection connex = Mysql_Connect.getInstance();
-		AuteurGenreDAO auteurGenredao = new AuteurGenreDAO(connex);
-boolean res=		auteurGenredao.deleteByCleLiaison(Cles.id_genre, 1);
-System.out.println(res);
+		AuteurDAO auteurdao = new AuteurDAO(connex);
+		
+		ArrayList<Auteur> liste = (ArrayList<Auteur>)auteurdao.getByNomPrenom("Strougatski","Boris");
+		
+		if (liste.size()!=0)
+		{
+			for (int i=0;i<liste.size();i++)
+			{
+				System.out.println(liste.get(i).getId()+" "+liste.get(i).getNom()+" "+liste.get(i).getPrenom());
+			}
+		}
+	
+	
+		
+
 
 	
 		}

@@ -257,6 +257,8 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 	@Override
 	public List<Livre> selectAll() {
 		
+		// testée le 16/03/2018 - OK
+		
 		ArrayList<Auteur> auteurs=null;
 		Livre livre;
 		

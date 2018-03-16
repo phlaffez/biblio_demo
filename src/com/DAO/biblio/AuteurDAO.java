@@ -20,27 +20,44 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 
 	@Override
 	public boolean create(Auteur obj) {
-		// testé le 
+		// testé le 16/03/2018 - OK
 		boolean retour = false; // par défaut. Si l'auteur existe déjà, on ne le crée pas
-		// dans le cas des Alexandre DUMAS père et fils ou ce gende de cas de figure,
-		// il sera nécessaire de faire la distinction en précisant père ou fils
+		// On fait la distinction avec nom, prenom et annee de naissance
 		
 		// chercher si l'auteur est dans la base de données 
 		// getByNomPrenom renvoie un objet, donc il faut caster
-		Auteur auteur = (Auteur)getByNomPrenom(obj.getNom(),obj.getPrenom());
-		if(auteur ==null)
+		// je ne p
+		String req = "SELECT * FROM auteurs WHERE nom_aut = \'";
+		req=req+obj.getNom()+"\' AND prenom_aut = \'";
+		req = req+obj.getPrenom()+"\' AND annee_naiss = ";
+		req = req+Integer.toString(obj.getAnnee_naiss());
+//		System.out.println(req);
+		
+		
+		try
+		{
+			ResultSet res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(req);
+		
+		
+		if(res1.first())
+		{
+			System.out.println("La fiche auteur "+obj.getNom()+" "+obj.getPrenom()+" né en "+obj.getAnnee_naiss()+" existe déjà");
+		}
+		
+		else
 		{
 			
 			String requete = "INSERT INTO auteurs";
 					requete = requete +"(nom_aut,prenom_aut,pays_aut,annee_naiss, annee_deces,infos)";
 					requete = requete +" VALUES (";
-					requete = requete + "'"+obj.getNom()+"',";
-					requete = requete + obj.getPrenom()+",";
+					requete = requete + "'"+obj.getNom()+"',\'";
+					requete = requete + obj.getPrenom()+"\',";
 					requete = requete + Integer.toString(obj.getId_pays())+",";
-					requete = requete + "'"+obj.getAnnee_naiss()+"',";
+					requete = requete + ""+obj.getAnnee_naiss()+",";
 					requete = requete + obj.getAnnee_deces()+",";
 					requete = requete + "'"+obj.getInfo()+"'";
 					requete = requete +")";
+			//		System.out.println(requete);
 							
 							
 						
@@ -68,6 +85,13 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 				mes=2;
 			}
 		}
+		}
+		
+		catch (SQLException e)
+		{
+			System.out.println("Probleme SQL lors de la verification de l'existance de la fiche auteur");
+			System.out.println(obj.getNom()+" "+obj.getPrenom()+" né en "+obj.getAnnee_naiss());
+		}
 		
 		// ici mettre un popup si mes=0 (auteur existant) ou 2 (pb SQL)
 		return retour;
@@ -77,7 +101,7 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 
 	@Override
 	public boolean update(Auteur obj) {
-		// testé le 
+		// testé le 16/03/2018 OK
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -88,15 +112,16 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 			try
 			{
 				String requete = "UPDATE  auteurs SET nom_aut = ";
-				requete = requete 	+obj.getNom()+"',";
+				requete = requete 	+"'"+obj.getNom()+"',";
 				
-				requete = requete + "prenom_aut = "+ obj.getPrenom()+",";
+				requete = requete + "prenom_aut = '"+ obj.getPrenom()+"',";
 				requete = requete + "pays_aut ="+Integer.toString(obj.getId_pays())+",";
-				requete = requete + "annee_nais"+obj.getAnnee_naiss()+"',";
+				requete = requete + "annee_naiss ="+obj.getAnnee_naiss()+",";
 				requete = requete + "annee_deces = "+obj.getAnnee_deces()+",";
 				requete = requete + "infos = "+"'"+obj.getInfo()+"'";
 				
 	requete = requete  + " WHERE id ="+Integer.toString(obj.getId());			
+	System.out.println(requete);
 				res = this.connex.createStatement(). executeUpdate(requete);
 				if (res==1)
 				{
@@ -108,7 +133,7 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 			catch (SQLException de)
 			{
 				// remplacer par un popup
-				System.out.println("Erreur SQL lors de la création de l'auteur: "+obj.getNom()+" "+obj.getPrenom());
+				System.out.println("Erreur SQL lors de la mise à jour de l'auteur: "+obj.getNom()+" "+obj.getPrenom());
 				mes=2;
 			}
 			
@@ -120,8 +145,12 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 
 	@Override
 	public boolean delete(Auteur obj) {
-		// testé le
-		// On vérifie l'existence
+		// testé le 16/03/2018 - OK - version basique
+		// Il faut modifier 
+		// On vérifie l'existence d'enregistrement dans les tables de liaison
+		// AuteurLangue et AuteurGenre avant d'essacer, car il y a des contraintes
+		// de clés étrangères.
+		// idem LivreAuteur et AuteurGenre
 		boolean retour = false;
 			Auteur auteur = findId(obj.getId());
 			int res=0;
@@ -139,6 +168,7 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 			try
 			{
 								String requete = "DELETE FROM auteurs WHERE id = "+Integer.toString(obj.getId());
+							//	System.out.println(requete);
 				
 				res = this.connex.createStatement(). executeUpdate(requete);
 		
@@ -162,6 +192,7 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 
 	@Override
 	public Auteur findId(int id) {
+		// Testée le 16/03/2018 OK
 		Auteur auteur=null;
 		int mes=0;
 		String requete= "SELECT * FROM auteurs WHERE id ="+Integer.toString(id);
@@ -194,6 +225,7 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 
 	@Override
 	public int lastId() {
+		// test le 16/3/2018 OK
 		int res = -1;  // ce qui sera retourné si on ne trouve pas 
 		int mes=0;
 		String requete = "SELECT * FROM auteurs ORDER BY id DESC LIMIT 1";
@@ -248,6 +280,8 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 
 	@Override
 	public Object getByNom(String n) {
+		
+	//	Testée le 16/03/2018   OK 
 		Auteur auteur=null;
 		List<Auteur> auteurs = new ArrayList<Auteur>();
 				int mes=0;
@@ -281,6 +315,8 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 
 	@Override
 	public Object getByNomPrenom(String n, String p) {
+		
+		// testée le 16/03/2018  OK
 		Auteur auteur=null;
 		List<Auteur> auteurs = new ArrayList<Auteur>();
 		// je cherche une liste même si a priori on ne doit pas avoir 2 auteurs de mêmes 
