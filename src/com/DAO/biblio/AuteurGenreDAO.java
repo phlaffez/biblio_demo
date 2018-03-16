@@ -14,7 +14,7 @@ import com.outils.biblio.Cles;
 
 public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<AuteurGenre>
 {
-
+// Tests terminés le 16/3/2018  OK
 	public AuteurGenreDAO(Connection conn) {
 		super(conn);
 		// TODO Auto-generated constructor stub
@@ -162,6 +162,7 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 	@Override
 	public boolean isPresent(AuteurGenre obj) {
 		// ok, à utiliser avec un objet AuteurGenreDAO
+		// Testé le 16/3/2018  OK
 		boolean retour = false;
 		String requete = "SELECT * FROM auteur_genre WHERE ";
 		requete = requete + "id_auteur = "+Integer.toString(obj.getIdAuteur());
@@ -185,6 +186,7 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 
 	@Override
 	public Object getListeByCleLiaison(Cles cle, int id) {
+		// teste le 16/03/2018 OK
 		// récupérer la liste des entiers correspondants:
 		List<Integer> listeres = (List<Integer>)this.getByCleLiaison(cle, id);
 		if(listeres.size()==0)
@@ -198,7 +200,7 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 				// on retourne la liste des genres pratiqués par cet auteur
 				DAO genreDAO = new GenreDAO(connex);
 				List<Genre> genres = new ArrayList<Genre>();
-				for(int i=1;i<listeres.size();i++)
+				for(int i=0;i<listeres.size();i++)
 				{
 					genres.add((Genre)genreDAO.findId(listeres.get(i)));
 				}
@@ -210,7 +212,7 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 				// on retourne la liste des auteurs pratiquant ce genre
 				DAO auteurDAO = new AuteurDAO(connex);
 				List<Auteur> auteurs = new ArrayList<Auteur>();
-				for(int i = 1; i<listeres.size();i++)
+				for(int i = 0; i<listeres.size();i++)
 				{ 
 					auteurs.add(((Auteur)auteurDAO.findId(listeres.get(i))));
 				}
@@ -226,10 +228,10 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 		String requete;
 		int res;
 		int mes=0;
-		// TODOUne requete à écrire en fonction de la clé de selection
+		// Une requete à écrire en fonction de la clé de selection
 		if(cle == Cles.id_auteur)
 		{
-			// on efface tous les liaisons livre auteur de cet auteur
+			// on efface tous les liaisons AuteurGenre de cet auteur
 			requete = "DELETE FROM auteur_genre WHERE id_auteur = "+Integer.toString(id);
 		}
 		else
@@ -253,7 +255,7 @@ public class AuteurGenreDAO extends DAO<AuteurGenre> implements DAO_Liaison<Aute
 			mes=1;
 		}
 		
-		return retour;
+		return retour;   // retour sera false si la cle liaison n'a pas la valeur recherchee
 	}
 
 }
