@@ -10,6 +10,7 @@ import com.metier.biblio.Auteur;
 import com.metier.biblio.Livre;
 import com.metier.biblio.LivreAuteur;
 import com.metier.biblio.Pays;
+import com.outils.biblio.Cles;
 
 public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 
@@ -206,16 +207,23 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
 			if (res.first())
 			{
-				
 				// attention à la création de l'objet. Il faut récupérer la
 				// liste d'auteurs TODO
-				ArrayList<Auteur> auteurs=null;
+				LivreAuteurDAO livreauteurdao = new LivreAuteurDAO(connex);
+				ArrayList<Auteur> auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
+				String titre = res.getString("nom_liv");
+				if(titre==null) titre="";
+				int langue = res.getInt("langue");
+				int genre = res.getInt("genre");
+				String datepub = res.getDate("date_pub").toString();
+		        if (datepub == null) datepub = "Date de publication non renseignée";
+				boolean resum = res.getBoolean("un_resume");
+				String classe = res.getString("classement");
+				if(classe==null) classe="Emplacement nonrenseigné";
 				
-				livre = new Livre(id,res.getString("nom_liv"),
-						  res.getInt("genre"),res.getInt("langue"),
-						  res.getDate("date_pub").toString(),
-						  res.getBoolean("un_resume"),res.getString("classement"),
-						  auteurs);
+				livre = new Livre(id,titre,genre,langue,datepub,resum,classe, auteurs);
+				
+				
 						  
 				mes=1;
 			}
@@ -264,7 +272,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		
 		// a utiliser avec précautions. Que se passe-t-il s'il y a trop de livres
 		// dans la base de données ?
-		List<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
+		ArrayList<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
 		Livre unLivre;
 		int mes=0;    // s'il est nécessaire d'afficher des messages
 		String requete = "SELECT * FROM livres";
@@ -274,12 +282,21 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 			while (res.next())
 			{
 
-				// TODO récupérer la liste d'auteurs
-				livre = new Livre(res.getInt("id"),res.getString("nom_liv"),
-						  res.getInt("genre"),res.getInt("langue"),
-						  res.getDate("date_pub").toString(),
-						  res.getBoolean("un_resume"),res.getString("classement"),
-						  auteurs);
+				int id = res.getInt("id");
+				LivreAuteurDAO livreauteurdao = new LivreAuteurDAO(connex);
+				 auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
+				String titre = res.getString("nom_liv");
+				if(titre==null) titre="";
+				int langue = res.getInt("langue");
+				int genre = res.getInt("genre");
+				String datepub = res.getDate("date_pub").toString();
+		        if (datepub == null) datepub = "Date de publication non renseignée";
+				boolean resum = res.getBoolean("un_resume");
+				String classe = res.getString("classement");
+				if(classe==null) classe="Emplacement nonrenseigné";
+				
+				livre = new Livre(id,titre,genre,langue,datepub,resum,classe, auteurs);
+				
 				livres.add(livre);
 			}
 			res.close();
@@ -293,14 +310,63 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		
 		
 		
+		
+		
 		return livres;
 	}
 
 	@Override
 	public Object getByNom(String n) {
 		// TODO Auto-generated method stub:
-		// voir comment on peut implémenter ça. 
-		return null;
+		// voir comment on peut implémenter ça. Pour le moment je laisse avec
+		// une recherche stricte
+		
+		ArrayList<Auteur> auteurs=null;
+		Livre livre;
+		
+		// a utiliser avec précautions. Que se passe-t-il s'il y a trop de livres
+		// dans la base de données ?
+		List<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
+		Livre unLivre;
+		int mes=0;    // s'il est nécessaire d'afficher des messages
+		String requete = "SELECT * FROM livres WHERE nom_liv = '"+n+"'";
+		try
+		{
+			ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			while (res.next())
+			{
+
+				// TODO récupérer la liste d'auteurs
+				int id = res.getInt("id");
+				LivreAuteurDAO livreauteurdao = new LivreAuteurDAO(connex);
+				 auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
+				String titre = res.getString("nom_liv");
+				if(titre==null) titre="";
+				int langue = res.getInt("langue");
+				int genre = res.getInt("genre");
+				String datepub = res.getDate("date_pub").toString();
+		        if (datepub == null) datepub = "Date de publication non renseignée";
+				boolean resum = res.getBoolean("un_resume");
+				String classe = res.getString("classement");
+				if(classe==null) classe="Emplacement nonrenseigné";
+				
+				livre = new Livre(id,titre,genre,langue,datepub,resum,classe, auteurs);
+				livres.add(livre);
+			}
+			res.close();
+		}
+		catch (SQLException e)
+		{
+			mes=2;
+			System.out.println("Erreur SQL lors de la recherche de la totalité de la table livres");;
+		}
+		
+		
+		
+		
+		
+		
+		return livres;
 	}
 
 

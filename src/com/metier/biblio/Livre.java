@@ -2,6 +2,7 @@ package com.metier.biblio;
 
 
 // testée ok le 01/03/2018
+// je dois retester les constructeurs, ça déconne en utilisation depuis LivreDAO
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class Livre {
 				boolean unResume, String classement, ArrayList<Auteur> auteurs)
 		
 		{
+			
 			this.id = id;
 			this.nom_liv=nom_livre;
 			this.genre=genre;
