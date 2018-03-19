@@ -140,15 +140,33 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				{
 					retour = true;
 					mes=1;
+			
+					LivreAuteurDAO livreAuteurDAO =new LivreAuteurDAO(connex);
+					// suppression ancienne liste
+					boolean res1 =  livreAuteurDAO.deleteByCleLiaison(Cles.id_livre,obj.getId());
+					
+					
+					// ajout nouvelle liste
+					ArrayList<Auteur> la = (ArrayList<Auteur>)obj.getAuteurs();
+					if(la!=null)
+					{
+						LivreAuteur li;
+						for(int i=0;i<la.size();i++)
+						{
+							li=new LivreAuteur(la.get(i).getId(),obj.getId());
+						    res1=livreAuteurDAO.create(li);
+						}
+					}
+					
 				}
 			}
 			catch (SQLException e)
 			{
 				// Prévoir un popup
-				System.out.println("Erreur SQL lors de la mise à jour du pays "+obj.getNomLivre());
+				System.out.println("Erreur SQL lors de la mise à jour du livre "+obj.getNomLivre());
 				mes=2;
 			}
-		}  // prévoir un popup si mes = 0 (pays inexistant) ou 2 (pb SQL)
+		}  // prévoir un popup si mes = 0 (livre inexistant) ou 2 (pb SQL)
 		return retour;
 	}
 
@@ -172,6 +190,10 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		}
 		else
 		{
+			// il faut d'abord supprimer les liaisons auteur livre
+			LivreAuteurDAO livreAuteurDAO =new LivreAuteurDAO(connex);
+			// suppression ancienne liste
+			boolean res1 =  livreAuteurDAO.deleteByCleLiaison(Cles.id_livre,obj.getId());
 			try
 			{
 								String requete = "DELETE FROM livres WHERE id = "+Integer.toString(obj.getId());
@@ -207,8 +229,6 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
 			if (res.first())
 			{
-				// attention à la création de l'objet. Il faut récupérer la
-				// liste d'auteurs TODO
 				LivreAuteurDAO livreauteurdao = new LivreAuteurDAO(connex);
 				ArrayList<Auteur> auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
 				String titre = res.getString("nom_liv");
@@ -336,7 +356,6 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 			while (res.next())
 			{
 
-				// TODO récupérer la liste d'auteurs
 				int id = res.getInt("id");
 				LivreAuteurDAO livreauteurdao = new LivreAuteurDAO(connex);
 				 auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
