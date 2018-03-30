@@ -28,16 +28,17 @@ class LivreDAOTest {
 		ArrayList<Livre> liste = new ArrayList<Livre>();
 		liste = (ArrayList<Livre>)livredao.getByNom("test");
 		boolean ok = false;
+		System.out.println(liste);
 		if(liste!=null)
 		{
 		if (liste.size()==2)
 		{
-			if ((liste.get(0).getId()==5) && (liste.get(1).getId()==6))
+			if ((liste.get(0).getId()==5) && (liste.get(1).getId()==10))
 			{
 				ok = true;
 			}
 			
-			if ((liste.get(0).getId()==6) && (liste.get(1).getId()==5))
+			if ((liste.get(0).getId()==10) && (liste.get(1).getId()==5))
 			{
 				ok = true;
 			}
@@ -51,7 +52,7 @@ class LivreDAOTest {
 	@Test
 	void testLastId() {
 		LivreDAO livredao = new LivreDAO(Mysql_Connect.getInstance());
-		assertTrue("LastId", livredao.lastId()==6);
+		assertTrue("LastId", livredao.lastId()==10);
 	}
 	
 	

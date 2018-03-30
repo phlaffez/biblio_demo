@@ -203,7 +203,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 		{
 			if(cle==Cles.id_auteur)
 			{
-				System.out.println("auteurs");
+	//			System.out.println("auteurs");
 				// on retourne la liste des livres de cet auteur
 				DAO livreDAO = new LivreDAO(connex);
 				List<Livre> livres = new ArrayList<Livre>();
@@ -217,7 +217,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 			else
 				
 				
-				System.out.println("livres");
+	//			System.out.println("livres");
 			{
 				// on retourne la liste des auteurs de ce livre
 				DAO auteurDAO = new AuteurDAO(connex);
@@ -239,7 +239,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 		String requete;
 		int res;
 		int mes=0;
-		// TODOUne requete à écrire en fonction de la clé de selection
+		// correction d'un bug le 30/03/2018
 		if(cle == Cles.id_auteur)
 		{
 			// on efface tous les liaisons livre auteur de cet auteur
@@ -248,9 +248,10 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 		else
 		{
 			// le contraire, id on efface toutes les liaisons pour ce livre
-			requete = "DELETE FROM livres_auteur WHERE id_livre ="+Integer.toString(id);
+			requete = "DELETE FROM livre_auteurs WHERE id_livre ="+Integer.toString(id);
 		}
 		boolean retour = false;
+		System.out.println(requete);
 		try
 		{
 			res = this.connex.createStatement(). executeUpdate(requete);
@@ -261,7 +262,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 		}
 		catch (SQLException e)
 		{
-			System.out.println("Ereur SQLdans la suppression dans la tablede liaison livres auteurs");
+			System.out.println("Erreur SQLdans la suppression dans la table de liaison livres auteurs");
 			System.out.println(cle.toString()+" = "+id);
 			mes=1;
 		}

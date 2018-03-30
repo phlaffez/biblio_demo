@@ -7,6 +7,7 @@ import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.AuteurGenreDAO;
 import com.DAO.biblio.DAO;
 import com.DAO.biblio.LivreAuteurDAO;
+import com.DAO.biblio.LivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.AuteurGenre;
@@ -30,8 +31,13 @@ public class essais {
 		 String classement="Ici ou là-bas";
 		ArrayList<Auteur> auteurs=null;
 		
-		Livre livre = new Livre(id,nom_liv,genre,langue,date_pub,un_resume,classement, auteurs);
-		System.out.println(livre.toString());
+		Livre livre = new Livre();
+		livre.setId(9);
+		
+		DAO livredao = new LivreDAO(Mysql_Connect.getInstance());
+		Livre livre2 = (Livre)livredao.findId(8);
+		System.out.println(livre2.toString());
+		livredao.delete(livre2);
 		
 			}
 }

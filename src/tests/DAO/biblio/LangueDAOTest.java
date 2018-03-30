@@ -18,7 +18,7 @@ class LangueDAOTest {
 	@Test
 	void testLastId() {
 		DAO langueDAO=new LangueDAO(Mysql_Connect.getInstance());
-		assertTrue("latId",langueDAO.lastId()==9);
+		assertTrue("latId",langueDAO.lastId()==13);
 	}
 
 	
@@ -87,7 +87,7 @@ class LangueDAOTest {
 	void testSelectAll() {
 		LangueDAO langueDAO=new LangueDAO(Mysql_Connect.getInstance());
 		List<Langue> langues = langueDAO.selectAll();
-		assertTrue("Select All",langues.size()==5);
+		assertTrue("Select All",langues.size()==6);
 	
 	}
 

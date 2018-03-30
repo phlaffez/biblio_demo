@@ -19,7 +19,7 @@ public class PaysDAOTest {
 	@Test
 	void testLastId() {
 		DAO paysDAO=new PaysDAO(Mysql_Connect.getInstance());
-		assertTrue("latId",paysDAO.lastId()==3);
+		assertTrue("latId",paysDAO.lastId()==4);
 	}
 
 	
@@ -56,7 +56,7 @@ public class PaysDAOTest {
 	void testSelectAll() {
 		PaysDAO paysDAO=new PaysDAO(Mysql_Connect.getInstance());
 		List<Pays> pays = paysDAO.selectAll();
-		assertTrue("Select All",pays.size()==3);
+		assertTrue("Select All",pays.size()==4);
 	
 	}
 
