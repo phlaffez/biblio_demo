@@ -6,6 +6,7 @@ import java.util.List;
 import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.AuteurGenreDAO;
 import com.DAO.biblio.DAO;
+import com.DAO.biblio.GenreDAO;
 import com.DAO.biblio.LivreAuteurDAO;
 import com.DAO.biblio.LivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
@@ -22,23 +23,10 @@ public class essais {
 
 	public static void main(String[] args) {
 		
-		 int id=125;
-		String nom_liv="Lecture";
-		 int genre=12;
-		 int langue=1;
-		 String date_pub="12/01/1850";
-		 boolean un_resume=false;
-		 String classement="Ici ou là-bas";
-		ArrayList<Auteur> auteurs=null;
-		
-		Livre livre = new Livre();
-		livre.setId(9);
-		
-		DAO livredao = new LivreDAO(Mysql_Connect.getInstance());
-		Livre livre2 = (Livre)livredao.findId(8);
-		System.out.println(livre2.toString());
-		livredao.delete(livre2);
-		
+Genre genre = new Genre(4,"tests");
+DAO genreDAO = new GenreDAO(Mysql_Connect.getInstance());
+genreDAO.delete(genre);
+System.out.println("Fini");
 			}
 }
 		
