@@ -20,7 +20,7 @@ public class ResumeLivreDAO extends DAO<ResumeLivre>
 
 	@Override
 	public boolean create(ResumeLivre obj) {
-		// testé le 
+		// testé le 3/4/2018  ok
 		boolean retour = false; // par défaut. Si le résumé existe déjà, on ne le crée pas
 	
 		// chercher siil est dans la base de données.
@@ -58,7 +58,7 @@ public class ResumeLivreDAO extends DAO<ResumeLivre>
 
 	@Override
 	public boolean update(ResumeLivre obj) {
-		// testé le 
+		// testé le 3/4/2018  ok
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -69,7 +69,7 @@ public class ResumeLivreDAO extends DAO<ResumeLivre>
 			try 
 			{
 				String requete = "UPDATE resume_livres SET resume =\""+obj.getResume()+"\"";
-				requete = requete+" WHERE id ="+Integer.toString(obj.getId());
+				requete = requete+" WHERE id_livre ="+Integer.toString(obj.getId());
 				res = this.connex.createStatement(). executeUpdate(requete);
 				if (res==1)
 				{
@@ -89,7 +89,7 @@ public class ResumeLivreDAO extends DAO<ResumeLivre>
 
 	@Override
 	public boolean delete(ResumeLivre obj) {
-		// testé le 
+		// testé le 3/4/2018 ok
 		// On vérifie l'existence
 		boolean retour = false;
 			ResumeLivre resume = findId(obj.getId());
@@ -107,7 +107,7 @@ public class ResumeLivreDAO extends DAO<ResumeLivre>
 		{
 			try
 			{
-								String requete = "DELETE FROM resume_livres WHERE id = "+Integer.toString(obj.getId());
+								String requete = "DELETE FROM resume_livres WHERE id_livre = "+Integer.toString(obj.getId());
 				
 				res = this.connex.createStatement(). executeUpdate(requete);
 		
@@ -132,7 +132,7 @@ public class ResumeLivreDAO extends DAO<ResumeLivre>
 	public ResumeLivre findId(int id) {
 		ResumeLivre resume=null;
 		int mes=0;
-		String requete= "SELECT * FROM resume_livres WHERE id ="+Integer.toString(id);
+		String requete= "SELECT * FROM resume_livres WHERE id_livre ="+Integer.toString(id);
 		try
 		{
 			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
@@ -158,7 +158,7 @@ public class ResumeLivreDAO extends DAO<ResumeLivre>
 	{
 		int res = -1;  // ce qui sera retourné si on ne trouve pas 
 		int mes=0;
-		String requete = "SELECT * FROM resume_livres ORDER BY id DESC LIMIT 1";
+		String requete = "SELECT * FROM resume_livres ORDER BY id_livre DESC LIMIT 1";
 		try
 		{
 			ResultSet res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
@@ -181,7 +181,7 @@ public class ResumeLivreDAO extends DAO<ResumeLivre>
 		List<ResumeLivre> resumes = new ArrayList<ResumeLivre>();  // ce qui sera renvoyé
 		ResumeLivre unResume;
 		int mes=0;    // s'il est nécessaire d'afficher des messages
-		String requete = "SELECT * FROM resume_livre";
+		String requete = "SELECT * FROM resume_livres";
 		try
 		{
 			ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);

@@ -20,7 +20,7 @@ public class GenreDAO  extends DAO<Genre> implements DAO_Noms<Genre>{
 
 	@Override
 	public boolean create(Genre obj) {
-		// testé le 
+		// testé le 3/4/2018 ok
 		boolean retour = false; // par défaut. Si le genre existe déjà, on ne la crée pas
 		// mettre la langue en majuscules
 		obj.setNomGenre(obj.getNomGenre().toUpperCase());
@@ -58,7 +58,7 @@ public class GenreDAO  extends DAO<Genre> implements DAO_Noms<Genre>{
 	
 	@Override
 	public boolean update(Genre obj) {
-		// testé le 
+		// testé le  3/4/2018 ok
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -90,7 +90,7 @@ public class GenreDAO  extends DAO<Genre> implements DAO_Noms<Genre>{
 	
 	@Override
 	public boolean delete(Genre obj) {
-		// testé le
+		// testé le  3/4/2018 ok
 		// On vérifie l'existence
 		boolean retour = false;
 			Genre genre = findId(obj.getId());

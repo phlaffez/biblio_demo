@@ -9,6 +9,7 @@ import com.DAO.biblio.DAO;
 import com.DAO.biblio.GenreDAO;
 import com.DAO.biblio.LivreAuteurDAO;
 import com.DAO.biblio.LivreDAO;
+import com.DAO.biblio.ResumeLivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.AuteurGenre;
@@ -23,9 +24,11 @@ public class essais {
 
 	public static void main(String[] args) {
 		
-Genre genre = new Genre(4,"tests");
-DAO genreDAO = new GenreDAO(Mysql_Connect.getInstance());
-genreDAO.delete(genre);
+ResumeLivre resume = new ResumeLivre(10,"ceci est un test de modification");
+
+DAO resumedao = new ResumeLivreDAO(Mysql_Connect.getInstance());
+resumedao.delete(resume);
+
 System.out.println("Fini");
 			}
 }
