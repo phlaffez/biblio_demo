@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.AuteurGenreDAO;
+import com.DAO.biblio.BddTables;
 import com.DAO.biblio.DAO;
 import com.DAO.biblio.GenreDAO;
 import com.DAO.biblio.LivreAuteurDAO;
@@ -24,10 +25,7 @@ public class essais {
 
 	public static void main(String[] args) {
 		
-ResumeLivre resume = new ResumeLivre(10,"ceci est un test de modification");
-
-DAO resumedao = new ResumeLivreDAO(Mysql_Connect.getInstance());
-resumedao.delete(resume);
+System.out.println(BddTables.AUTEURS);
 
 System.out.println("Fini");
 			}
