@@ -1,5 +1,8 @@
 package com.DAO.biblio;
 
+
+import java.awt.Color;
+// a tester avec les tables auteur, livres,genre, pays et langues
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -26,7 +29,7 @@ public static JTable getTable(Connection conn, BddTables table)
 			(table.equals(BddTables.LANGUES))|
 			(table.equals(BddTables.PAYS)))
 	{
-		 requete = "SELECT * FROM "+table;
+		 requete = "SELECT * FROM "+table+" ORDER BY id";
 		nbcol=2;
 		titre = new String[2];
 		titre[0]="Id";
@@ -80,19 +83,16 @@ public static JTable getTable(Connection conn, BddTables table)
 		int nbreLine = 0;
 		while (result.next()) {
 			for (int i = 0; i < nbcol; i++)
-				data[nbreLine][i] = result.getObject(i + 1).toString();
+				data[nbreLine][i] = result.getObject(i +1).toString();
 			nbreLine++;
 		}
 		tab = new JTable(data, titre);
-		tab.setRowHeight(30);
+		tab.setRowHeight(25);
 	}
 	catch (Exception e)
 	{
 		System.out.println("Erreur dans la récupération de la table "+table);
 	}
-	
-	
-	
 	return tab;
 }
 	

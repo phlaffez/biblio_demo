@@ -27,15 +27,9 @@ public class Fenetre_PP extends JFrame
 		   int ntabs = 0;
 		   this. getContentPane().setLayout(new BorderLayout());
 		   UIManager.put("TabbedPane.selected", Color.red);
-		   tabbedPane = new JTabbedPane();
-		   for (ntabs = 0; ntabs <6; ntabs ++)
-		   {
-		      tabbedPane.addTab("Tab #" + ntabs, new JLabel("Tab #" + ntabs)); 
-		   }
+		   tabbedPane = new JTabbedPane();	   
 		   
-		   
-		   
-		   String titrePan = "Tests";
+		   String titrePan = "Genres";
 			 Color colFond = Color.GREEN;
 			 Color colEnt = Color.lightGray; 
 			 Color coulTexPP= Color.black;
@@ -45,9 +39,15 @@ public class Fenetre_PP extends JFrame
 			 Color panTab = Color.CYAN;
 			 Color coulPanText = Color.WHITE;
 			 Color colEntTex = Color.black;
-			 panneauGenre pan = new panneauGenre(titrePan,colFond,coulTexPP,panTab,coulPanText,colEnt,
+			 PanneauGenre panGenre = new PanneauGenre(titrePan,colFond,coulTexPP,panTab,coulPanText,colEnt,
 		                colEntTex,cboufon,cboutex);
-		   tabbedPane.addTab("Test" , pan); 
+		   tabbedPane.addTab("Genres" , panGenre); 
+		   
+		    titrePan = "Pays";
+			 
+			 PanneauPays panPays = new PanneauPays(titrePan,colFond,coulTexPP,panTab,coulPanText,colEnt,
+		                colEntTex,cboufon,cboutex);
+		   tabbedPane.addTab("Pays" , panPays); 
 		   this.getContentPane().add(BorderLayout.CENTER, tabbedPane);
 		      
 		 

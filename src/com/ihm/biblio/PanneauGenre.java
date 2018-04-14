@@ -3,10 +3,17 @@ package com.ihm.biblio;
 import java.awt.Color;
 
 import phl.outils.panneaux.outilsStandards.PanneauOutilsStandard;
+import javax.swing.JScrollPane;
 
-public class panneauGenre  extends PanneauOutilsStandard {
+import com.DAO.biblio.BddTables;
+import com.DAO.biblio.DAOTableFactory;
+import com.dbacces.biblio.Mysql_Connect;
 
-	public panneauGenre(String titrePan,Color colFond,
+
+public class PanneauGenre  extends PanneauOutilsStandard 
+{
+
+	public PanneauGenre(String titrePan,Color colFond,
             
            Color coulTexPP,
            Color panTab,
@@ -34,8 +41,9 @@ public class panneauGenre  extends PanneauOutilsStandard {
 
 	@Override
 	protected void initTable() {
-		// TODO Auto-generated method stub
 		
+	this.panTable.add(new JScrollPane(DAOTableFactory.getTable(
+						Mysql_Connect.getInstance(), BddTables.GENRES)));
 	}
 
 }
