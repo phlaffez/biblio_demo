@@ -40,6 +40,7 @@ public class PanneauPays extends PanneauOutilsStandard{
 
 	@Override
 	protected void initTable() {
+		
 		this.panTable.add(new JScrollPane(DAOTableFactory.getTable(
 				Mysql_Connect.getInstance(), BddTables.PAYS)));
 		
