@@ -83,11 +83,13 @@ public static JTable getTable(Connection conn, BddTables table)
 		int nbreLine = 0;
 		while (result.next()) {
 			for (int i = 0; i < nbcol; i++)
+			{
 				data[nbreLine][i] = result.getObject(i +1).toString();
+			}
 			nbreLine++;
 		}
 		tab = new JTable(data, titre);
-		tab.setRowHeight(25);
+		tab.setRowHeight(20);
 	}
 	catch (Exception e)
 	{
