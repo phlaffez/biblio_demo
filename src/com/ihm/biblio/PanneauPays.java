@@ -1,16 +1,22 @@
 package com.ihm.biblio;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JScrollPane;
 
 import com.DAO.biblio.BddTables;
 import com.DAO.biblio.DAOTableFactory;
 import com.dbacces.biblio.Mysql_Connect;
+import com.metier.biblio.Pays;
 
 import phl.outils.panneaux.outilsStandards.PanneauOutilsStandard;
 
 public class PanneauPays extends PanneauOutilsStandard{
+	
+	private Pays pays = new Pays();
+	
 
 	public PanneauPays(String titrePan,Color colFond,
             
@@ -28,7 +34,7 @@ public class PanneauPays extends PanneauOutilsStandard{
 
 	@Override
 	protected void initBoutons() {
-		// TODO Auto-generated method stub
+		this.boutonRetour.setVisible(false);
 		
 	}
 
@@ -44,7 +50,15 @@ public class PanneauPays extends PanneauOutilsStandard{
 
 		this.panTable.add(new JScrollPane(table));
 		
-
+		
+		class boutonAjoutListener implements ActionListener
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+			
+				
+			}
+		}
 		
 		
 	}

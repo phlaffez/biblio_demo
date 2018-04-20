@@ -29,7 +29,7 @@ public class PanneauGenre  extends PanneauOutilsStandard
 
 	@Override
 	protected void initBoutons() {
-		// TODO Auto-generated method stub
+		this.boutonRetour.setVisible(false);
 		
 	}
 
