@@ -8,6 +8,9 @@ import javax.swing.JScrollPane;
 
 import com.DAO.biblio.BddTables;
 import com.DAO.biblio.DAOTableFactory;
+import com.DAO.biblio.DaoFactory;
+import com.DAO.biblio.DaoFactoryMySQL;
+import com.DAO.biblio.PaysDAO;
 import com.dbacces.biblio.Mysql_Connect;
 import com.metier.biblio.Pays;
 
@@ -16,6 +19,9 @@ import phl.outils.panneaux.outilsStandards.PanneauOutilsStandard;
 public class PanneauPays extends PanneauOutilsStandard{
 	
 	private Pays pays = new Pays();
+	private DaoFactoryMySQL factory = new DaoFactoryMySQL();
+	private JScrollPane jsp;
+
 	
 
 	public PanneauPays(String titrePan,Color colFond,
@@ -35,6 +41,8 @@ public class PanneauPays extends PanneauOutilsStandard{
 	@Override
 	protected void initBoutons() {
 		this.boutonRetour.setVisible(false);
+		this.boutonAjout.addActionListener(new BoutonAjoutListener());
+		
 		
 	}
 
@@ -47,20 +55,48 @@ public class PanneauPays extends PanneauOutilsStandard{
 	@Override
 	protected void initTable() {
 				table = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.PAYS);
+				jsp= new JScrollPane(table);
+		this.panTable.add(jsp);	
+		this.setVisible(false);
+		this.setVisible(true);
+		
+	}
+	
 
-		this.panTable.add(new JScrollPane(table));
-		
-		
-		class boutonAjoutListener implements ActionListener
+	class BoutonAjoutListener implements ActionListener
+	{  
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		String nomPays = champSaisie.getText().toUpperCase();
+		if(!nomPays.isEmpty())
 		{
-			public void actionPerformed(ActionEvent e) 
-			{
-			
-				
-			}
+		PaysDAO paysdao = factory.getPaysDAO();
+		pays = (Pays)paysdao.getByNom(nomPays);
+		if(pays==null)
+		{
+			pays = new Pays(0,nomPays);
+			boolean ok = paysdao.create(pays);
+			panTable.remove(jsp);
+			initTable();
+
+		}
+		else
+		{
+			System.out.println("Pays existant dans la base de données. Faire un popup ici");
+		}
 		}
 		
 		
-	}
 
+	}
+		
+	
+
+
+	
+	}
+	
+	
+	
+	
 }
