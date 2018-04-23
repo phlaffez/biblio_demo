@@ -85,18 +85,9 @@ public class PanneauPays extends PanneauOutilsStandard{
 			System.out.println("Pays existant dans la base de données. Faire un popup ici");
 		}
 		}
-		
-		
 
 	}
 		
-	
-
-
-	
 	}
-	
-	
-	
 	
 }
