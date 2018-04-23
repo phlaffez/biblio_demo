@@ -49,7 +49,13 @@ public class Fenetre_PP extends JFrame
 		                colEntTex,cboufon,cboutex);
 		   tabbedPane.addTab("Pays" , panPays); 
 		   this.getContentPane().add(BorderLayout.CENTER, tabbedPane);
+		   
+		   titrePan = "Langues";
 		      
+		   PanneauLangue panLangue = new PanneauLangue(titrePan,colFond,coulTexPP,panTab,coulPanText,colEnt,
+	                colEntTex,cboufon,cboutex);
+		   tabbedPane.addTab("Langues" , panLangue); 
+		   this.getContentPane().add(BorderLayout.CENTER, tabbedPane);
 		 
 		     
 	    this.setVisible(true);
