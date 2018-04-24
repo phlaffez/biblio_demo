@@ -58,6 +58,7 @@ public class PanneauGenre  extends PanneauOutilsStandard
 		
 		table = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.GENRES);
 		jsp= new JScrollPane(table);
+		 table.setBackground(this.coulPanTab);
 this.panTable.add(jsp);	
 this.setVisible(false);
 this.setVisible(true);

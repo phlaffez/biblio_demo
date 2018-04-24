@@ -57,6 +57,7 @@ public class PanneauLangue extends PanneauOutilsStandard{
 	protected void initTable() {
 		table = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.LANGUES);
 		jsp= new JScrollPane(table);
+		 table.setBackground(this.coulPanTab);
 this.panTable.add(jsp);	
 this.setVisible(false);
 this.setVisible(true);
