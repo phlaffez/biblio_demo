@@ -64,7 +64,7 @@ public class Fenetre_PP extends JFrame
 		   titrePan = "Langues";
 		      
 		   PanneauLangue panLangue = new PanneauLangue(titrePan,colFond,coulTexPP,panTab,coulPanText,colEnt,
-	                colEntTex,cboufon,cboutex);
+	               colEntTex,cboufon,cboutex);
 		   tabbedPane.addTab("Langues" , panLangue); 
 		   this.getContentPane().add(BorderLayout.CENTER, tabbedPane);
 		 

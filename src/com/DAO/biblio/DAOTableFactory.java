@@ -73,7 +73,7 @@ public static JTable getTable(Connection conn, BddTables table)
 		Statement state = conn.createStatement(
 				ResultSet.TYPE_SCROLL_INSENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
-	
+		System.out.println(requete);
 		ResultSet result = state.executeQuery(requete);
 		result.last();
 		int nblig = result.getRow();      // nombre de lignes
@@ -84,7 +84,7 @@ public static JTable getTable(Connection conn, BddTables table)
 		while (result.next()) {
 			for (int i = 0; i < nbcol; i++)
 			{
-				data[nbreLine][i] = result.getObject(i +1).toString();
+				    data[nbreLine][i] = result.getObject(i +1).toString();
 			}
 			nbreLine++;
 		}
