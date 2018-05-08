@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import com.DAO.biblio.LivreAuteurDAO;
 import com.DAO.biblio.LivreDAO;
 import com.DAO.biblio.ResumeLivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
+import com.ihm.biblio.DetailAuteur;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.AuteurGenre;
 import com.metier.biblio.Genre;
@@ -25,7 +27,9 @@ public class essais {
 
 	public static void main(String[] args) {
 		
-System.out.println(BddTables.AUTEURS);
+
+		Auteur aut = new Auteur();
+DetailAuteur da = new DetailAuteur(Color.CYAN,Color.BLACK);
 
 System.out.println("Fini");
 			}

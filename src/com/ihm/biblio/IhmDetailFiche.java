@@ -1,7 +1,11 @@
 package com.ihm.biblio;
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /*
@@ -11,7 +15,7 @@ import javax.swing.JPanel;
  */
 import phl.outils.panneaux.outilsStandards.JButtonOutils;
 
-public abstract class IhmDetailFiche <T,TDAO>{
+public abstract class IhmDetailFiche <T,TDAO> extends JFrame{
 	
 	protected JPanel pan;
 	protected JButtonOutils boutonCreer;
@@ -19,9 +23,17 @@ public abstract class IhmDetailFiche <T,TDAO>{
 	protected JButtonOutils boutonQuitter;
 	protected JButtonOutils boutonRAZ;
 	
+	// Couleurs:
 	
-	public abstract void ihMDetaiFiche();
-	public abstract void iHMDetaiFiche(T obj,Ordre ordre);
+	protected Color coulFond;          // couleur fond du panneau
+	protected Color coulTextPP;        // couleur texte principal
+	
+	// gestionaire de disposition:
+	
+	protected GridBagLayout grille;
+	protected GridBagConstraints grilleCont;
+	
+	
 	public abstract void initCreate();
 	public abstract void initPan();
 	

@@ -7,7 +7,7 @@ package com.metier.biblio;
  *
  */
 
-public class Pays {
+public class Pays implements Comparable<Pays>{
 
 	private int idPays;
 	private String nomPays;
@@ -87,6 +87,11 @@ public class Pays {
 		    l=l+"Id = "+this.getId()+"   Nombre: ";
 		    return l;
 		  }
+
+		@Override
+		public int compareTo(Pays arg0) {
+			return this.getNom().compareTo(arg0.getNom());
+		}
 	
 	
 	
