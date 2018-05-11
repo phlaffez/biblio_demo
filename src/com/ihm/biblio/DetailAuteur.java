@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,6 +48,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	private Dimension dimLabel;
 	private Dimension dimChamp;
 	private JScrollPane jsc;
+	private StringBuffer errMsg=new StringBuffer();  // message d'erreur créé par la validation
 
 	
 	// les champs de saisie / consultation - initialisés dans le constructeur
@@ -494,9 +497,47 @@ protected boolean valide() {
 		
 	}   // fin du else
 
-	
+	if(ok)
+	{
+		msg.append("Saisie validée");
+		this.errMsg.append(msg);
+	}
 	return ok;
 }
+// Listeners:
+
+class CreerListener implements ActionListener{
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	}
+	
+	
+class  RazListener implements ActionListener{
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}		
+	}
+
+class quitterListener implements ActionListener {
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
+
+
+
+
 }
 
 

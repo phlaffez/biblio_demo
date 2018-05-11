@@ -38,8 +38,8 @@ public abstract class IhmDetailFiche <T,TDAO> extends JFrame{
 	public abstract void initPan();
 	
 	public abstract void initBoutons();
-	public abstract class CreerListener implements ActionListener{};
 	protected abstract boolean valide();    // validation des saisies
+	protected abstract Object  creeObjet(); // créee un objet avec les données du formulaire
 	
 	
 

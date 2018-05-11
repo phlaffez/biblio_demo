@@ -4,7 +4,7 @@ import com.dbacces.biblio.Mysql_Connect;
 
 public abstract class DaoFactory {
 
-
+// il y a quelque chose qui merde là dedans. Je ne vais pas utiliserpour le moment
 	protected abstract AuteurGenreDAO getAuteurGenreDAO();
 	protected abstract AuteurDAO getAuteurDAO();
 	protected abstract AuteurLangueDAO getAuteurLangueDAO();

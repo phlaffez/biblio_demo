@@ -2,7 +2,7 @@ package com.DAO.biblio;
 
 import com.dbacces.biblio.Mysql_Connect;
 
-public class DaoFactoryMySQL extends DaoFactory {
+public class DaoFactoryMySQL  {
 
 	public DaoFactoryMySQL() {
 		// TODO Auto-generated constructor stub
@@ -13,7 +13,7 @@ public class DaoFactoryMySQL extends DaoFactory {
 	  return new AuteurGenreDAO(Mysql_Connect.getInstance());
    }
  
- public AuteurDAO getAuteurDAO()
+ public static AuteurDAO getAuteurDAO()
     {
 	  return new AuteurDAO(Mysql_Connect.getInstance());
    }
@@ -43,13 +43,16 @@ public class DaoFactoryMySQL extends DaoFactory {
 	  return new LivreAuteurDAO(Mysql_Connect.getInstance());
    }
 
- public PaysDAO getPaysDAO()
-    {
-	  return new PaysDAO(Mysql_Connect.getInstance());
-   }
+
  
  public ResumeLivreDAO getResumeLivreDAO()
     {
 	  return new ResumeLivreDAO(Mysql_Connect.getInstance());
    }
+
+public static  PaysDAO getPaysDAO() {
+	// je ne comprend pas l'histoire du static ? Si ça ne marche pas il faudra
+	// faire sans la factory!
+	  return new PaysDAO(Mysql_Connect.getInstance());
+}
 }
