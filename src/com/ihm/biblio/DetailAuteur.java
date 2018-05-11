@@ -2,6 +2,7 @@ package com.ihm.biblio;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -24,6 +25,7 @@ import com.metier.biblio.Auteur;
 import com.metier.biblio.Pays;
 
 import phl.outils.panneaux.outilsStandards.JButtonOutils;
+import phl.outils.testsNumeriques.testNumeric;
 
 public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	
@@ -57,7 +59,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	private JTextField naissChamp;
 	private JTextField decChamp;
 	private JTextArea infoChamp;
-	private JPanel panInfo=new JPanel();
+
 	
 	private Ordre ordre;
 	
@@ -288,10 +290,9 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 		this.grilleCont.weighty=1;	
 		this.grilleCont.weightx=2;
 		this.grilleCont.fill=GridBagConstraints.BOTH;
-		this.panInfo.add(this.infoChamp);
-		this.jsc = new JScrollPane(this.panInfo);
+		this.jsc = new JScrollPane(this.infoChamp);
 
-		this.pan.add(this.panInfo,this.grilleCont);
+		this.pan.add(this.jsc,this.grilleCont);
 		this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
 		initBoutons();
 		
@@ -406,4 +407,99 @@ private void dimChamps()
 	this.infoChamp.setPreferredSize(dimInfo);
 }
 
+
+
+
+
+@Override
+protected boolean valide() {
+	/* vérifie que nom et prenoms sont bien des chaines de caratères valides sans chiffres
+	 *  que l'année de naissance et celle de décès sont bien des nombres,
+	 *   que l'année de naissance est bien avant celle de décès, 
+	 *    que l'année de décès est bien avant la date d'aujourd'hui et que l'écart entre
+	 *     naissance et décès n'exede pas 120 ans.
+	  */
+	
+	Boolean ok = true;
+	String[] interdit = {"0","1","2","3","4","5","6","7","8","9",
+			"(",")",",[","|","{","}","+","*","/","_","\"","'","?","!",";"};
+	
+	String sn = this.nomChamp.getText();
+	String sp = this.prenomChamp.getText();
+	String an = this.naissChamp.getText();
+	String ad = this.decChamp.getText();
+	
+	StringBuffer msg=new StringBuffer("");
+	if(sn.isEmpty())
+	{
+		 msg.append("Le nom ne peux être vide.\n");
+		 ok = false;
+	}
+	else
+	{
+	 // on vérifie qu'il n'y a pas de caractères interdits dans le nom, dans le prénom,
+	// et que les années de naissances ou de décès correspondent à des entiers corrects,
+	// c'est à dire des entiers compris entre -7000 et l'année en cours, et si
+	// les champs sont vides on remplace par 9999
+		
+	// nom et prenom
+		for (int i=0;i<interdit.length;i++)
+		{
+			if (sn.contains(interdit[i]))
+			{
+				ok = false;
+				msg.append(" le caractère "+interdit[i]+" ne peut servir à écrire un nom\n");
+				break;
+			}
+			
+			if (sp.contains(interdit[i]))
+			{
+				ok = false;
+				msg.append(" le caractère "+interdit[i]+" ne peut servir à écrire un nom\n");
+				break;
+			}
+		}
+		
+ // tests années
+		an = an.trim();           // on vire les espaces inutiles
+		ad = ad.trim();
+		
+		if(an=="")              // si on n'a rien mis on remplace par 9999
+		{
+			an="9999";
+		}
+		if(ad=="")
+		{
+			ad = "9999";
+		}
+		
+		this.naissChamp.setText(an);    // on met à jour les champs qui serviront 
+		this.decChamp.setText(ad);      // pour la création de l'enregistrement		
+		
+		testNumeric tn = new testNumeric();
+		boolean ok1 = tn.estEntier(an);
+		if(!ok1)
+		{
+			ok = false;
+			msg.append("Année de naissance invalide \n");
+		}
+		 ok1 = tn.estEntier(ad);
+		if(!ok1)
+		{
+			ok = false;
+			msg.append("Année de décès invalide \n");
+		}
+		
+		
+		
+	}   // fin du else
+
+	
+	return ok;
 }
+}
+
+
+
+
+
