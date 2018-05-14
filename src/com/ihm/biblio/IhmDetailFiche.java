@@ -3,6 +3,7 @@ package com.ihm.biblio;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -33,14 +34,28 @@ public abstract class IhmDetailFiche <T,TDAO> extends JFrame{
 	protected GridBagLayout grille;
 	protected GridBagConstraints grilleCont;
 	
+	// message d'erreur
+	protected StringBuffer errMsg=new StringBuffer();  // message d'erreur créé par la validation
 	
-	public abstract void initCreate();
-	public abstract void initPan();
 	
-	public abstract void initBoutons();
+	protected abstract void initCreate();    // formulaire vide
+	protected abstract void remplit();      // formulaire pre rempli
+	protected abstract void initPan();
+	protected abstract void editable(boolean ok);   // pour passer les champs en non editable ou editable selon ce qu'on fait
+	
+	protected abstract void initBoutons();
 	protected abstract boolean valide();    // validation des saisies
-	protected abstract Object  creeObjet(); // créee un objet avec les données du formulaire
+	protected abstract Object  creeObjet(int id); // créee un objet avec les données du formulaire
 	
 	
+	class quitterListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			dispose();
+			
+		}
+		
+	}
 
 }

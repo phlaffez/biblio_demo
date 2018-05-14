@@ -23,14 +23,16 @@ import com.metier.biblio.LivreAuteur;
 import com.metier.biblio.ResumeLivre;
 import com.outils.biblio.Cles;
 
+import phl.outils.panneaux.outilsStandards.FenetreMessage;
+
 public class essais {
 
 	public static void main(String[] args) {
 		
 
 		Auteur aut = new Auteur();
-DetailAuteur da = new DetailAuteur(Color.CYAN,Color.BLACK);
-
+		FenetreMessage fen = new FenetreMessage("essai","titre fenetre","lemessage",
+				300,300,Color.lightGray,Color.black);
 System.out.println("Fini");
 			}
 }

@@ -20,12 +20,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.PaysDAO;
 import com.dbacces.biblio.Mysql_Connect;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.Pays;
 
+import phl.outils.panneaux.outilsStandards.FenetreMessage;
 import phl.outils.panneaux.outilsStandards.JButtonOutils;
 import phl.outils.testsNumeriques.testNumeric;
 
@@ -36,6 +38,9 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	 * Les variables de cette classe sont les champs d'affichage des variables
 	 * de l'obet Auteur
 	 */
+	
+	
+	private Auteur obj;
 	
 	// Les 7 Labels
 	private JLabel idLabel= new JLabel("Id:");
@@ -48,7 +53,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	private Dimension dimLabel;
 	private Dimension dimChamp;
 	private JScrollPane jsc;
-	private StringBuffer errMsg=new StringBuffer();  // message d'erreur créé par la validation
+
 
 	
 	// les champs de saisie / consultation - initialisés dans le constructeur
@@ -57,7 +62,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	private JTextField idChamp;
 	private JTextField nomChamp;
 	private JTextField prenomChamp;
-	public JTextField paysChamp;     // cas de la consultation
+	private JTextField paysChamp;     // cas de la consultation
 	private JComboBox listePays;     // cas de la création ou de la modification
 	private JTextField naissChamp;
 	private JTextField decChamp;
@@ -73,7 +78,9 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	private PaysDAO paysdao = new PaysDAO(Mysql_Connect.getInstance());
 	private Pays pays;
 	
-	
+// messages:
+	private String titre="Bibliothèque: Auteurs";
+	private String titre2="Création / Modification d'une fiche auteur";
 	
 	
 	
@@ -101,6 +108,8 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	public  DetailAuteur(Auteur obj, Ordre ordre,Color coulFond, Color coulTextPP)
 	{
 	
+		this.obj=obj;
+		
 		init1(coulFond,coulTextPP);
 		this.ordre=ordre;
 		if(ordre == Ordre.CREATION)
@@ -119,31 +128,8 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 			{
 				this.setTitle("Modification d'une fiche auteur");
 			}
-			this.idChamp = new JTextField(Integer.toString(obj.getId()));
-			this.idChamp.setEditable(false);
-			this.nomChamp= new JTextField(obj.getNom());
-			this.prenomChamp= new JTextField(obj.getPrenom());
-			this.idPays = obj.getId_pays();
-			// récupération du nom du pays:
-			pays = paysdao.findId(idPays);
-			if(ordre== Ordre.LECTURE)                // On n'affiche que le pays de l'auteur
-			{
-			this.paysChamp = new JTextField(pays.getNom());
-			}
-			else
-			{
-			    //	On affiche tous les pays dans un ComboBox, avec en première
-				// ligne le pays déjà inseré
-				this.listePays = new JComboBox();
-				this.listePays.addItem(pays.getNom());
-				ajouteTousPays();
-
-				
-			}
-			this.naissChamp =  new JTextField(Integer.toString(obj.getAnnee_naiss()));
-			this.decChamp = new JTextField(Integer.toString(obj.getAnnee_deces()));
-	        this.infoChamp = new JTextArea(obj.getInfo());
-	        initPan();
+			remplit();
+			initPan();
 	        init2();
 		}
 		
@@ -151,13 +137,12 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	
 
 	@Override
-	public void initCreate() {
+	protected void initCreate() {
 	
 	// Affiche une fiche vide avec un objet vide
 		this.setTitle("Création d'une fiche auteur");
 		
 		this.idChamp = new JTextField("0");
-		this.idChamp.setEditable(false);
 		this.nomChamp= new JTextField("");
 		this.prenomChamp= new JTextField("");
 		this.listePays = new JComboBox();
@@ -166,11 +151,12 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 		this.naissChamp =  new JTextField("0"); 
 		this.decChamp =  new JTextField("0"); 
         this.infoChamp = new JTextArea("");
+        editable(true);
 		
 	}
 
 	@Override
-	public void initPan() {
+	protected void initPan() {
 		// Mise en place des différents éléments du panneau sur un GridBagLayout
 		
 		dimChamps();
@@ -337,7 +323,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	}
 
 	@Override
-	public void initBoutons() {
+	protected void initBoutons() {
 		// TODO Auto-generated method stub
 		// cette méthode doit affecter les listener et placer les boutons dans
 		// dans le bas de la grille
@@ -346,6 +332,11 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 		 this.boutonModifier = new JButtonOutils("Valider modifications",180,50,Color.RED);
 		this.boutonQuitter= new JButtonOutils("Quitter", 180, 50, Color.RED);
 		this.boutonRAZ = new JButtonOutils("RAZ",180,50,Color.RED);
+		
+		this.boutonCreer.addActionListener(new CreerListener());
+		this.boutonModifier.addActionListener(new ModifierListener());		
+		this.boutonQuitter.addActionListener(new quitterListener());
+		this.boutonRAZ.addActionListener(new RazListener());
 		
 	}
 	
@@ -411,7 +402,60 @@ private void dimChamps()
 }
 
 
+@Override
+protected void remplit() {
+	this.idChamp = new JTextField(Integer.toString(this.obj.getId()));
+	this.idChamp.setEditable(false);
+	this.nomChamp= new JTextField(this.obj.getNom());
+	this.prenomChamp= new JTextField(this.obj.getPrenom());
+	this.idPays = obj.getId_pays();
+	// récupération du nom du pays:
+	pays = paysdao.findId(idPays);
+	if(ordre== Ordre.LECTURE)                // On n'affiche que le pays de l'auteur
+	{
+	this.paysChamp = new JTextField(pays.getNom());
+	}
+	else
+	{
+	    //	On affiche tous les pays dans un ComboBox, avec en première
+		// ligne le pays déjà inseré
+		this.listePays = new JComboBox();
+		this.listePays.addItem(pays.getNom());
+		ajouteTousPays();
 
+		
+	}
+	this.naissChamp =  new JTextField(Integer.toString(this.obj.getAnnee_naiss()));
+	this.decChamp = new JTextField(Integer.toString(this.obj.getAnnee_deces()));
+    this.infoChamp = new JTextArea(obj.getInfo());
+    if(this.ordre==Ordre.CREATION)
+    {
+    	editable(true);
+    }
+    else
+    {
+    	editable(false);
+    }
+
+	
+}
+
+
+
+
+
+@Override
+protected void editable(boolean ok) {
+	
+	this.idChamp.setEditable(false);
+	this.nomChamp.setEditable(ok);
+	this.prenomChamp.setEditable(ok);
+	this.paysChamp.setEditable(false);
+	this.naissChamp.setEditable(ok);
+	this.decChamp.setEditable(ok);
+	this.infoChamp.setEditable(ok);
+	
+}
 
 
 @Override
@@ -504,41 +548,143 @@ protected boolean valide() {
 	}
 	return ok;
 }
+
+@Override
+protected Object creeObjet(int id) {
+	
+	Auteur aut = new Auteur();
+	PaysDAO pdao = DaoFactoryMySQL.getPaysDAO();
+	Pays pays;
+	aut.setId(id);
+	aut.setNom(this.nomChamp.getText());
+	aut.setPrenom(this.prenomChamp.getText());
+	aut.setAnnee_naiss(Integer.parseInt(this.naissChamp.getText()));
+	aut.setAnnee_deces(Integer.parseInt(this.decChamp.getText()));
+	aut.setInfo(this.infoChamp.getText());
+	pays = (Pays) pdao.getByNom(this.listePays.getSelectedItem().toString());
+	System.out.println(pays.toString());
+	aut.setId_pays(pays.getId());
+	
+	
+	return aut;
+}
+
 // Listeners:
 
 class CreerListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		
+		// validation du formulaire
+		boolean ok = valide();
+		
+		if(ok)
+		{
+		// insertion d'une nouvelle valeur dans la base de données
+		 // création de l'objet Auteur
+		Auteur aut = (Auteur)creeObjet(0);
+		// insertion:
+		AuteurDAO autdao = DaoFactoryMySQL.getAuteurDAO();
+		autdao.create(aut);
+		//Afficher une boite de confirmation:
+		int id = autdao.lastId();
+		aut =  autdao.findId(id);
+		
+		//   affichage boite de message
+		StringBuffer mess = new StringBuffer("La fiche auteur suivante a été créée:\n");
+		mess.append(aut.toString());
+		FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
+				300,300,Color.lightGray,Color.black);
+		
+		
+		// RAZ du formulairepour saisie suivante
+		initCreate();
+		}
+		else
+		{
+			StringBuffer mess = new StringBuffer("Les données du formulaire sont invalides:\n");
+			mess.append(errMsg);
+		
+			FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
+					300,300,Color.lightGray,Color.black);
+		}
+		
 		
 	}
 	}
 	
+	
+
+
+
+
+
+class ModifierListener implements ActionListener {
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		// mise à jour d'un enregistrement dans la base de données
+		boolean ok = valide();
+		if(ok)
+		{
+		// modification de l'auteur  dans la base de données
+		 // création de l'objet Auteur
+			int id = Integer.parseInt(idChamp.getText());
+		Auteur aut = (Auteur)creeObjet(id);
+		// insertion:
+		AuteurDAO autdao = DaoFactoryMySQL.getAuteurDAO();
+		autdao.update(aut);
+		//Afficher une boite de confirmation:
+		StringBuffer mess = new StringBuffer("La fiche auteur suivante a été modifiée:\n");
+		mess.append(aut.toString());
+		FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
+				300,300,Color.lightGray,Color.black);
+		
+		// TODO  affichage boite de message
+		
+		
+		// RAZ du formulairepour saisie suivante
+		initCreate();
+		}
+		else
+		{
+			// afficher une boite avec message d'erreur
+			StringBuffer mess = new StringBuffer("Les données du formulaire sont invalides:\n");
+			mess.append(errMsg);
+		
+			FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
+					300,300,Color.lightGray,Color.black);
+		}
+		
+		
+	}
+	}
 	
 class  RazListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
+		// remise à zero du formulaire
+		if (ordre == Ordre.CREATION)
+		{
+			initCreate();
 		
 	}		
+		else
+		{
+			remplit();
+		}
 	}
+}
 
-class quitterListener implements ActionListener {
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }
 
 
 
-
-}
 
 
 
