@@ -460,7 +460,6 @@ protected void remplit() {
 @Override
 protected void editable(boolean ok) {
 	
-	System.out.println(ok);
 	this.idChamp.setEditable(false);
 	this.nomChamp.setEditable(ok);
 	this.prenomChamp.setEditable(ok);
@@ -487,7 +486,7 @@ protected boolean valide() {
 	
 	Boolean ok = true;
 	String[] interdit = {"0","1","2","3","4","5","6","7","8","9",
-			"(",")",",[","|","{","}","+","*","/","_","\"","'","?","!",";"};
+			"(",")",",[","|","{","}","+","*","/","_","\"","'","?","!",";","."};
 	
 	String sn = this.nomChamp.getText();
 	String sp = this.prenomChamp.getText();
@@ -562,8 +561,9 @@ protected boolean valide() {
 	if(ok)
 	{
 		msg.append("Saisie validée");
-		this.errMsg.append(msg);
+	
 	}
+	this.errMsg.append(msg);
 	return ok;
 }
 
@@ -580,7 +580,7 @@ protected Object creeObjet(int id) {
 	aut.setAnnee_deces(Integer.parseInt(this.decChamp.getText()));
 	aut.setInfo(this.infoChamp.getText());
 	pays = (Pays) pdao.getByNom(this.listePays.getSelectedItem().toString());
-	System.out.println(pays.toString());
+//	System.out.println(pays.toString());
 	aut.setId_pays(pays.getId());
 	
 	
@@ -669,7 +669,7 @@ class ModifierListener implements ActionListener {
 		else
 		{
 			// afficher une boite avec message d'erreur
-			StringBuffer mess = new StringBuffer("Les données du formulaire sont invalides:\n");
+			StringBuffer mess = new StringBuffer("Les données du formulaire sont invalides:\n\n");
 			mess.append(errMsg);
 		
 			FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
