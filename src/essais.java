@@ -8,12 +8,14 @@ import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.AuteurGenreDAO;
 import com.DAO.biblio.BddTables;
 import com.DAO.biblio.DAO;
+import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.GenreDAO;
 import com.DAO.biblio.LivreAuteurDAO;
 import com.DAO.biblio.LivreDAO;
 import com.DAO.biblio.ResumeLivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
 import com.ihm.biblio.DetailAuteur;
+import com.ihm.biblio.Ordre;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.AuteurGenre;
 import com.metier.biblio.Genre;
@@ -30,10 +32,11 @@ public class essais {
 	public static void main(String[] args) {
 		
 
-		Auteur aut = new Auteur();
-		FenetreMessage fen = new FenetreMessage("essai","titre fenetre","lemessage",
-				300,300,Color.lightGray,Color.black);
-System.out.println("Fini");
+//		DetailAuteur da = new DetailAuteur(Color.CYAN, Color.black);
+		
+		AuteurDAO auteurdao = DaoFactoryMySQL.getAuteurDAO();
+		Auteur aut = auteurdao.findId(1);
+		DetailAuteur da = new DetailAuteur(aut,Ordre.MODIFICATION,Color.CYAN, Color.black);
 			}
 }
 		

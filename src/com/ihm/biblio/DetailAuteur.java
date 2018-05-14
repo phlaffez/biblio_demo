@@ -59,14 +59,14 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	// les champs de saisie / consultation - initialisés dans le constructeur
 	
 	Font f = new Font("Courier", Font.BOLD, 13);
-	private JTextField idChamp;
-	private JTextField nomChamp;
-	private JTextField prenomChamp;
-	private JTextField paysChamp;     // cas de la consultation
+	private JTextField idChamp = new JTextField();
+	private JTextField nomChamp = new JTextField();
+	private JTextField prenomChamp= new JTextField();
+	private JTextField paysChamp= new JTextField();     // cas de la consultation
 	private JComboBox listePays;     // cas de la création ou de la modification
-	private JTextField naissChamp;
-	private JTextField decChamp;
-	private JTextArea infoChamp;
+	private JTextField naissChamp= new JTextField();
+	private JTextField decChamp= new JTextField();
+	private JTextArea infoChamp= new JTextArea();
 
 	
 	private Ordre ordre;
@@ -142,17 +142,16 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	// Affiche une fiche vide avec un objet vide
 		this.setTitle("Création d'une fiche auteur");
 		
-		this.idChamp = new JTextField("0");
-		this.nomChamp= new JTextField("");
-		this.prenomChamp= new JTextField("");
+		this.idChamp.setText("0");
+		this.nomChamp.setText("");
+		this.prenomChamp.setText("");
 		this.listePays = new JComboBox();
 		ajouteTousPays();
 		
-		this.naissChamp =  new JTextField("0"); 
-		this.decChamp =  new JTextField("0"); 
-        this.infoChamp = new JTextArea("");
+		this.naissChamp.setText("0"); 
+		this.decChamp.setText("0");
+        this.infoChamp.setText("");
         editable(true);
-		
 	}
 
 	@Override
@@ -255,7 +254,6 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 			this.pan.add(this.paysLabel, this.grilleCont);
 			
 			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
-			this.paysChamp.setEditable(false);   // on ne doit pas modifier
 			this.pan.add(this.paysChamp, this.grilleCont);
 		}
 		this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
@@ -338,6 +336,22 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 		this.boutonQuitter.addActionListener(new quitterListener());
 		this.boutonRAZ.addActionListener(new RazListener());
 		
+		if (this.ordre==Ordre.CREATION)
+		{
+			this.boutonModifier.setEnabled(false);
+			this.boutonModifier.setVisible(false);
+		}
+		
+		if(this.ordre==Ordre.LECTURE)
+		{
+			this.boutonModifier.setEnabled(false);
+			this.boutonModifier.setVisible(false);
+			this.boutonRAZ.setEnabled(false);
+			this.boutonRAZ.setVisible(false);
+			this.boutonCreer.setEnabled(false);
+			this.boutonCreer.setVisible(false);
+		}
+		
 	}
 	
 	private void ajouteTousPays()
@@ -404,16 +418,15 @@ private void dimChamps()
 
 @Override
 protected void remplit() {
-	this.idChamp = new JTextField(Integer.toString(this.obj.getId()));
-	this.idChamp.setEditable(false);
-	this.nomChamp= new JTextField(this.obj.getNom());
-	this.prenomChamp= new JTextField(this.obj.getPrenom());
+	this.idChamp.setText(Integer.toString(this.obj.getId()));
+	this.nomChamp.setText(this.obj.getNom());
+	this.prenomChamp.setText(this.obj.getPrenom());
 	this.idPays = obj.getId_pays();
 	// récupération du nom du pays:
 	pays = paysdao.findId(idPays);
 	if(ordre== Ordre.LECTURE)                // On n'affiche que le pays de l'auteur
 	{
-	this.paysChamp = new JTextField(pays.getNom());
+	this.paysChamp.setText(pays.getNom());
 	}
 	else
 	{
@@ -425,10 +438,10 @@ protected void remplit() {
 
 		
 	}
-	this.naissChamp =  new JTextField(Integer.toString(this.obj.getAnnee_naiss()));
-	this.decChamp = new JTextField(Integer.toString(this.obj.getAnnee_deces()));
-    this.infoChamp = new JTextArea(obj.getInfo());
-    if(this.ordre==Ordre.CREATION)
+	this.naissChamp.setText(Integer.toString(this.obj.getAnnee_naiss()));
+	this.decChamp.setText(Integer.toString(this.obj.getAnnee_deces()));
+    this.infoChamp.setText(obj.getInfo());
+    if((this.ordre==Ordre.CREATION)|(this.ordre==Ordre.MODIFICATION))
     {
     	editable(true);
     }
@@ -447,13 +460,18 @@ protected void remplit() {
 @Override
 protected void editable(boolean ok) {
 	
+	System.out.println(ok);
 	this.idChamp.setEditable(false);
 	this.nomChamp.setEditable(ok);
 	this.prenomChamp.setEditable(ok);
+	if(this.ordre==Ordre.LECTURE)
+	{
 	this.paysChamp.setEditable(false);
+	}
 	this.naissChamp.setEditable(ok);
 	this.decChamp.setEditable(ok);
 	this.infoChamp.setEditable(ok);
+	
 	
 }
 
@@ -669,7 +687,7 @@ class  RazListener implements ActionListener{
 		// TODO Auto-generated method stub
 		// remise à zero du formulaire
 		if (ordre == Ordre.CREATION)
-		{
+		{   
 			initCreate();
 		
 	}		
