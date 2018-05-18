@@ -37,7 +37,7 @@ public class essais {
 		AuteurDAO auteurdao = DaoFactoryMySQL.getAuteurDAO();
 		Auteur aut = auteurdao.findId(1);
 
-		DetailAuteur da = new DetailAuteur(aut,Ordre.CREATION,Color.CYAN, Color.black);
+		DetailAuteur da = new DetailAuteur(aut,Ordre.MODIFICATION,Color.CYAN, Color.black);
 			}
 }
 		

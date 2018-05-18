@@ -63,7 +63,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	private JTextField nomChamp = new JTextField();
 	private JTextField prenomChamp= new JTextField();
 	private JTextField paysChamp= new JTextField();     // cas de la consultation
-	private JComboBox listePays;     // cas de la création ou de la modification
+	private JComboBox listePays = new JComboBox();     // cas de la création ou de la modification
 	private JTextField naissChamp= new JTextField();
 	private JTextField decChamp= new JTextField();
 	private JTextArea infoChamp= new JTextArea();
@@ -314,6 +314,29 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 //		this.grilleCont.anchor=GridBagConstraints.CENTER;
 //		this.grilleCont.fill = GridBagConstraints.HORIZONTAL;
 		this.pan.add(this.boutonQuitter, this.grilleCont);
+		
+		// visibilité des boutons:
+		this.boutonQuitter.setVisible(true);
+		if(this.ordre==Ordre.CREATION)
+		{
+			this.boutonModifier.setVisible(false);
+			this.boutonCreer.setVisible(true);
+			this.boutonRAZ.setVisible(true);
+		}
+		if(this.ordre==Ordre.MODIFICATION)
+		{
+			this.boutonModifier.setVisible(true);
+			this.boutonCreer.setVisible(false);
+			this.boutonRAZ.setVisible(true);
+			this.boutonRAZ.setText("Reinitialiser");
+		}
+		if(this.ordre==Ordre.LECTURE)
+		{
+			this.boutonModifier.setVisible(false);
+			this.boutonCreer.setVisible(false);
+			this.boutonRAZ.setVisible(false);
+		}
+		
 
 		
 		
@@ -432,9 +455,11 @@ protected void remplit() {
 	{
 	    //	On affiche tous les pays dans un ComboBox, avec en première
 		// ligne le pays déjà inseré
-		this.listePays = new JComboBox();
-		this.listePays.addItem(pays.getNom());
+		this.listePays.removeAllItems();
+	this.listePays.addItem(pays.getNom())																						;
 		ajouteTousPays();
+		this.listePays.setSelectedIndex(0);
+		
 
 		
 	}
@@ -666,13 +691,14 @@ class ModifierListener implements ActionListener {
 		
 		
 		// RAZ du formulairepour saisie suivante
-		initCreate();
+		obj=aut;
+		remplit();
 		}
 		else
 		{
 			// afficher une boite avec message d'erreur
 			StringBuffer mess = new StringBuffer("Les données du formulaire sont invalides:\n\n");
-			mess=erMess;
+			mess=errMsg;
 		
 			FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
 					300,300,Color.lightGray,Color.black);
