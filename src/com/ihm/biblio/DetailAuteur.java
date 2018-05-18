@@ -563,7 +563,7 @@ protected boolean valide() {
 		msg.append("Saisie validée");
 	
 	}
-	this.errMsg.append(msg);
+	this.errMsg=msg;
 	return ok;
 }
 
@@ -580,7 +580,6 @@ protected Object creeObjet(int id) {
 	aut.setAnnee_deces(Integer.parseInt(this.decChamp.getText()));
 	aut.setInfo(this.infoChamp.getText());
 	pays = (Pays) pdao.getByNom(this.listePays.getSelectedItem().toString());
-//	System.out.println(pays.toString());
 	aut.setId_pays(pays.getId());
 	
 	
@@ -602,9 +601,11 @@ class CreerListener implements ActionListener{
 		// insertion d'une nouvelle valeur dans la base de données
 		 // création de l'objet Auteur
 		Auteur aut = (Auteur)creeObjet(0);
-		// insertion:
+				// insertion:
 		AuteurDAO autdao = DaoFactoryMySQL.getAuteurDAO();
-		autdao.create(aut);
+		boolean ok1 =autdao.create(aut);
+		if(ok1)
+		{
 		//Afficher une boite de confirmation:
 		int id = autdao.lastId();
 		aut =  autdao.findId(id);
@@ -614,6 +615,7 @@ class CreerListener implements ActionListener{
 		mess.append(aut.toString());
 		FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
 				300,300,Color.lightGray,Color.black);
+		}
 		
 		
 		// RAZ du formulairepour saisie suivante
@@ -670,7 +672,7 @@ class ModifierListener implements ActionListener {
 		{
 			// afficher une boite avec message d'erreur
 			StringBuffer mess = new StringBuffer("Les données du formulaire sont invalides:\n\n");
-			mess.append(errMsg);
+			mess=erMess;
 		
 			FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
 					300,300,Color.lightGray,Color.black);

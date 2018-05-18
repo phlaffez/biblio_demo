@@ -1,5 +1,6 @@
 package com.DAO.biblio;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,14 @@ import com.metier.biblio.Genre;
 import com.metier.biblio.Livre;
 import com.metier.biblio.LivreAuteur;
 
+import phl.outils.panneaux.outilsStandards.FenetreMessage;
+
 public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Noms_Prenoms <Auteur>{
+	
+	// pour la fenêtre de messages
+	private String titre="Bibliothèque: Auteurs";
+	private String titre2="Création / Modification d'une fiche auteur";
+	
 
 	public AuteurDAO(Connection conn) {
 		super(conn);
@@ -26,14 +34,10 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 		
 		// chercher si l'auteur est dans la base de données 
 		// getByNomPrenom renvoie un objet, donc il faut caster
-		// je ne p
 		String req = "SELECT * FROM auteurs WHERE nom_aut = \'";
 		req=req+obj.getNom()+"\' AND prenom_aut = \'";
 		req = req+obj.getPrenom()+"\' AND annee_naiss = ";
 		req = req+Integer.toString(obj.getAnnee_naiss());
-//		System.out.println(req);
-		
-		
 		try
 		{
 			ResultSet res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(req);
@@ -41,7 +45,11 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 		
 		if(res1.first())
 		{
-			System.out.println("La fiche auteur "+obj.getNom()+" "+obj.getPrenom()+" né en "+obj.getAnnee_naiss()+" existe déjà");
+			String titre;
+			String titre2;
+			String mess  ="La fiche auteur "+obj.getNom()+" "+obj.getPrenom()+" né en "+obj.getAnnee_naiss()+" \n existe déjà";
+			FenetreMessage fen = new FenetreMessage(this.titre,this.titre2,mess,
+					300,300,Color.lightGray,Color.black);
 		}
 		
 		else
