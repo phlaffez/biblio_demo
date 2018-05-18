@@ -15,6 +15,7 @@ import com.DAO.biblio.LivreDAO;
 import com.DAO.biblio.ResumeLivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
 import com.ihm.biblio.DetailAuteur;
+import com.ihm.biblio.Fenetre_PP;
 import com.ihm.biblio.Ordre;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.AuteurGenre;
@@ -35,9 +36,11 @@ public class essais {
 //		DetailAuteur da = new DetailAuteur(Color.CYAN, Color.black);
 		
 		AuteurDAO auteurdao = DaoFactoryMySQL.getAuteurDAO();
-		Auteur aut = auteurdao.findId(1);
+	//	Auteur aut = auteurdao.findId(1);
 
-		DetailAuteur da = new DetailAuteur(aut,Ordre.MODIFICATION,Color.CYAN, Color.black);
+	//	DetailAuteur da = new DetailAuteur(aut,Ordre.LECTURE,Color.CYAN, Color.black);
+		
+		Fenetre_PP fen = new Fenetre_PP();
 			}
 }
 		

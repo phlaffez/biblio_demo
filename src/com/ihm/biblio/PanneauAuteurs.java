@@ -1,6 +1,8 @@
 package com.ihm.biblio;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JScrollPane;
 
@@ -29,7 +31,7 @@ public class PanneauAuteurs extends PanneauTableStandard{
 
 	@Override
 	protected void initBoutons() {
-		// TODO Auto-generated method stub
+		this.boutonAjout.addActionListener(new CreerListener());
 		
 	}
 
@@ -42,11 +44,24 @@ public class PanneauAuteurs extends PanneauTableStandard{
 	@Override
 	protected void initTable() {
 		table = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.AUTEURS);
+		
 		jsp= new JScrollPane(table);
 		 table.setBackground(this.coulPanTab);
 this.panTable.add(jsp);	
 this.setVisible(false);
 this.setVisible(true);
+		
+	}
+	
+	class CreerListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			Auteur aut = new Auteur();
+			DetailAuteur da = new DetailAuteur(aut,Ordre.CREATION,Color.CYAN, Color.black);
+		table.removeAll();
+		}
 		
 	}
 
