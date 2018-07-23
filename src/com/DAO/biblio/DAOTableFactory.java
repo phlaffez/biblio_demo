@@ -9,6 +9,8 @@ import java.sql.Statement;
 
 import javax.swing.JTable;
 
+import phl.outils.tables.ModelTablePhl;
+
 public class DAOTableFactory {
 
 	public DAOTableFactory() {
@@ -18,7 +20,9 @@ public class DAOTableFactory {
 
 public static JTable getTable(Connection conn, BddTables table)
 {
+	ModelTablePhl model;
 	JTable tab = new JTable();
+		
 	int nbcol=0;
 	String requete="";
 	 String[] titre = new String[4];
@@ -73,7 +77,7 @@ public static JTable getTable(Connection conn, BddTables table)
 		Statement state = conn.createStatement(
 				ResultSet.TYPE_SCROLL_INSENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
-		System.out.println(requete);
+//		System.out.println(requete);
 		ResultSet result = state.executeQuery(requete);
 		result.last();
 		int nblig = result.getRow();      // nombre de lignes
@@ -88,7 +92,14 @@ public static JTable getTable(Connection conn, BddTables table)
 			}
 			nbreLine++;
 		}
-		tab = new JTable(data, titre);
+		
+		model = new ModelTablePhl(data,titre);
+		tab = new JTable(model)	{
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
+				};
 		tab.setRowHeight(20);
 	}
 	catch (Exception e)

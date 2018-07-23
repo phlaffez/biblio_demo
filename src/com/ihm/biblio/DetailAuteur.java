@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -29,6 +30,7 @@ import com.metier.biblio.Pays;
 
 import phl.outils.panneaux.outilsStandards.FenetreMessage;
 import phl.outils.panneaux.outilsStandards.JButtonOutils;
+import phl.outils.tables.ModelTablePhl;
 import phl.outils.testsNumeriques.testNumeric;
 
 public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
@@ -81,11 +83,13 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 // messages:
 	private String titre="Bibliothèque: Auteurs";
 	private String titre2="Création / Modification d'une fiche auteur";
+	private ModelTablePhl mtable;
 	
 	
 	
-	public DetailAuteur(Color coulFond, Color coulTextPP) {
+	public DetailAuteur(Color coulFond, Color coulTextPP, ModelTablePhl mtable) {
 		
+		this.mtable=mtable;
 		init1(coulFond,coulTextPP);
 		this.ordre=Ordre.CREATION;
 		initCreate();
@@ -105,11 +109,11 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	}
 
 
-	public  DetailAuteur(Auteur obj, Ordre ordre,Color coulFond, Color coulTextPP)
+	public  DetailAuteur(Auteur obj, Ordre ordre,Color coulFond, Color coulTextPP, ModelTablePhl mtable)
 	{
 	
 		this.obj=obj;
-		
+		this.mtable=mtable;
 		init1(coulFond,coulTextPP);
 		this.ordre=ordre;
 		if(ordre == Ordre.CREATION)
@@ -611,6 +615,16 @@ protected Object creeObjet(int id) {
 	return aut;
 }
 
+private void miseAJourTable(Ordre ordre, Object[] data)
+{
+  if(ordre == Ordre.CREATION)
+  {
+	  
+	  this.mtable.addRow(data);
+	  
+  }
+}
+
 // Listeners:
 
 class CreerListener implements ActionListener{
@@ -629,8 +643,14 @@ class CreerListener implements ActionListener{
 				// insertion:
 		AuteurDAO autdao = DaoFactoryMySQL.getAuteurDAO();
 		boolean ok1 =autdao.create(aut);
+		Object[] data = {autdao.lastId(),aut.getNom(),aut.getPrenom(),aut.getAnnee_naiss()};
+		miseAJourTable(Ordre.CREATION,data);
 		if(ok1)
 		{
+			
+			// insertion dans la table:
+			
+			
 		//Afficher une boite de confirmation:
 		int id = autdao.lastId();
 		aut =  autdao.findId(id);
