@@ -136,8 +136,8 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 			}
 			else
 			{
-				this.setTitle("Modification d'une fiche auteur");
-				System.out.println(this.numLig);
+		this.setTitle("Modification d'une fiche auteur");
+	
 				
 			}
 			remplit();
@@ -623,18 +623,26 @@ protected Object creeObjet(int id) {
 	return aut;
 }
 
-private void miseAJourTable(Ordre ordre, Object[] data)
-{
-  if(ordre == Ordre.CREATION)
-  {	  
-	  this.mtable.addRow(data);	  
-  }
-  
-  if(ordre == Ordre.MODIFICATION)
-  {
-	  
-  }
+private void miseAJourTable(Ordre ordre, Auteur aut) {
+	Object[] data = {aut.getId(),aut.getNom(),aut.getPrenom(),aut.getAnnee_naiss()};
+	if(ordre == Ordre.CREATION)
+	  {	  
+		  this.mtable.addRow(data);	  
+	  }
+	  if(ordre == Ordre.MODIFICATION)
+	  {
+		for (int i=0;i<4;i++)
+		{
+			this.mtable.setValueAt(data[i], this.numLig, i);
+		}
+		this.mtable.fireTableDataChanged();  // dans le cas de creation, cette instruction
+		                                    // est présente dans addRow
+	  }
 }
+
+
+
+
 
 // Listeners:
 
@@ -660,8 +668,9 @@ class CreerListener implements ActionListener{
 		if(ok1)
 		{
 			int id = autdao.lastId();
-			Object[] data = {id,aut.getNom(),aut.getPrenom(),aut.getAnnee_naiss()};
-			miseAJourTable(Ordre.CREATION,data);
+			aut.setId(id);
+			
+			miseAJourTable(Ordre.CREATION,aut);
 			
 		//Afficher une boite de confirmation:
 			// on récupère ce qui a réellement été enregistré 
@@ -710,7 +719,9 @@ class ModifierListener implements ActionListener {
 		AuteurDAO autdao = DaoFactoryMySQL.getAuteurDAO();
 		autdao.update(aut);
 		
+		
 		// miseà jour de la table
+		miseAJourTable(Ordre.MODIFICATION,aut);
 		//Afficher une boite de confirmation:
 		StringBuffer mess = new StringBuffer("La fiche auteur suivante a été modifiée:\n");
 		mess.append(aut.toString());
