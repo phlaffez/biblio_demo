@@ -640,19 +640,20 @@ class CreerListener implements ActionListener{
 		// insertion d'une nouvelle valeur dans la base de données
 		 // création de l'objet Auteur
 		Auteur aut = (Auteur)creeObjet(0);
-				// insertion:
+				// insertiondans la base de données:
 		AuteurDAO autdao = DaoFactoryMySQL.getAuteurDAO();
 		boolean ok1 =autdao.create(aut);
-		Object[] data = {autdao.lastId(),aut.getNom(),aut.getPrenom(),aut.getAnnee_naiss()};
-		miseAJourTable(Ordre.CREATION,data);
+		
+		// insertion dans la table:
+
 		if(ok1)
 		{
-			
-			// insertion dans la table:
-			
+			int id = autdao.lastId();
+			Object[] data = {id,aut.getNom(),aut.getPrenom(),aut.getAnnee_naiss()};
+			miseAJourTable(Ordre.CREATION,data);
 			
 		//Afficher une boite de confirmation:
-		int id = autdao.lastId();
+			// on récupère ce qui a réellement été enregistré 
 		aut =  autdao.findId(id);
 		
 		//   affichage boite de message
@@ -661,16 +662,15 @@ class CreerListener implements ActionListener{
 		FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
 				300,300,Color.lightGray,Color.black);
 		}
-		
-		
+			
 		// RAZ du formulairepour saisie suivante
 		initCreate();
 		}
+		
 		else
 		{
 			StringBuffer mess = new StringBuffer("Les données du formulaire sont invalides:\n");
-			mess.append(errMsg);
-		
+			mess.append(errMsg);	
 			FenetreMessage fen = new FenetreMessage(titre,titre2,mess.toString(),
 					300,300,Color.lightGray,Color.black);
 		}
