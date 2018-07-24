@@ -15,6 +15,7 @@ import javax.swing.JPanel;
  * révèle pratique à l'usage
  */
 import phl.outils.panneaux.outilsStandards.JButtonOutils;
+import phl.outils.tables.ModelTablePhl;
 
 public abstract class IhmDetailFiche <T,TDAO> extends JFrame{
 	
@@ -47,6 +48,10 @@ public abstract class IhmDetailFiche <T,TDAO> extends JFrame{
 	protected abstract boolean valide();    // validation des saisies
 	protected abstract Object  creeObjet(int id); // créee un objet avec les données du formulaire
 	
+	
+	// table:
+	protected ModelTablePhl mtable;
+	protected int numLig;
 	
 	class quitterListener implements ActionListener {
 

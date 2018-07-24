@@ -83,13 +83,15 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 // messages:
 	private String titre="Bibliothèque: Auteurs";
 	private String titre2="Création / Modification d'une fiche auteur";
-	private ModelTablePhl mtable;
+
 	
 	
 	
-	public DetailAuteur(Color coulFond, Color coulTextPP, ModelTablePhl mtable) {
+	public DetailAuteur(Color coulFond, Color coulTextPP, ModelTablePhl mtable,
+			int numLig) {
 		
 		this.mtable=mtable;
+		this.numLig=numLig;
 		init1(coulFond,coulTextPP);
 		this.ordre=Ordre.CREATION;
 		initCreate();
@@ -109,13 +111,16 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	}
 
 
-	public  DetailAuteur(Auteur obj, Ordre ordre,Color coulFond, Color coulTextPP, ModelTablePhl mtable)
+	public  DetailAuteur(Auteur obj, Ordre ordre,Color coulFond, Color coulTextPP, ModelTablePhl mtable,
+			int numLig)
 	{
 	
 		this.obj=obj;
 		this.mtable=mtable;
+		this.numLig=numLig;
 		init1(coulFond,coulTextPP);
 		this.ordre=ordre;
+		
 		if(ordre == Ordre.CREATION)
 			{
 			initCreate();
@@ -126,11 +131,14 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 		{
 			if(ordre == Ordre.LECTURE)
 			{
+		
 				this.setTitle("Consultation d'une fiche auteur");
 			}
 			else
 			{
 				this.setTitle("Modification d'une fiche auteur");
+				System.out.println(this.numLig);
+				
 			}
 			remplit();
 			initPan();
@@ -618,9 +626,12 @@ protected Object creeObjet(int id) {
 private void miseAJourTable(Ordre ordre, Object[] data)
 {
   if(ordre == Ordre.CREATION)
+  {	  
+	  this.mtable.addRow(data);	  
+  }
+  
+  if(ordre == Ordre.MODIFICATION)
   {
-	  
-	  this.mtable.addRow(data);
 	  
   }
 }
@@ -682,9 +693,6 @@ class CreerListener implements ActionListener{
 	
 
 
-
-
-
 class ModifierListener implements ActionListener {
 
 	@Override
@@ -701,6 +709,8 @@ class ModifierListener implements ActionListener {
 		// insertion:
 		AuteurDAO autdao = DaoFactoryMySQL.getAuteurDAO();
 		autdao.update(aut);
+		
+		// miseà jour de la table
 		//Afficher une boite de confirmation:
 		StringBuffer mess = new StringBuffer("La fiche auteur suivante a été modifiée:\n");
 		mess.append(aut.toString());

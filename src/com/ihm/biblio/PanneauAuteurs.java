@@ -64,7 +64,7 @@ public class PanneauAuteurs extends PanneauTableStandard{
                  Auteur auteur = factory.getAuteurDAO().findId(idAuteur);
                  model = (ModelTablePhl)table.getModel();
                  DetailAuteur detailAuteur = new DetailAuteur(
-                		 auteur,Ordre.MODIFICATION,Color.lightGray,Color.BLACK,model);
+                		 auteur,Ordre.MODIFICATION,Color.lightGray,Color.BLACK,model,y);
                  
 				 }
 			}
@@ -86,7 +86,7 @@ this.setVisible(true);
 			// ceci doit être mis dans un thread ?
 			Auteur aut = new Auteur();
 			model = (ModelTablePhl)table.getModel();
-			DetailAuteur da = new DetailAuteur(aut,Ordre.CREATION,Color.CYAN, Color.black,model);
+			DetailAuteur da = new DetailAuteur(aut,Ordre.CREATION,Color.CYAN, Color.black,model,0);
 		
 		}
 		
