@@ -53,6 +53,8 @@ public class PanneauAuteurs extends PanneauTableStandard{
 		if(table!=null)
 		    this.remove(table);
 		table = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.AUTEURS);
+		 model = (ModelTablePhl)table.getModel();
+		 jsp= new JScrollPane(table);
 		
 		// Listener
 		table.addMouseListener(new MouseAdapter() {
@@ -62,14 +64,14 @@ public class PanneauAuteurs extends PanneauTableStandard{
                  int y = table.rowAtPoint(p);
                  int idAuteur = Integer.parseInt(table.getValueAt(y, 0).toString());
                  Auteur auteur = factory.getAuteurDAO().findId(idAuteur);
-                 model = (ModelTablePhl)table.getModel();
+                
                  DetailAuteur detailAuteur = new DetailAuteur(
                 		 auteur,Ordre.MODIFICATION,Color.lightGray,Color.BLACK,model,y);
                  
 				 }
 			}
 		});
-		jsp= new JScrollPane(table);
+		
 		 table.setBackground(this.coulPanTab);
 		 this.panTable.remove(jsp);
 this.panTable.add(jsp);	

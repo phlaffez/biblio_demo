@@ -14,7 +14,8 @@ public class Livre {
 	private String nom_liv;
 	private int genre;
 	private int langue;
-	private String date_pub;
+	private String datePub;
+	private String dateAcq;
 	private boolean un_resume;
 	private String classement;
 	private List<Auteur> auteurs;
@@ -27,14 +28,15 @@ public class Livre {
 		this.nom_liv="";
 		this.genre=0;
 		this.langue=0;
-		this.date_pub="";
+		this.datePub="";
+		this.dateAcq="";
 		this.un_resume=false;
 		this.classement="";
 		this.auteurs=null;
 	}
 		
-		public  Livre(int id, String nom_livre, int genre, int langue, String datePub, 
-				boolean unResume, String classement, ArrayList<Auteur> auteurs)
+		public  Livre(int id, String nom_livre, int genre, int langue, String datePub,
+				String dateAcq,	boolean unResume, String classement, ArrayList<Auteur> auteurs)
 		
 		{
 			
@@ -42,7 +44,8 @@ public class Livre {
 			this.nom_liv=nom_livre;
 			this.genre=genre;
 			this.langue=langue;
-			this.date_pub=datePub;
+			this.datePub=datePub;
+			this.dateAcq=dateAcq;
 			this.un_resume = unResume;
 			this.classement = classement;
 			this.auteurs=auteurs;
@@ -94,13 +97,24 @@ public class Livre {
 		
 		public void setDatePublication(String dp)
 		{
-			this.date_pub=dp;
+			this.datePub=dp;
 		}
-		
 		public String getDatePublication()
 		{
-			return this.date_pub;
+			return this.datePub;
 		}
+		
+		public String getDateAcquisition()
+		{
+			return this.dateAcq;
+		}
+		
+		public void setDateAcquisition(String dp)
+		{
+			this.dateAcq=dp;
+		}
+		
+		
 		
 		public void setUnResume(boolean ur)
 		{
@@ -167,7 +181,7 @@ public class Livre {
 			s=s+"identificateur genre: "+Integer.toString(this.genre)+"\n";
 			s=s+"identificateur langue: "+Integer.toString(this.langue)+"\n";
 			// les deux lignes précédentes pourront faire appel aux classes DAO pour av oir les vrais noms
-			s=s+"date de publication: "+this.date_pub+"\n";
+			s=s+"date de publication: "+this.datePub+"\n";
 			s=s+"Présence d'un résumé: ";
 			if(this.un_resume) 
 			{

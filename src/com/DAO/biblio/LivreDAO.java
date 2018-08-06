@@ -36,12 +36,13 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		{
 			//on crée seulement si le livre n'est pas déjà présent dans la base
 			String requete = "INSERT INTO livres";
-					requete = requete +"(nom_liv,genre,langue,date_pub,un_resume,classement)";
+					requete = requete +"(nom_liv,genre,langue,date_pub,date_acq,un_resume,classement)";
 					requete = requete +" VALUES (";
 					requete = requete + "'"+obj.getNomLivre()+"',";
 					requete = requete + Integer.toString(obj.getGenre())+",";
 					requete = requete + Integer.toString(obj.getLangue())+",";
 					requete = requete + "'"+obj.getDatePublication()+"',";
+					requete = requete + "'"+obj.getDateAcquisition()+"',";
 					requete = requete + obj.getUnResume()+",";
 					requete = requete + "'"+obj.getClassement()+"'";
 					requete = requete +")";
@@ -125,6 +126,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				requete = requete + "genre = "+ Integer.toString(obj.getGenre())+",";
 				requete = requete + "langue ="+Integer.toString(obj.getLangue())+",";
 				requete = requete + "date_pub"+obj.getDatePublication()+"',";
+				requete = requete + "date_pub"+obj.getDateAcquisition()+"',";
 				requete = requete + "un_resume = "+obj.getUnResume()+",";
 				requete = requete + "classement = "+"'"+obj.getClassement()+"'";
 				
@@ -224,7 +226,8 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 	public Livre findId(int id) {
 		//correction bug le 30/03/2018
 		Livre livre=null;
-		String datepub="00/00/0000";
+		String datePub="00/00/0000";
+		String dateAcq="00/00/0000";
 		boolean resum = false;
 		String classe="classement non renseigné";
 		int mes=0;
@@ -242,13 +245,25 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				int genre = res.getInt("genre");
 				if(res.getDate("date_pub")!=null)
 				{
-					 datepub = res.getDate("date_pub").toString();	
+					 datePub = res.getDate("date_pub").toString();	
 				}
 				else
 				{
-					datepub = "Date de publication non renseignée";
+					datePub = "Date de publication non renseignée";
 				}
 					
+				if(res.getDate("date_acq")!=null)
+				{
+					 dateAcq = res.getDate("date_acq").toString();	
+				}
+				else
+				{
+					dateAcq = "Date d'acqisition non renseignée";
+				}
+					
+				
+				
+				
 				 resum = res.getBoolean("un_resume");
 				 
 				 if (res.getString("classement")!=null)
@@ -256,7 +271,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 					 classe = res.getString("classement"); 
 				 }
 				
-				livre = new Livre(id,titre,genre,langue,datepub,resum,classe, auteurs);
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
 				
 				
 						  
@@ -324,13 +339,14 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				if(titre==null) titre="";
 				int langue = res.getInt("langue");
 				int genre = res.getInt("genre");
-				String datepub = res.getDate("date_pub").toString();
-		        if (datepub == null) datepub = "Date de publication non renseignée";
+				String datePub = res.getDate("date_pub").toString();
+				String dateAcq = res.getDate("date_acq").toString();
+		        if (datePub == null) datePub = "Date de publication non renseignée";
 				boolean resum = res.getBoolean("un_resume");
 				String classe = res.getString("classement");
 				if(classe==null) classe="Emplacement nonrenseigné";
 				
-				livre = new Livre(id,titre,genre,langue,datepub,resum,classe, auteurs);
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
 				
 				livres.add(livre);
 			}
@@ -358,7 +374,8 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		
 		ArrayList<Auteur> auteurs=null;
 		Livre livre;
-		String datepub = "Date de publication non renseignée";
+		String datePub = "Date de publication non renseignée";
+		String dateAcq = "Date d'acquisition non renseignée";
 		String classe = "Emplacement non renseigné";
 		// a utiliser avec précautions. Que se passe-t-il s'il y a trop de livres
 		// dans la base de données ?
@@ -382,7 +399,11 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				int genre = res.getInt("genre");
 				if(res.getDate("date_pub")!=null)
 				{
-					datepub = res.getDate("date_pub").toString();
+					datePub = res.getDate("date_pub").toString();
+				}
+				if(res.getDate("date_acq")!=null)
+				{
+					dateAcq = res.getDate("date_acq").toString();
 				}
 				 
 				boolean resum = res.getBoolean("un_resume");
@@ -392,7 +413,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 						}
 	
 				
-				livre = new Livre(id,titre,genre,langue,datepub,resum,classe, auteurs);
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
 				livres.add(livre);
 			
 			}
