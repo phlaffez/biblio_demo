@@ -22,7 +22,7 @@ import com.metier.biblio.Pays;
 
 import phl.outils.tables.ModelTablePhl;
 
-public class DetaiLivre  extends IhmDetailFiche<Livre,LivreDAO>{
+public class DetailLivre  extends IhmDetailFiche<Livre,LivreDAO>{
 	
 	/* les boutons et le panneau d'affichage sont standards et sont donc des
 	 * variables protected de la classe mère.
@@ -75,7 +75,7 @@ private Livre obj;
 		private String titre2="Création / Modification d'une fiche livre";
 
 
-		public DetaiLivre(Color coulFond, Color coulTextPP, ModelTablePhl mtable,
+		public DetailLivre(Color coulFond, Color coulTextPP, ModelTablePhl mtable,
 				int numLig) {
 			
 			this.mtable=mtable;
@@ -88,7 +88,7 @@ private Livre obj;
 		}
 
 		
-		public  DetaiLivre(Livre obj, Ordre ordre,Color coulFond, Color coulTextPP, ModelTablePhl mtable,
+		public  DetailLivre(Livre obj, Ordre ordre,Color coulFond, Color coulTextPP, ModelTablePhl mtable,
 				int numLig)
 		{
 		
@@ -188,3 +188,5 @@ private Livre obj;
 	}
 
 }
+
+

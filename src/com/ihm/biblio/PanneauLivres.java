@@ -2,6 +2,8 @@ package com.ihm.biblio;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -11,6 +13,7 @@ import com.DAO.biblio.BddTables;
 import com.DAO.biblio.DAOTableFactory;
 import com.DAO.biblio.DaoFactoryMySQL;
 import com.dbacces.biblio.Mysql_Connect;
+import com.ihm.biblio.PanneauAuteurs.CreerListener;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.Livre;
 
@@ -23,16 +26,18 @@ public class PanneauLivres  extends PanneauTableStandard{
 	private DaoFactoryMySQL factory = new DaoFactoryMySQL();
 	private JScrollPane jsp;
 	private ModelTablePhl model;
+	
 
 	public PanneauLivres(String titrePan, Color colFond, Color coulTexPP, Color coulPanTab, Color coulPanText,
-			Color colEnt, Color colEntTex, Color cboufon, Color cboutex) {
+			Color colEnt, Color colEntTex, Color cboufon, Color cboutex) 
+	{
 		super(titrePan, colFond, coulTexPP, coulPanTab, coulPanText, colEnt, colEntTex, cboufon, cboutex);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void initBoutons() {
-		// TODO Auto-generated method stub
+		this.boutonAjout.addActionListener(new CreerListener());
 		
 	}
 
@@ -58,10 +63,13 @@ public class PanneauLivres  extends PanneauTableStandard{
 		                 int idLivre = Integer.parseInt(table.getValueAt(y, 0).toString());
 		                 Livre livre = factory.getLivreDAO().findId(idLivre);
 		                
-		                 DetaiLivre detailLivre = new DetaiLivre(
+		                 DetailLivre detailLivre = new DetailLivre(
 		                		 livre,Ordre.MODIFICATION,Color.lightGray,Color.BLACK,model,y);
 		                 
 						 }
+					}
+				});
+					
 		
 		
 		
@@ -69,6 +77,20 @@ public class PanneauLivres  extends PanneauTableStandard{
 this.panTable.add(jsp);	
 this.setVisible(false);
 this.setVisible(true);
+	}
+	
+	class CreerListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			// ceci doit être mis dans un thread ?
+			Livre livre = new Livre();
+			model = (ModelTablePhl)table.getModel();
+			DetailLivre dl = new DetailLivre(livre,Ordre.CREATION,Color.CYAN, Color.black,model,0);
+		
+		}
+		
 	}
 
 }
