@@ -103,12 +103,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	
 
 	
-	private void init2() {
-		this.setContentPane(this.pan);
-		this.setLocationRelativeTo(null);
-		this.setVisible(true);
-		
-	}
+
 
 
 	public  DetailAuteur(Auteur obj, Ordre ordre,Color coulFond, Color coulTextPP, ModelTablePhl mtable,
@@ -147,6 +142,13 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 		
 	}
 	
+	
+	private void init2() {
+		this.setContentPane(this.pan);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+		
+	}
 
 	@Override
 	protected void initCreate() {

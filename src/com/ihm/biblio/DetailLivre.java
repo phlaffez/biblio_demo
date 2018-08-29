@@ -3,6 +3,7 @@ package com.ihm.biblio;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -13,6 +14,7 @@ import javax.swing.JTextField;
 import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.GenreDAO;
 import com.DAO.biblio.LangueDAO;
+import com.DAO.biblio.LivreAuteurDAO;
 import com.DAO.biblio.LivreDAO;
 import com.DAO.biblio.PaysDAO;
 import com.dbacces.biblio.Mysql_Connect;
@@ -51,6 +53,7 @@ private Livre obj;
 	
 		Font f = new Font("Courier", Font.BOLD, 13);
 		private JTextField idChamp = new JTextField();
+		private JTextField titreChamp = new JTextField();
 		private JTextField genreChamp = new JTextField();
 		private JComboBox listeGenres = new JComboBox();     // cas de la création ou de la modification
 		private JTextField langueChamp= new JTextField();
@@ -64,10 +67,12 @@ private Livre obj;
 		
 		private Ordre ordre;
 	
+		private ArrayList<Auteur> lesAuteurs; 
 		private int idGenre;
 		private int idLangue;
 		private GenreDAO genredao = new GenreDAO(Mysql_Connect.getInstance());
 		private LangueDAO languedao = new LangueDAO(Mysql_Connect.getInstance());
+		private LivreAuteurDAO livreAuteurdao = new LivreAuteurDAO(Mysql_Connect.getInstance());
 
 		
 	// messages:enre
@@ -75,6 +80,8 @@ private Livre obj;
 		private String titre2="Création / Modification d'une fiche livre";
 
 
+		
+		
 		public DetailLivre(Color coulFond, Color coulTextPP, ModelTablePhl mtable,
 				int numLig) {
 			
@@ -133,21 +140,25 @@ private Livre obj;
 		
 		
 		
-		
-		
 	private void init1(Color coulFond, Color coulTextPP) {
 			// TODO Auto-generated method stub
 			
 		}
 
 	private void init2() {
-			// TODO Auto-generated method stub
+		this.setContentPane(this.pan);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
 			
 		}
 
 	@Override
 	protected void initCreate() {
 		// TODO Auto-generated method stub
+		// Affiche une fiche vide avec un objet vide
+		this.idChamp.setText("0");
+		this.titreChamp.setText("");
+		
 		
 	}
 

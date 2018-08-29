@@ -65,7 +65,7 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 					requete = requete + obj.getAnnee_deces()+",";
 					requete = requete + "'"+obj.getInfo()+"'";
 					requete = requete +")";
-			//		System.out.println(requete);
+					System.out.println(requete);
 							
 							
 						

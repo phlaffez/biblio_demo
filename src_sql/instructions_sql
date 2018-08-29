@@ -152,4 +152,20 @@ BEGIN
   END; |
     DELIMITER ;
 
-   
+   // Sur la table auteurs:
+
+DELIMITER |
+CREATE TRIGGER before_insert_auteurs BEFORE INSERT ON auteurs
+FOR EACH ROW
+BEGIN
+    SET NEW.nom_aut = UPPER(NEW.nom_aut);
+  END; |
+    DELIMITER ;
+
+DELIMITER |
+CREATE TRIGGER before_update_auteurs BEFORE UPDATE ON auteurs
+FOR EACH ROW
+BEGIN
+    SET NEW.nom_aut = UPPER(NEW.nom_aut);
+  END; |
+    DELIMITER ;
