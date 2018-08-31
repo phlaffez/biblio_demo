@@ -41,7 +41,10 @@ CREATE TABLE auteurs (
   nom_aut VARCHAR(40) NOT NULL,
   prenom_aut VARCHAR(40),
   pays_aut INT UNSIGNED,
+  annee_naiss INT UNSIGNED,
+  annee_deces INT UNSIGNED,
   PRIMARY KEY pk_auteur(id),
+  infos LONGTEXT,
   FOREIGN KEY fk_pays (pays_aut) REFERENCES pays(id),
   INDEX ind_aut(nom_aut,prenom_aut)
 )
@@ -99,7 +102,7 @@ ENGINE = INNODB;
 
 CREATE TABLE resume_livres (
   id_livre INT UNSIGNED NOT NULL,             -- pas d'auto increment. Ce sera le même identifiant que dans la fiche livre
-  resume TEXT,
+  resume LONGTEXT,
   PRIMARY KEY pk_resume(id_livre),
   FULLTEXT INDEX ind_resume (resume)
   )

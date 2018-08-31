@@ -416,7 +416,7 @@ private void init1(Color coulFond, Color coulTextPP)
 	 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }
 
-private void dimChamps()
+protected void dimChamps()
 {
 	// dimensionnement des champs, police, etc.
 	
@@ -685,7 +685,7 @@ class CreerListener implements ActionListener{
 				300,300,Color.lightGray,Color.black);
 		}
 			
-		// RAZ du formulairepour saisie suivante
+		// RAZ du formulaire pour saisie suivante
 		initCreate();
 		}
 		

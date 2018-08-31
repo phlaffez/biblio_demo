@@ -47,6 +47,7 @@ public abstract class IhmDetailFiche <T,TDAO> extends JFrame{
 	protected abstract void initBoutons();
 	protected abstract boolean valide();    // validation des saisies
 	protected abstract Object  creeObjet(int id); // créee un objet avec les données du formulaire
+	protected abstract void dimChamps();
 	
 	
 	// table:
