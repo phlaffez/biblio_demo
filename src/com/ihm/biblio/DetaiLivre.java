@@ -51,15 +51,18 @@ private Livre obj;
 	
 		Font f = new Font("Courier", Font.BOLD, 13);
 		private JTextField idChamp = new JTextField();
+		private JTextField titreChamp = new JTextField();
 		private JTextField genreChamp = new JTextField();
 		private JComboBox listeGenres = new JComboBox();     // cas de la création ou de la modification
 		private JTextField langueChamp= new JTextField();
 		private JComboBox listeLangues = new JComboBox();     // cas de la création ou de la modification
-		private JTextField rangementChamp= new JTextField();  // Il faudra ajouter une table pour les localisations
+		private JTextField classemmentChamp= new JTextField();  // Il faudra ajouter une table pour les localisations
 		private JTextField acqChamp= new JTextField();
 		private JTextField publiChamp= new JTextField();
 		private JTextArea resumeChamp= new JTextArea();
 		private JTextArea auteursChamp= new JTextArea();
+		
+
 
 		
 		private Ordre ordre;
@@ -70,7 +73,7 @@ private Livre obj;
 		private LangueDAO languedao = new LangueDAO(Mysql_Connect.getInstance());
 
 		
-	// messages:enre
+	// messages:
 		private String titre="Bibliothèque: Livres";
 		private String titre2="Création / Modification d'une fiche livre";
 
@@ -185,6 +188,13 @@ private Livre obj;
 	protected Object creeObjet(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	protected void dimChamps() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

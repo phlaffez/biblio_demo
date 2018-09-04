@@ -29,10 +29,23 @@ CREATE TABLE langues (
   nom_lan VARCHAR(30) NOT NULL UNIQUE,
   nbre INT UNSIGNED,
   PRIMARY KEY pk_langues(id),
-  INDEX ind_pays(nom_lan),
+  INDEX ind_langue(nom_lan),
   INDEX ind_nbre(nbre)
   )
   ENGINE = INNODB;
+
+
+
+-- table des localisation, ma bibliothèque se trouvant éclatée en 3 lieux éloignés!
+
+CREATE TABLE Localisation (
+  id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom_lieu VARCHAR(30) NOT NULL UNIQUE,
+  PRIMARY KEY pk_localisation(id)
+  )
+  ENGINE = INNODB;
+
+
 
 -- Table des auteurs
 
