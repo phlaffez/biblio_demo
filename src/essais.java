@@ -12,6 +12,7 @@ import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.GenreDAO;
 import com.DAO.biblio.LivreAuteurDAO;
 import com.DAO.biblio.LivreDAO;
+import com.DAO.biblio.LocalisationDAO;
 import com.DAO.biblio.ResumeLivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
 import com.ihm.biblio.DetailAuteur;
@@ -23,6 +24,7 @@ import com.metier.biblio.Genre;
 import com.metier.biblio.Langue;
 import com.metier.biblio.Livre;
 import com.metier.biblio.LivreAuteur;
+import com.metier.biblio.Localisation;
 import com.metier.biblio.ResumeLivre;
 import com.outils.biblio.Cles;
 
@@ -35,12 +37,10 @@ public class essais {
 
 //		DetailAuteur da = new DetailAuteur(Color.CYAN, Color.black);
 		
-		AuteurDAO auteurdao = DaoFactoryMySQL.getAuteurDAO();
-	//	Auteur aut = auteurdao.findId(1);
-
-	//	DetailAuteur da = new DetailAuteur(aut,Ordre.LECTURE,Color.CYAN, Color.black);
-		
-		Fenetre_PP fen = new Fenetre_PP();
+//		AuteurDAO auteurdao = DaoFactoryMySQL.getAuteurDAO();
+		LocalisationDAO locdao = new LocalisationDAO(Mysql_Connect.getInstance());
+		ArrayList<Localisation> lieux = (ArrayList<Localisation>) locdao.selectAll();
+	System.out.println(lieux.toString());
 			}
 }
 		
