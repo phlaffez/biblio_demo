@@ -55,4 +55,10 @@ public static  PaysDAO getPaysDAO() {
 	// faire sans la factory!
 	  return new PaysDAO(Mysql_Connect.getInstance());
 }
+
+public LocalisationDAO getLocalisationDAO()
+{
+	return new LocalisationDAO(Mysql_Connect.getInstance());
+}
+
 }

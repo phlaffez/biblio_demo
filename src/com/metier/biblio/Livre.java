@@ -17,7 +17,7 @@ public class Livre {
 	private String datePub;
 	private String dateAcq;
 	private boolean un_resume;
-	private String classement;
+	private int classement;
 	private List<Auteur> auteurs;
 
 	// constructeurs
@@ -31,12 +31,12 @@ public class Livre {
 		this.datePub="";
 		this.dateAcq="";
 		this.un_resume=false;
-		this.classement="";
+		this.classement=0;
 		this.auteurs=null;
 	}
 		
 		public  Livre(int id, String nom_livre, int genre, int langue, String datePub,
-				String dateAcq,	boolean unResume, String classement, ArrayList<Auteur> auteurs)
+				String dateAcq,	boolean unResume, int classement, ArrayList<Auteur> auteurs)
 		
 		{
 			
@@ -126,14 +126,14 @@ public class Livre {
 			return this.un_resume;
 		}
 		
-		public void setClassement(String c)
+		public void setClassement(int c)
 		{
 			this.classement=c;
 		}
 		
-		public String getClassement()
+		public int getClassement()
 		{
-			System.out.println(this.classement);
+	
 			return this.classement;
 		}
 		
@@ -158,7 +158,6 @@ public class Livre {
 			
 			if (this.auteurs==null)
 			{
-				System.out.println("glop");
 				s=s+"Auteur(s) non renseigné(s) ou inconnu(s)";
 			}
 			else if(this.auteurs.isEmpty())

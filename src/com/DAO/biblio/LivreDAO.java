@@ -229,7 +229,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		String datePub="00/00/0000";
 		String dateAcq="00/00/0000";
 		boolean resum = false;
-		String classe="classement non renseigné";
+		int classe=0;
 		int mes=0;
 		String requete= "SELECT * FROM livres WHERE id ="+Integer.toString(id);
 		try
@@ -268,7 +268,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				 
 				 if (res.getString("classement")!=null)
 				 {
-					 classe = res.getString("classement"); 
+					 classe = res.getInt("classement"); 
 				 }
 				
 				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
@@ -343,8 +343,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				String dateAcq = res.getDate("date_acq").toString();
 		        if (datePub == null) datePub = "Date de publication non renseignée";
 				boolean resum = res.getBoolean("un_resume");
-				String classe = res.getString("classement");
-				if(classe==null) classe="Emplacement nonrenseigné";
+				int classe = res.getInt("classement");
 				
 				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
 				
@@ -376,7 +375,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		Livre livre;
 		String datePub = "Date de publication non renseignée";
 		String dateAcq = "Date d'acquisition non renseignée";
-		String classe = "Emplacement non renseigné";
+		int classe = 0;
 		// a utiliser avec précautions. Que se passe-t-il s'il y a trop de livres
 		// dans la base de données ?
 		List<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
@@ -409,7 +408,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				boolean resum = res.getBoolean("un_resume");
 				if(res.getString("classement")!=null)
 						{
-					 classe = res.getString("classement");
+					 classe = res.getInt("classement");
 						}
 	
 				
