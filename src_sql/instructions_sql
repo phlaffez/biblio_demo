@@ -38,7 +38,7 @@ CREATE TABLE langues (
 
 -- table des localisation, ma bibliothèque se trouvant éclatée en 3 lieux éloignés!
 
-CREATE TABLE Localisation (
+CREATE TABLE localisation (
   id INT UNSIGNED AUTO_INCREMENT NOT NULL,
   nom_lieu VARCHAR(30) NOT NULL UNIQUE,
   PRIMARY KEY pk_localisation(id)
@@ -73,12 +73,12 @@ id INT UNSIGNED AUTO_INCREMENT NOT NULL,
   date_pub DATE,
   date_acq DATE,
   un_resume BOOLEAN,
-  classement VARCHAR(20),
+  lieux INT UNSIGNED NOT NULL,
   PRIMARY KEY pk_livre(id),
   INDEX ind_titre(nom_liv),
-  INDEX ind_lass(classement),
   FOREIGN KEY fk_genre(genre) REFERENCES genres(id),
-  FOREIGN KEY fk_langue(langue) REFERENCES langues(id)
+  FOREIGN KEY fk_langue(langue) REFERENCES langues(id),
+  FOREIGN KEY fk_lieux(lieux) REFERENCES localisation(id)
   )
 ENGINE = INNODB;
 
@@ -124,14 +124,10 @@ ENGINE = MYISAM;
 -- fonction pour mettre une majuscule en début d'un mot (pour les noms propre et les noms de genre)
 
 -- Triggers pour homogénéiser les noms dans les bases de données
+      
 
--- J'ajoute des champs, car comme ça ce sera fait, et ça change pas grand choseà la charge de travail
-ALTER TABLE auteurs ADD COLUMN  anneee_naiss INT;
-ALTER TABLE auteurs ADD COLUMN  anneee_deces INT;
-ALTER TABLE auteurs ADD COLUMN  infos TEXT;         
-
-// Triggers
-// Sur la table langues:
+-- Triggers
+-- Sur la table langues:
 
 DELIMITER |
 CREATE TRIGGER before_insert_langues BEFORE INSERT ON langues
@@ -150,7 +146,7 @@ BEGIN
     DELIMITER ;
 
 
-// Sur la table pays:
+-- Sur la table pays:
 
 DELIMITER |
 CREATE TRIGGER before_insert_pays BEFORE INSERT ON pays
@@ -168,7 +164,7 @@ BEGIN
   END; |
     DELIMITER ;
 
-   // Sur la table auteurs:
+   -- Sur la table auteurs:
 
 DELIMITER |
 CREATE TRIGGER before_insert_auteurs BEFORE INSERT ON auteurs
@@ -183,5 +179,23 @@ CREATE TRIGGER before_update_auteurs BEFORE UPDATE ON auteurs
 FOR EACH ROW
 BEGIN
     SET NEW.nom_aut = UPPER(NEW.nom_aut);
+  END; |
+    DELIMITER ;
+
+-- Sur la table localisations:
+
+DELIMITER |
+CREATE TRIGGER before_insert_localisation BEFORE INSERT ON localisation
+FOR EACH ROW
+BEGIN
+    SET NEW.nom_lieu = UPPER(NEW.nom_lieu);
+  END; |
+    DELIMITER ;
+
+DELIMITER |
+CREATE TRIGGER before_update_localisation BEFORE UPDATE ON localisation
+FOR EACH ROW
+BEGIN
+    SET NEW.nom_lieu = UPPER(NEW.nom_lieu);
   END; |
     DELIMITER ;
