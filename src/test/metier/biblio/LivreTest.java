@@ -40,7 +40,7 @@ class LivreTest {
 		String nom_livre="Les tribulations d'un chinois en chine";
 		String dateAcq = "12/2/1895";
 		String datePub = "13/2/1895";
-		String classement = "Orbec carton 18";
+		int classement = 1;
 		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, null);
 		assertTrue("getNomLivre",nom_livre.equals(l.getNomLivre()));
 		
@@ -85,7 +85,7 @@ class LivreTest {
 		String nom_livre="Les tribulations d'un chinois en chine";
 		String datePub = "12/2/1895";
 		String dateAcq = "13/2/1895";
-		String classement = "Orbec carton 18";
+		int classement = 1;
 		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, null);
 		assertTrue("getDatePub",datePub.equals(l.getDatePublication()));
 		assertTrue("getDateAcq",dateAcq.equals(l.getDateAcquisition()));
@@ -107,9 +107,9 @@ class LivreTest {
 	@Test
 	void testSetClassement() {
 		l= new Livre();
-		String s="Paris";
+		int s=1;
 		l.setClassement(s);
-		assertTrue("setClassement",s.equals(l.getClassement()));
+		assertTrue("setClassement",s==l.getClassement());
 	}
 
 	@Test
@@ -117,9 +117,9 @@ class LivreTest {
 		String nom_livre="Les tribulations d'un chinois en chine";
 		String datePub = "12/2/1895";
 		String dateAcq = "13/2/1895";
-		String classement = "Orbec carton 18";
+		int classement = 1;
 		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, null);
-		assertTrue("getClassement",classement.equals(l.getClassement()));
+		assertTrue("getClassement",1==l.getClassement());
 		
 	}
 
