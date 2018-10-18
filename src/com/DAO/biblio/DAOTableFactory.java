@@ -55,7 +55,8 @@ public static JTable getTable(Connection conn, BddTables table)
 	
 		else if(table.equals(BddTables.LIVRES))
 		{
-			 requete = "SELECT id, nom_liv, date_pub, classement FROM "+table;
+			 requete = "SELECT id, nom_liv, date_pub, lieux FROM "+table;
+			 System.out.println(requete);
 			nbcol=4;
 			titre = new String[4];
 			titre[0]="Id";
@@ -104,7 +105,7 @@ public static JTable getTable(Connection conn, BddTables table)
 	}
 	catch (Exception e)
 	{
-		System.out.println("Erreur dans la récupération de la table "+table);
+		System.out.println("DAO Tableactory : Erreur dans la récupération de la table "+table);
 	}
 	return tab;
 }

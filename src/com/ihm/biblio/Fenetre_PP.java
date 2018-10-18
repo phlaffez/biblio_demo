@@ -39,10 +39,9 @@ public class Fenetre_PP extends JFrame
 			 Color panTab = Color.CYAN;
 			 Color coulPanText = Color.WHITE;
 			 Color colEntTex = Color.black;
-			 
-			 PanneauLivres panLivres = new PanneauLivres (titrePan,colFond,coulTexPP,panTab,coulPanText,colEnt,
-		                colEntTex,cboufon,cboutex);
-			 tabbedPane.addTab("Livres" , panLivres);
+			 			 PanneauLivres panLivres = new PanneauLivres (titrePan,colFond,coulTexPP,panTab,coulPanText,colEnt,
+	                colEntTex,cboufon,cboutex);
+		 tabbedPane.addTab("Livres" , panLivres);
 			 
 			 titrePan = "Auteurs";
 			 PanneauAuteurs panAuteurs = new PanneauAuteurs (titrePan,colFond,coulTexPP,panTab,coulPanText,colEnt,
