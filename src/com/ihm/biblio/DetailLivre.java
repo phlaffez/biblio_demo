@@ -206,8 +206,99 @@ private Livre obj;
 			this.pan.add(this.titreChamp, this.grilleCont);
 			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
 			
-	//*****************************************A TERMINER  ligne 205 detailAuteur comme modele
+			this.grilleCont.gridx=0;
+			this.grilleCont.gridy=2;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_START;
+			this.pan.add(this.auteursLabel, this.grilleCont);
 			
+			this.grilleCont.gridx=1;
+			this.grilleCont.gridy=2;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
+			this.pan.add(this.auteursChamp, this.grilleCont);
+			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
+			
+			
+			
+			this.grilleCont.gridx=0;
+			this.grilleCont.gridy=3;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_START;
+			this.pan.add(this.langueLabel, this.grilleCont);
+			
+			this.grilleCont.gridx=1;
+			this.grilleCont.gridy=3;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
+			this.pan.add(this.langueChamp, this.grilleCont);
+			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
+			
+			
+	
+			
+			this.grilleCont.gridx=0;
+			this.grilleCont.gridy=4;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_START;
+			this.pan.add(this.genreLabel, this.grilleCont);
+			
+			this.grilleCont.gridx=1;
+			this.grilleCont.gridy=4;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
+			this.pan.add(this.genreChamp, this.grilleCont);
+			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
+			
+			
+	
+			
+			this.grilleCont.gridx=0;
+			this.grilleCont.gridy=5;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_START;
+			this.pan.add(this.datePubLabel, this.grilleCont);
+			
+			this.grilleCont.gridx=1;
+			this.grilleCont.gridy=5;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
+			this.pan.add(this.publiChamp, this.grilleCont);
+			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
+			
+			
+				
+			
+			this.grilleCont.gridx=0;
+			this.grilleCont.gridy=6;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_START;
+			this.pan.add(this.dateAcqLabel, this.grilleCont);
+			
+			this.grilleCont.gridx=1;
+			this.grilleCont.gridy=6;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
+			this.pan.add(this.acqChamp, this.grilleCont);
+			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
+			
+			
+			
+			
+			this.grilleCont.gridx=0;
+			this.grilleCont.gridy=7;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_START;
+			this.pan.add(this.classementLabel, this.grilleCont);
+			
+			this.grilleCont.gridx=1;
+			this.grilleCont.gridy=7;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
+			this.pan.add(this.rangementChamp, this.grilleCont);
+			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
+			
+			this.grilleCont.gridx=0;
+			this.grilleCont.gridy=8;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_START;
+			this.pan.add(this.resLabel, this.grilleCont);
+			
+			this.grilleCont.gridx=1;
+			this.grilleCont.gridy=8;
+			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
+			this.pan.add(this.resumeChamp, this.grilleCont);
+			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;						
+					
+			
+	
 			
 			
 		}
