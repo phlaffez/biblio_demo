@@ -413,7 +413,7 @@ private void init1(Color coulFond, Color coulTextPP)
 //	this.setPreferredSize(new Dimension(800,600));
 	this.setSize(new Dimension(800,600));
 	 this.setResizable(false);
-	 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 }
 
 protected void dimChamps()

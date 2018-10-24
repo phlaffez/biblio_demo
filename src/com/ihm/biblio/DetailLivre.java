@@ -344,7 +344,7 @@ private Livre obj;
 //		this.setPreferredSize(new Dimension(800,600));
 		this.setSize(new Dimension(800,600));
 		 this.setResizable(false);
-		 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 		}
 
