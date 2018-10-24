@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,6 +31,8 @@ import com.ihm.biblio.DetailAuteur.ModifierListener;
 import com.ihm.biblio.DetailAuteur.RazListener;
 import com.ihm.biblio.IhmDetailFiche.quitterListener;
 import com.metier.biblio.Auteur;
+import com.metier.biblio.Genre;
+import com.metier.biblio.Langue;
 import com.metier.biblio.Livre;
 import com.metier.biblio.Pays;
 
@@ -83,13 +87,25 @@ private Livre obj;
 		private int idLangue;
 		private GenreDAO genredao = new GenreDAO(Mysql_Connect.getInstance());
 		private LangueDAO languedao = new LangueDAO(Mysql_Connect.getInstance());
+		private Langue langue;
+		private Pays pays;
 		private LivreAuteurDAO livreAuteurdao = new LivreAuteurDAO(Mysql_Connect.getInstance());
 
+		
+		
+		
+		
+		
+		
+		
 		
 	// messages:enre
 		private String titre="Bibliothèque: Livres";
 		private String titre2="Création / Modification d'une fiche livre";
 
+		
+
+		
 
 		
 		
@@ -163,6 +179,25 @@ private Livre obj;
 			this.setTitle("Création d'une fiche livre");
 			this.idChamp.setText("0");
 			this.titreChamp.setText("");
+			this.listeGenres = new JComboBox();
+			ajouteTousGenres();
+			this.listeLangues = new JComboBox();
+			ajouteToutesLangues();
+			this.rangementChamp.setText("");
+			this.acqChamp.setText("");
+			this.publiChamp.setText("  /  /  ");
+			this.acqChamp.setText("  /  /  ");
+			
+
+//			private JTextArea resumeChamp= new JTextArea();
+//			private JTextArea auteursChamp= new JTextArea();
+
+			
+			
+			
+			
+			
+			
 			
 			//*******************************FINIR PLACEMENT DES CHAMPS
 			
@@ -227,7 +262,15 @@ private Livre obj;
 			this.grilleCont.gridx=1;
 			this.grilleCont.gridy=3;
 			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
-			this.pan.add(this.langueChamp, this.grilleCont);
+			if(ordre!=Ordre.LECTURE)
+			{
+				this.pan.add(this.listeLangues, this.grilleCont);
+			}
+			else
+			{
+				this.pan.add(this.langueChamp, this.grilleCont);
+			}
+			
 			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
 			
 			
@@ -241,7 +284,15 @@ private Livre obj;
 			this.grilleCont.gridx=1;
 			this.grilleCont.gridy=4;
 			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
-			this.pan.add(this.genreChamp, this.grilleCont);
+			if(ordre!=Ordre.LECTURE)
+			{
+				this.pan.add(this.listeGenres, this.grilleCont);
+			}
+			else
+			{
+				this.pan.add(this.genreChamp, this.grilleCont);
+			}
+			
 			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
 			
 			
@@ -288,17 +339,76 @@ private Livre obj;
 			
 			this.grilleCont.gridx=0;
 			this.grilleCont.gridy=8;
-			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_START;
+			this.grilleCont.gridwidth=4;
+			this.grilleCont.weightx=4;
+			this.grilleCont.anchor=GridBagConstraints.CENTER;
 			this.pan.add(this.resLabel, this.grilleCont);
+			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
 			
-			this.grilleCont.gridx=1;
-			this.grilleCont.gridy=8;
-			this.grilleCont.anchor=GridBagConstraints.FIRST_LINE_END;
-			this.pan.add(this.resumeChamp, this.grilleCont);
+			this.grilleCont.gridx=0;
+			this.grilleCont.gridy=9;
+			this.grilleCont.gridheight=1;
+			this.grilleCont.gridwidth=4;
+			this.grilleCont.weighty=3;	
+			this.grilleCont.weightx=2;
+			this.grilleCont.fill=GridBagConstraints.BOTH;
+			this.jsc = new JScrollPane(this.resumeChamp);
+
+			this.pan.add(this.jsc, this.grilleCont);
 			this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;						
 					
+			initBoutons();
+			this.grilleCont.gridx=0;
+			this.grilleCont.gridy=13;
+			this.grilleCont.gridheight=1;
+			this.grilleCont.gridwidth=1;
+			this.grilleCont.weightx=1;
+			this.grilleCont.weighty=1;
+			this.grilleCont.fill=GridBagConstraints.NONE;
 			
+			this.pan.add(this.boutonCreer, this.grilleCont);
+			
+			this.grilleCont.gridx=1;
+			this.grilleCont.gridy=13;
+			this.grilleCont.gridheight=1;
+			this.grilleCont.gridwidth=1;
 	
+			this.pan.add(this.boutonModifier, this.grilleCont);
+			
+			this.grilleCont.gridx=2;
+			this.grilleCont.gridy=13;
+			this.grilleCont.gridheight=1;
+			this.grilleCont.gridwidth=1;
+			
+			this.pan.add(this.boutonRAZ, this.grilleCont);
+			
+			this.grilleCont.gridx=3;
+			this.grilleCont.gridy=13;
+			this.grilleCont.gridheight=1;
+			this.grilleCont.gridwidth=1;
+			
+			this.pan.add(this.boutonQuitter, this.grilleCont);
+			
+			this.boutonQuitter.setVisible(true);
+			if(this.ordre==Ordre.CREATION)
+			{
+				this.boutonModifier.setVisible(false);
+				this.boutonCreer.setVisible(true);
+				this.boutonRAZ.setVisible(true);
+			}
+			if(this.ordre==Ordre.MODIFICATION)
+			{
+				this.boutonModifier.setVisible(true);
+				this.boutonCreer.setVisible(false);
+				this.boutonRAZ.setVisible(true);
+				this.boutonRAZ.setText("Reinitialiser");
+			}
+			if(this.ordre==Ordre.LECTURE)
+			{
+				this.boutonModifier.setVisible(false);
+				this.boutonCreer.setVisible(false);
+				this.boutonRAZ.setVisible(false);
+			}
 			
 			
 		}
@@ -336,6 +446,40 @@ private Livre obj;
 			
 		}
 		
+		
+		private void ajouteTousGenres()
+		{
+			ArrayList<Genre> lg = (ArrayList<Genre>)genredao.selectAll();
+	//		Collections.sort(lg);  trouver pourquoi cette instruction n'est
+			//                     pasacceptée ici alors qu'elle l'est
+			//                     dans ajouteTousPays
+
+			
+			// Insertion dans le Combo
+			for(int i = 0;i<lg.size();i++)
+			{
+				this.listeGenres.addItem(lg.get(i).getNomGenre());
+			}
+		
+			
+		}
+		
+		private void ajouteToutesLangues()
+		{
+			ArrayList<Langue> ll = (ArrayList<Langue>)languedao.selectAll();
+	//		Collections.sort(ll);	// idem ci dessus
+			
+			// Insertion dans le Combo
+			for(int i = 0;i<ll.size();i++)
+			{
+				this.listeLangues.addItem(ll.get(i).getNom());
+			}
+		
+			
+		}		
+		
+		
+		
 	private void init1(Color coulFond, Color coulTextPP) {
 			// TODO Auto-generated method stub
 		this.coulFond=coulFond;
@@ -352,6 +496,62 @@ private Livre obj;
 	protected void dimChamps() {
 		// TODO Auto-generated method stub
 		// dimensionnement des champs, police, etc.
+		Dimension dimAnnee = new Dimension(50,25);
+		Dimension dimChamp = new Dimension(250,25);
+		Dimension dimInfo = new Dimension(750,300);
+		
+		
+		// Il faut dimensionner le champ auteursChamp
+		
+		this.idChamp.setBackground(Color.WHITE);
+		this.idChamp.setVisible(true);	
+		this.idChamp.setFont(f);	
+		
+		this.titreChamp.setBackground(Color.WHITE);
+		this.titreChamp.setVisible(true);	
+		this.titreChamp.setFont(f);
+		this.titreChamp.setPreferredSize(dimChamp);	
+		
+		this.genreChamp.setBackground(Color.WHITE);
+		this.genreChamp.setVisible(true);	
+		this.genreChamp.setFont(f);
+		this.genreChamp.setPreferredSize(dimChamp);		
+		
+		this.langueChamp.setBackground(Color.WHITE);
+		this.langueChamp.setVisible(true);	
+		this.langueChamp.setFont(f);
+		this.langueChamp.setPreferredSize(dimChamp);	
+		
+		this.rangementChamp.setBackground(Color.WHITE);
+		this.rangementChamp.setVisible(true);	
+		this.rangementChamp.setFont(f);
+		this.rangementChamp.setPreferredSize(dimChamp);
+		
+		this.acqChamp.setBackground(Color.WHITE);
+		this.acqChamp.setVisible(true);	
+		this.acqChamp.setFont(f);
+		this.acqChamp.setPreferredSize(dimAnnee);
+		
+		this.publiChamp.setBackground(Color.WHITE);
+		this.publiChamp.setVisible(true);	
+		this.publiChamp.setFont(f);
+		this.publiChamp.setPreferredSize(dimAnnee);
+		
+		this.resumeChamp.setBackground(Color.WHITE);
+		this.resumeChamp.setVisible(true);	
+		this.resumeChamp.setFont(f);
+		this.resumeChamp.setPreferredSize(dimInfo);
+
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	

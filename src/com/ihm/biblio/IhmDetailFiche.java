@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /*
  * Classe abstrait définissant les méthodes à créer pour les fiches de détails.
@@ -30,10 +31,11 @@ public abstract class IhmDetailFiche <T,TDAO> extends JFrame{
 	protected Color coulFond;          // couleur fond du panneau
 	protected Color coulTextPP;        // couleur texte principal
 	
-	// gestionaire de disposition:
+	// gestionaire de disposition, etc.:
 	
 	protected GridBagLayout grille;
 	protected GridBagConstraints grilleCont;
+	protected JScrollPane jsc;
 	
 	// message d'erreur
 	protected StringBuffer errMsg=new StringBuffer();  // message d'erreur créé par la validation

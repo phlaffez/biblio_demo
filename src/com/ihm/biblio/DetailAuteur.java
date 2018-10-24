@@ -54,7 +54,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	private JLabel infosLabel = new JLabel("INFORMATIONS");
 	private Dimension dimLabel;
 	private Dimension dimChamp;
-	private JScrollPane jsc;
+//	private JScrollPane jsc;
 
 
 	
@@ -359,7 +359,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 
 	@Override
 	protected void initBoutons() {
-		// TODO Auto-generated method stub
+
 		// cette méthode doit affecter les listener et placer les boutons dans
 		// dans le bas de la grille
 		
@@ -394,6 +394,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 	private void ajouteTousPays()
 	{
 		ArrayList<Pays> lp = (ArrayList<Pays>)paysdao.selectAll();
+		
 		Collections.sort(lp);	
 		
 		// Insertion dans le Combo
@@ -733,7 +734,7 @@ class ModifierListener implements ActionListener {
 		// TODO  affichage boite de message
 		
 		
-		// RAZ du formulairepour saisie suivante
+		// RAZ du formulaire pour saisie suivante
 		obj=aut;
 		remplit();
 		}

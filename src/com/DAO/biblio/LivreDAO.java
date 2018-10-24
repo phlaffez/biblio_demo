@@ -82,6 +82,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 					 System.out.println("Problème dans l'enregistrement des auteurs");
 					 System.out.println("du livre: "+obj.getNomLivre());
 				 }
+				
 				 retour = true & totok;
 				 mes=1;
 				 }
