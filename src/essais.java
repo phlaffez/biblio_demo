@@ -15,6 +15,7 @@ import com.DAO.biblio.LivreDAO;
 import com.DAO.biblio.LocalisationDAO;
 import com.DAO.biblio.ResumeLivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
+import com.ihm.biblio.ChoixAuteurs;
 import com.ihm.biblio.DetailAuteur;
 import com.ihm.biblio.Fenetre_PP;
 import com.ihm.biblio.Ordre;
@@ -35,12 +36,11 @@ public class essais {
 	public static void main(String[] args) {
 		
 
-//		DetailAuteur da = new DetailAuteur(Color.CYAN, Color.black);
-		
-//		AuteurDAO auteurdao = DaoFactoryMySQL.getAuteurDAO();
-		LocalisationDAO locdao = new LocalisationDAO(Mysql_Connect.getInstance());
-		ArrayList<Localisation> lieux = (ArrayList<Localisation>) locdao.selectAll();
-	System.out.println(lieux.toString());
+		String titre = "test";
+		Color cf2 = Color.cyan;
+		Color cf = Color.LIGHT_GRAY;
+		Color cb = Color.RED;
+ChoixAuteurs ca = new ChoixAuteurs(titre,cf,cf2,cb);
 			}
 }
 		
