@@ -220,6 +220,35 @@ public class LangueDAO extends DAO<Langue> implements DAO_Noms<Langue>{
 		return langue;
 	}
 
+	@Override
+	public Object getByNomLike(String n, OptionRecherche opr) {
+		Langue langue=null;
+		n=n.toUpperCase();
+		int mes=0;
+		String requete= "SELECT * FROM langues WHERE nom_lan LIKE\'";
+		if(opr == OptionRecherche.CONTIEND)//
+			{
+			requete = requete+"%";
+			requete = requete+n+"%\'";
+			}
+		try
+		{
+			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			if (res.first())
+			{
+				langue = new Langue(res.getInt("id"),n,res.getInt("nbre"));
+				mes=1;
+			}
+		}
+		catch (SQLException e)
+		{
+			mes=2;
+			// popup à mettre
+			System.out.println("Problème SQL lors de la recherche de la langue "+n);
+		}
+		return langue;
+	}
+
 
 
 
