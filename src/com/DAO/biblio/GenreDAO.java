@@ -231,4 +231,35 @@ public class GenreDAO  extends DAO<Genre> implements DAO_Noms<Genre>{
 		return genre;
 	}
 
+	@Override
+	public Object getByNomLike(String n, OptionRecherche opr) 
+	{
+		Genre genre=null;
+		n=n.toUpperCase();
+		int mes=0;
+		String requete= "SELECT * FROM genres WHERE nom_genre LIKE\'";
+		if(opr == OptionRecherche.CONTIEND)
+		{
+			requete = requete+"%";
+		}
+		
+		requete=requete+n+"%\'";
+		try
+		{
+			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			if (res.first())
+			{
+				genre = new Genre(res.getInt("id"),n);
+				mes=1;
+			}
+		}
+		catch (SQLException e)
+		{
+			mes=2;
+			// popup à mettre
+			System.out.println("Problème SQL lors de la recherche du genre "+n);
+		}
+		return genre;
+	}
+
 }
