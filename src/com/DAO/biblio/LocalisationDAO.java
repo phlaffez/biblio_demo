@@ -229,4 +229,32 @@ public class LocalisationDAO extends DAO<Localisation> implements DAO_Noms<Local
 		return lieu;
 	}
 
+
+
+	@Override
+	public Object getByNomLike(String n, OptionRecherche opr) {
+		Localisation lieu=null;
+		n=n.toUpperCase();
+		int mes=0;
+		String requete= "SELECT * FROM localisation WHERE nom_lieu LIKE\'";
+		if(opr==OptionRecherche.CONTIEND)
+		requete = requete+n+"%\'";
+		try
+		{
+			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			if (res.first())
+			{
+				lieu = new Localisation(res.getInt("id"),n);
+				mes=1;
+			}
+		}
+		catch (SQLException e)
+		{
+			mes=2;
+			// popup à mettre
+			System.out.println("Problème SQL lors de la recherche de la localisation "+n);
+		}
+		return lieu;
+	}
+
 }
