@@ -239,4 +239,35 @@ public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
 		return pays;
 	}
 
+
+
+	@Override
+	public Object getByNomLike(String n, OptionRecherche opr) {
+		Pays pays=null;
+		n=n.toUpperCase();
+		int mes=0;
+		String requete= "SELECT * FROM pays WHERE nom_p LIKE\'";
+		if(opr==OptionRecherche.CONTIEND)
+		{
+			requete = requete + "%";
+		}
+		requete = requete+n+"%\'";
+		try
+		{
+			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			if (res.first())
+			{
+				pays = new Pays(res.getInt("id"),n);
+				mes=1;
+			}
+		}
+		catch (SQLException e)
+		{
+			mes=2;
+			// popup à mettre
+			System.out.println("Problème SQL lors de la recherche du pays "+n);
+		}
+		return pays;
+	}
+
 }
