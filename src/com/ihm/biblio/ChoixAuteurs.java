@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -125,8 +126,9 @@ private Color cb;
 		 // panneau de recherche
 		 
 		 this.panneauRecherche.add(this.labelRecherche);
-		 this.champRecherche.setPreferredSize(new Dimension(200,20));
+		 this.champRecherche.setPreferredSize(new Dimension(180,20));
 		 this.panneauRecherche.add(this.champRecherche);
+		 this.boutonCommence.setSelected(true);
 		 this.groupeOption.add(this.boutonCommence);
 		 this.groupeOption.add(this.boutonContient);
 		 this.panneauRecherche.add(this.boutonCommence);
@@ -200,13 +202,27 @@ private Color cb;
 			}
 	
 	
+	
+	
 	// Adapters
 	
 	// Double click pour ajouter un auteur dans la liste des auteurs du titre
 	
+	class AjouteAuteur extends MouseAdapter
+	{
+		
+	}
+	
 	
 	
 	// Double click pour retirer un auteur de la liste des auteurs du titre
+	
+	class RetireAuteur extends MouseAdapter
+	{
+		
+	}
+	
+	
 	
 	// Pour faire une recherche dans la table auteur (bouton spécialisé)
 	
@@ -218,13 +234,48 @@ private Color cb;
 			
 			//  récupération de ce qu'il faut chercher
 			
-			// Recherche 
-			// affichage de la selection dans la table
+			// Recherche dans la table de la BDD
+			// affichage de la selection dans la Jtable de gauche
 		}
+		
+		
 		
 	}
 	
 
+	
+	class ValiderListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		
+		}
+	
+	}
+	
+	class RazListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		
+		}
+		
+		class AnnulerListener implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			
+			}
+		
+		}
+	
+	}
 	
 
 }
