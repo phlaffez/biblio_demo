@@ -4,11 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -71,6 +75,11 @@ private Color cb;
 	private JTextField champRecherche = new JTextField();
 	private JButtonOutils boutonRecherche;
 	private JPanel panneauRecherche= new JPanel();
+	private JRadioButton boutonContient= new JRadioButton();
+	private JRadioButton boutonCommence = new JRadioButton();
+	private ButtonGroup groupeOption = new ButtonGroup();
+	private JLabel labelOption = new JLabel("Commence / Contient");
+	
 	
 	
 	
@@ -118,6 +127,11 @@ private Color cb;
 		 this.panneauRecherche.add(this.labelRecherche);
 		 this.champRecherche.setPreferredSize(new Dimension(200,20));
 		 this.panneauRecherche.add(this.champRecherche);
+		 this.groupeOption.add(this.boutonCommence);
+		 this.groupeOption.add(this.boutonContient);
+		 this.panneauRecherche.add(this.boutonCommence);
+		 this.panneauRecherche.add(this.labelOption);
+		 this.panneauRecherche.add(this.boutonContient);
 		 this.boutonRecherche = new  JButtonOutils("Chercher",100,20,cb);
 		 this.panneauRecherche.add(this.boutonRecherche);
 		 
@@ -146,9 +160,7 @@ private Color cb;
 			this.panCentre.setLayout(new BorderLayout());
 			this.panCentre.add(this.panCentreW, BorderLayout.WEST);
 			this.panCentre.add(this.panCentreE,BorderLayout.EAST);
-			
-		 
-		 
+					 
 				 
 		 
 	}
@@ -192,9 +204,27 @@ private Color cb;
 	
 	// Double click pour ajouter un auteur dans la liste des auteurs du titre
 	
+	
+	
 	// Double click pour retirer un auteur de la liste des auteurs du titre
 	
 	// Pour faire une recherche dans la table auteur (bouton spécialisé)
+	
+	class ChercherListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+			//  récupération de ce qu'il faut chercher
+			
+			// Recherche 
+			// affichage de la selection dans la table
+		}
+		
+	}
+	
+
 	
 
 }
