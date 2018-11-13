@@ -2,8 +2,10 @@ package com.ihm.biblio;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -63,6 +65,13 @@ private Color cb;
 	private JScrollPane jsp2;
 	private JTable table2;   // affichage des auteurs choisis
 	
+	// champ et bouton de recherche
+	
+	private JLabel labelRecherche = new JLabel("Preselection: ");
+	private JTextField champRecherche = new JTextField();
+	private JButtonOutils boutonRecherche;
+	private JPanel panneauRecherche= new JPanel();
+	
 	
 	
 
@@ -104,6 +113,14 @@ private Color cb;
 		 this.nomOuvrage.setText(this.titre);
 		 this.panHaut.add(this.nomOuvrage);
 		 
+		 // panneau de recherche
+		 
+		 this.panneauRecherche.add(this.labelRecherche);
+		 this.champRecherche.setPreferredSize(new Dimension(200,20));
+		 this.panneauRecherche.add(this.champRecherche);
+		 this.boutonRecherche = new  JButtonOutils("Chercher",100,20,cb);
+		 this.panneauRecherche.add(this.boutonRecherche);
+		 
 		 // Panneau central
 		 
 		 this.panCentre.setBackground(this.cf);
@@ -114,7 +131,9 @@ private Color cb;
 			table1 = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.AUTEURS);
 			model = (ModelTablePhl)table1.getModel();
 			jsp1= new JScrollPane(table1);
-			this.panCentreW.add(this.jsp1);
+			this.panCentreW.setLayout(new BorderLayout());
+			this.panCentreW.add(this.panneauRecherche,BorderLayout.NORTH);
+			this.panCentreW.add(this.jsp1,BorderLayout.CENTER);
 			
 			if(table2!=null)
 				this.remove(table2);
@@ -167,6 +186,15 @@ private Color cb;
 		this.setContentPane(this.pan);   
 		this.setVisible(true);
 			}
+	
+	
+	// Adapters
+	
+	// Double click pour ajouter un auteur dans la liste des auteurs du titre
+	
+	// Double click pour retirer un auteur de la liste des auteurs du titre
+	
+	// Pour faire une recherche dans la table auteur (bouton spécialisé)
 	
 
 }
