@@ -6,7 +6,8 @@ package com.DAO.biblio;
 public interface DAO_Noms <T> {
 
 	
-	public Object getByNom(String n);
+	public Object getByNom(String n);  // recherche par nom exact
+	public Object getByNomLike(String n); // recherche avec un like
 
 	// une List<T> n'est pas acceptée. Que faut il faire ? Un Objet pour essayer
 }
