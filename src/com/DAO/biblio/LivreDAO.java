@@ -369,8 +369,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 	@Override
 	public Object getByNom(String n) {
 		// TODO Auto-generated method stub:
-		// voir comment on peut implémenter ça. Pour le moment je laisse avec
-		// une recherche stricte
+		
 		
 		ArrayList<Auteur> auteurs=null;
 		Livre livre;
@@ -382,7 +381,77 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		List<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
 		Livre unLivre;
 		int mes=0;    // s'il est nécessaire d'afficher des messages
-		String requete = "SELECT * FROM livres WHERE nom_liv = '"+n+"'";
+		String requete = "SELECT * FROM livres WHERE nom_liv = \'"+n+"\'";
+//		System.out.println(requete);
+		try
+		{
+			ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			while (res.next())
+			{
+
+				int id = res.getInt("id");
+				LivreAuteurDAO livreauteurdao = new LivreAuteurDAO(connex);
+				 auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
+				String titre = res.getString("nom_liv");
+				if(titre==null) titre="";
+				int langue = res.getInt("langue");
+				int genre = res.getInt("genre");
+				if(res.getDate("date_pub")!=null)
+				{
+					datePub = res.getDate("date_pub").toString();
+				}
+				if(res.getDate("date_acq")!=null)
+				{
+					dateAcq = res.getDate("date_acq").toString();
+				}
+				 
+				boolean resum = res.getBoolean("un_resume");
+				if(res.getString("classement")!=null)
+						{
+					 classe = res.getInt("classement");
+						}
+	
+				
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
+				livres.add(livre);
+			
+			}
+			
+			res.close();
+		}
+		catch (SQLException e)
+		{
+			mes=2;
+			System.out.println("Erreur SQL lors de la recherche de la totalité de la table livres");;
+		}
+		
+
+		return livres;
+	}
+
+
+
+	@Override
+	public Object getByNomLike(String n, OptionRecherche opr) {
+		// TODO Auto-generated method stub:
+		
+		
+		ArrayList<Auteur> auteurs=null;
+		Livre livre;
+		String datePub = "Date de publication non renseignée";
+		String dateAcq = "Date d'acquisition non renseignée";
+		int classe = 0;
+		// a utiliser avec précautions. Que se passe-t-il s'il y a trop de livres
+		// dans la base de données ?
+		List<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
+		Livre unLivre;
+		int mes=0;    // s'il est nécessaire d'afficher des messages
+		String requete = "SELECT * FROM livres WHERE nom_liv LIKE \'";
+		if(opr == OptionRecherche.CONTIEND)
+		{
+			requete = requete+"%";
+		}
+		requete = requete+n+"\'";
 //		System.out.println(requete);
 		try
 		{
