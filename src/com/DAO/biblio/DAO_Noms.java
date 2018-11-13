@@ -7,7 +7,7 @@ public interface DAO_Noms <T> {
 
 	
 	public Object getByNom(String n);  // recherche par nom exact
-	public Object getByNomLike(String n, OptionRecherche or); // recherche avec un like
+	public Object getByNomLike(String n, OptionRecherche opr); // recherche avec un like
 
 	// une List<T> n'est pas acceptée. Que faut il faire ? Un Objet pour essayer
 }

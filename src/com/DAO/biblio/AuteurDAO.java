@@ -357,6 +357,44 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 			return auteurs;
 		}
 
+	@Override
+	public Object getByNomLike(String n, OptionRecherche opr) {
+		
+	//	crééele 23/11/2018
+		Auteur auteur=null;
+		List<Auteur> auteurs = new ArrayList<Auteur>();
+				int mes=0;
+		String requete= "SELECT * FROM auteurs WHERE nom_aut LIKE \'";
+		if(opr == OptionRecherche.CONTIEND)
+		{
+			requete = requete + "%";
+		}
+		requete = requete+n+"%\'";	
+			try
+			{
+				ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+				while (res.next())
+				{
+
+					auteur = new  Auteur(res.getInt("id"),res.getString("nom_aut"),
+							  res.getString("prenom_aut"),res.getInt("pays_aut"),
+							  res.getInt("annee_naiss"),
+							  res.getInt("annee_deces"),
+							  res.getString("infos"));	
+					auteurs.add(auteur);
+					}
+				res.close();
+			}
+			catch (SQLException e)
+			{
+				mes=2;
+				System.out.println("Erreur SQL lors de la recherche des auteurs nommés "+n);
+			}
+			
+			
+			return auteurs;
+		}
+
 	
 
 }

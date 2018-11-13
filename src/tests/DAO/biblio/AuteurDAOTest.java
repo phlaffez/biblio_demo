@@ -74,6 +74,10 @@ class AuteurDAOTest {
 
 		assertTrue("GetByNom",ok1 & ok2 & ok3);
 	}
+	
+	
+	
+	
 
 	@Test
 	void testGetByNomPrenom() {
