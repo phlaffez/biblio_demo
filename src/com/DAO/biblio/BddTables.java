@@ -4,6 +4,7 @@ package com.DAO.biblio;
 public enum BddTables {
 
 	AUTEURS("auteurs"),
+	AUTEURS2("auteurs2"),
 	AUTEURLANGUE("auteur_langue"),
 	AUTEURGENRE("auteur_genre"),
 	GENRES("genres"),

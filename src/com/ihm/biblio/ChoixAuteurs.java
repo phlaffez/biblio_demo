@@ -65,6 +65,7 @@ private Color cb;
 	private DaoFactoryMySQL factory = new DaoFactoryMySQL();
 	private JScrollPane jsp1;
 	private ModelTablePhl model;
+	private ModelTablePhl model2;
 	private JTable table1;   // affichage de la table des auteurs
 	
 	private JScrollPane jsp2;
@@ -153,7 +154,7 @@ private Color cb;
 			
 			if(table2!=null)
 				this.remove(table2);
-			table2 = new JTable();
+	
 			// model
 			jsp2=new JScrollPane(table2);
 			this.panCentreE.add(this.jsp2);
