@@ -155,7 +155,8 @@ private Color cb;
 			if(table2!=null)
 				this.remove(table2);
 	
-			// model
+			table2 = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.AUTEURS2);
+			model2 = (ModelTablePhl)table2.getModel();
 			jsp2=new JScrollPane(table2);
 			this.panCentreE.add(this.jsp2);
 			

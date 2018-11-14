@@ -24,8 +24,10 @@ public static JTable getTable(Connection conn, BddTables table)
 	JTable tab = new JTable();
 		
 	int nbcol=0;
+	int nblig=0;
 	String requete="";
 	 String[] titre = new String[4];
+	 Object[][] data;
 	
 	// on a les tables secondaires, pour lesquelles on n'affiche que l'id et le nom:
 	
@@ -40,9 +42,9 @@ public static JTable getTable(Connection conn, BddTables table)
 		titre[1]="Nom";
 		
 	}
-	else if(table.equals(BddTables.AUTEURS))
+	else if(table.equals(BddTables.AUTEURS)|table.equals(BddTables.AUTEURS2))
 	{
-		// Les tables qu'on peut afficher en liste sont les auteurs et les livres
+		// Une table d'auteurs vide
 		 requete = "SELECT id, nom_aut, prenom_aut, annee_naiss FROM "+table;
 		nbcol=4;
 		titre = new String[4];
@@ -71,19 +73,22 @@ public static JTable getTable(Connection conn, BddTables table)
 			System.out.println("Erreur: appel de DAOTableFactory pour une table non autorisée");
 		}
 	
-	
-	
+
 	try
 	{
+		if(!table.equals(BddTables.AUTEURS2))
+		{
+			
+		
 		Statement state = conn.createStatement(
 				ResultSet.TYPE_SCROLL_INSENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
 //		System.out.println(requete);
 		ResultSet result = state.executeQuery(requete);
 		result.last();
-		int nblig = result.getRow();      // nombre de lignes
+		 nblig = result.getRow();      // nombre de lignes
 		result.beforeFirst();               // pour parcourir, on revient au début
-		Object[][] data = new Object[nblig][nbcol];
+		 data = new Object[nblig][nbcol];
 		
 		int nbreLine = 0;
 		while (result.next()) {
@@ -92,6 +97,16 @@ public static JTable getTable(Connection conn, BddTables table)
 				    data[nbreLine][i] = result.getObject(i +1).toString();
 			}
 			nbreLine++;
+		}
+		}
+		else
+		{
+			nblig = 1;
+			 data = new Object[nblig][nbcol];
+			 for (int i =0;i<nbcol; i++)
+			 {
+				 data[0][i]="";
+			 }
 		}
 		
 		model = new ModelTablePhl(data,titre);
