@@ -159,6 +159,7 @@ private Color cb;
 				this.remove(table2);
 	
 			table2 = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.AUTEURS2);
+			table2.addMouseListener(new RetireAuteur());
 			model2 = (ModelTablePhl)table2.getModel();
 			jsp2=new JScrollPane(table2);
 			this.panCentreE.add(this.jsp2);
@@ -264,7 +265,19 @@ private Color cb;
 	
 	class RetireAuteur extends MouseAdapter
 	{
-		
+		public void mousePressed(MouseEvent e)
+		{
+			if (e.getClickCount() == 2)
+			{
+				 Point p = e.getPoint();
+		            int y = table1.rowAtPoint(p);
+		            if(y<table2.getRowCount()-1)
+		            {
+		            model2.removeRow(y);
+		            table2.repaint();
+		            }
+			}
+		}
 	}
 	
 	
