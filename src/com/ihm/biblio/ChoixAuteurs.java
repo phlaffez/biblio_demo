@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.List;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -115,7 +117,7 @@ private Color cb;
 	private  void init1()  // initialise ce qui est commun et trivial dans cette interface
 	{
 	    this.setTitle("Selection du ou des auteurs");
-		 this.setSize(1000,800);
+		 this.setSize(1200,1000);
 		 this.setLocationRelativeTo(null);
 		 
 		 // Panneau haut
@@ -146,6 +148,7 @@ private Color cb;
 		 if(table1!=null)
 			 this.remove(table1);
 			table1 = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.AUTEURS);
+			table1.addMouseListener(new AjouteAuteur());
 			model = (ModelTablePhl)table1.getModel();
 			jsp1= new JScrollPane(table1);
 			this.panCentreW.setLayout(new BorderLayout());
@@ -203,6 +206,23 @@ private Color cb;
 		this.setVisible(true);
 			}
 	
+	// vérification de l'existence d'un auteur dans la table 2
+	// i est l'identifiant de l'auteur
+	
+	private boolean auteurPresent(int i)
+	{
+		boolean ok = false;
+		System.out.println(table2.getRowCount());
+		for (int j = 0;j<table2.getRowCount()-1;j++)
+		{
+			if (Integer.parseInt(table2.getValueAt(j, 0).toString())==i)
+			{
+				ok = true;
+			}
+		}
+		return ok;
+	}
+	
 	
 	
 	
@@ -212,7 +232,30 @@ private Color cb;
 	
 	class AjouteAuteur extends MouseAdapter
 	{
-		
+		public void mousePressed(MouseEvent e) {
+			 if (e.getClickCount() == 2) {
+			 Point p = e.getPoint();
+            int y = table1.rowAtPoint(p);
+            int jj = Integer.parseInt(table1.getValueAt(y, 0).toString());
+            if(!auteurPresent(jj))
+            {
+            	for (int i =0;i<table1.getColumnCount();i++)
+                {
+                	table2.setValueAt(table1.getValueAt(y, i),table2.getRowCount()-1, i);
+                }
+                
+                Object[] data = new Object[table1.getColumnCount()];
+                
+                for ( int i =0;i<table1.getColumnCount();i++)
+                {
+                	data[i]="";
+                }
+                model2.addRow(data);
+                table2.repaint();
+    			 }
+            }
+            
+		}
 	}
 	
 	
