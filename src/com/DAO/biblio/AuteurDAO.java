@@ -395,6 +395,40 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 			return auteurs;
 		}
 
+	public List<Auteur> selectAuteursLivre(int idLivre) {
+		//Renvoie tous les auteurs d'un titre donné
+		List<Auteur> auteurs = new ArrayList<Auteur>();
+		Auteur auteur = null;
+		int mes=0;    // s'il est nécessaire d'afficher des messages
+		String requete = "SELECT * FROM auteurs INNER JOIN livre_auteurs ";
+				requete = requete + "ON auteurs.id = livre_auteurs.id_auteur WHERE livre_auteurs.id_livre = ";
+				requete = requete + Integer.toString(idLivre);
+				System.out.println(requete);
+		
+		try
+		{
+			ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			while (res.next())
+			{
+
+				auteur = new  Auteur(res.getInt("id"),res.getString("nom_aut"),
+						  res.getString("prenom_aut"),res.getInt("pays_aut"),
+						  res.getInt("annee_naiss"),
+						  res.getInt("annee_deces"),
+						  res.getString("infos"));	
+				auteurs.add(auteur);
+				}
+			res.close();
+		}
+		catch (SQLException e)
+		{
+			mes=2;
+			System.out.println("Erreur SQL lors de la recherche de la totalité des auteurs d'un livre");;
+		}
+		
+		
+		return auteurs;
+	}
 	
 
 }

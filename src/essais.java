@@ -40,7 +40,11 @@ public class essais {
 		Color cf2 = Color.cyan;
 		Color cf = Color.LIGHT_GRAY;
 		Color cb = Color.RED;
-ChoixAuteurs ca = new ChoixAuteurs(titre,cf,cf2,cb);
+		int idLivre=0;
+// ChoixAuteurs ca = new ChoixAuteurs(titre,idLivre, cf,cf2,cb);
+		AuteurDAO auteurdao = new AuteurDAO(Mysql_Connect.getInstance());
+		ArrayList<Auteur> listeAuteurs = (ArrayList<Auteur>)auteurdao.selectAuteursLivre(2);
+		System.out.println(listeAuteurs.toString());
 			}
 }
 		

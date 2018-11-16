@@ -62,8 +62,6 @@ private Color cb;
 	private JButtonOutils boutonValider;
 	
 	// tables, et accès à la base de données
-	private Auteur auteur = new Auteur();         // recupère les infos dans le table de choix
-	                                             // pour copie dans la table des choisis
 	private DaoFactoryMySQL factory = new DaoFactoryMySQL();
 	private JScrollPane jsp1;
 	private ModelTablePhl model;
@@ -88,7 +86,8 @@ private Color cb;
 	
 	
 
-	public ChoixAuteurs(String titre, Color cf, Color cf2, Color cb) 
+	public ChoixAuteurs(String titre, int idLivre,Color cf, Color cf2, Color cb) 
+	// ce constructeur est à utiliser pour un nouveau livre, pour lequel on n'a encore
 	
 	{
 		this.titre = titre;
