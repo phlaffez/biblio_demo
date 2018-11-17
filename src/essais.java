@@ -42,9 +42,9 @@ public class essais {
 		Color cb = Color.RED;
 		int idLivre=0;
 // ChoixAuteurs ca = new ChoixAuteurs(titre,idLivre, cf,cf2,cb);
-		AuteurDAO auteurdao = new AuteurDAO(Mysql_Connect.getInstance());
-		ArrayList<Auteur> listeAuteurs = (ArrayList<Auteur>)auteurdao.selectAuteursLivre(2);
-		System.out.println(listeAuteurs.toString());
+		LivreDAO livredao = new LivreDAO(Mysql_Connect.getInstance());
+		ArrayList<Livre> listeLivres = (ArrayList<Livre>)livredao.selectLivresAuteur(2);
+		System.out.println(listeLivres.toString());
 			}
 }
 		

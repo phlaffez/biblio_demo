@@ -403,7 +403,7 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 		String requete = "SELECT * FROM auteurs INNER JOIN livre_auteurs ";
 				requete = requete + "ON auteurs.id = livre_auteurs.id_auteur WHERE livre_auteurs.id_livre = ";
 				requete = requete + Integer.toString(idLivre);
-				System.out.println(requete);
+	//			System.out.println(requete);
 		
 		try
 		{

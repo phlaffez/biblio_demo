@@ -129,7 +129,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				requete = requete + "date_pub"+obj.getDatePublication()+"',";
 				requete = requete + "date_pub"+obj.getDateAcquisition()+"',";
 				requete = requete + "un_resume = "+obj.getUnResume()+",";
-				requete = requete + "classement = "+"'"+obj.getClassement()+"'";
+				requete = requete + "lieux = "+"'"+obj.getClassement()+"'";
 				
 				
 	requete = requete  + " WHERE id ="+Integer.toString(obj.getId());
@@ -267,9 +267,9 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				
 				 resum = res.getBoolean("un_resume");
 				 
-				 if (res.getString("classement")!=null)
+				 if (res.getString("lieux")!=null)
 				 {
-					 classe = res.getInt("classement"); 
+					 classe = res.getInt("lieux"); 
 				 }
 				
 				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
@@ -344,7 +344,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				String dateAcq = res.getDate("date_acq").toString();
 		        if (datePub == null) datePub = "Date de publication non renseignée";
 				boolean resum = res.getBoolean("un_resume");
-				int classe = res.getInt("classement");
+				int classe = res.getInt("lieux");
 				
 				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
 				
@@ -406,9 +406,9 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				}
 				 
 				boolean resum = res.getBoolean("un_resume");
-				if(res.getString("classement")!=null)
+				if(res.getString("lieux")!=null)
 						{
-					 classe = res.getInt("classement");
+					 classe = res.getInt("lieux");
 						}
 	
 				
@@ -422,7 +422,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		catch (SQLException e)
 		{
 			mes=2;
-			System.out.println("Erreur SQL lors de la recherche de la totalité de la table livres");;
+			System.out.println("Erreur SQL lors de la recherche getByNom dans la table livres");;
 		}
 		
 
@@ -476,9 +476,9 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				}
 				 
 				boolean resum = res.getBoolean("un_resume");
-				if(res.getString("classement")!=null)
+				if(res.getString("lieux")!=null)
 						{
-					 classe = res.getInt("classement");
+					 classe = res.getInt("lieux");
 						}
 	
 				
@@ -492,12 +492,72 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		catch (SQLException e)
 		{
 			mes=2;
-			System.out.println("Erreur SQL lors de la recherche de la totalité de la table livres");;
+			System.out.println("Erreur SQL lors de la recherche getByNomLike dans la table livres");;
 		}
 		
 
 		return livres;
 	}
+	
+	
+public List<Livre> selectLivresAuteur(int idAuteur) {
+		
+		// Renvoie les livres d'un auteur donné
+		
+		Livre livre;
+		ArrayList<Auteur> auteurs = new ArrayList<Auteur>();
+		
+
+		ArrayList<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
+		Livre unLivre;
+		int mes=0;    // s'il est nécessaire d'afficher des messages
+		String  requete = "SELECT * FROM livres INNER JOIN livre_auteurs ";
+		requete = requete + "ON livres.id = livre_auteurs.id_livre WHERE livre_auteurs.id_auteur = ";
+		requete = requete + Integer.toString(idAuteur);
+			System.out.println(requete);
+		try
+		{
+			ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			while (res.next())
+			{
+
+				int id = res.getInt("id");
+				AuteurDAO auteurdao = new AuteurDAO(connex);
+				 auteurs=(ArrayList<Auteur>) auteurdao.selectAuteursLivre(id);
+				String titre = res.getString("nom_liv");
+				int langue = res.getInt("langue");
+				int genre = res.getInt("genre");
+				
+				String datePub = "Date de publication non renseignée";
+				System.out.println(datePub);
+				if(res.getDate("date_pub")!= null)
+					datePub = res.getDate("date_pub").toString();				
+				String dateAcq = "Date de d'acquisition non renseignée";
+				if(	res.getDate("date_acq")!=null)
+					dateAcq = res.getDate("date_acq").toString();
+				boolean resum = res.getBoolean("un_resume");
+				int classe = res.getInt("lieux");
+	//			System.out.println(classe);
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
+				livres.add(livre);
+			}
+			res.close();
+		}
+		catch (SQLException e)
+		{
+			mes=2;
+			System.out.println("Erreur SQL lors de la recherche des livres d'un auteur");;
+		}
+		
+		
+		
+		
+		
+		
+		return livres;
+	}
+	
+	
 
 
 }
