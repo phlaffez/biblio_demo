@@ -20,9 +20,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.BddTables;
 import com.DAO.biblio.DAOTableFactory;
 import com.DAO.biblio.DaoFactoryMySQL;
+import com.DAO.biblio.OptionRecherche;
 import com.dbacces.biblio.Mysql_Connect;
 import com.metier.biblio.Auteur;
 
@@ -64,7 +66,7 @@ private Color cb;
 	// tables, et accès à la base de données
 	private DaoFactoryMySQL factory = new DaoFactoryMySQL();
 	private JScrollPane jsp1;
-	private ModelTablePhl model;
+	private ModelTablePhl model1;
 	private ModelTablePhl model2;
 	private JTable table1;   // affichage de la table des auteurs
 	
@@ -137,6 +139,7 @@ private Color cb;
 		 this.panneauRecherche.add(this.labelOption);
 		 this.panneauRecherche.add(this.boutonContient);
 		 this.boutonRecherche = new  JButtonOutils("Chercher",100,20,cb);
+		 this.boutonRecherche.addActionListener(new ChercherListener());
 		 this.panneauRecherche.add(this.boutonRecherche);
 		 
 		 // Panneau central
@@ -148,7 +151,7 @@ private Color cb;
 			 this.remove(table1);
 			table1 = DAOTableFactory.getTable(Mysql_Connect.getInstance(), BddTables.AUTEURS);
 			table1.addMouseListener(new AjouteAuteur());
-			model = (ModelTablePhl)table1.getModel();
+			model1 = (ModelTablePhl)table1.getModel();
 			jsp1= new JScrollPane(table1);
 			this.panCentreW.setLayout(new BorderLayout());
 			this.panCentreW.add(this.panneauRecherche,BorderLayout.NORTH);
@@ -176,6 +179,7 @@ private Color cb;
 	private void placementBoutons()
 	{
 		this.panBas.setBackground(this.cf2);
+		this.panBas.setPreferredSize(new Dimension(1000,130));
 		this.boutonRAZ = new JButtonOutils("RAZ",180,50,cb);
 		this.boutonAnnuler = new  JButtonOutils("Annuler",180,50,cb);
 		this.boutonValider = new JButtonOutils("Valider",180,50,cb);
@@ -287,12 +291,29 @@ private Color cb;
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
+			AuteurDAO auteurdao = new AuteurDAO(Mysql_Connect.getInstance());
 			
+			ArrayList<Auteur> auteurs = new ArrayList<Auteur>();
+			String n = champRecherche.getText();
 			//  récupération de ce qu'il faut chercher
+			if(boutonContient.isSelected())
+			{
+				auteurs = (ArrayList<Auteur>)auteurdao.getByNomLike(n, OptionRecherche.CONTIEND);
+			}
+			else               //boutonCommence.isSelected() true
+			{
+				auteurs = (ArrayList<Auteur>)auteurdao.getByNomLike(n, OptionRecherche.COMMENCE);
+			}
 			
-			// Recherche dans la table de la BDD
 			// affichage de la selection dans la Jtable de gauche
+			
+			// je ne suis pas sur que ce soit le plus efficace:
+			int j = table1.getRowCount();
+			
+			for (int i = j-1;i>=0;i--)
+			{
+				model1.removeRow(i);
+			}
 		}
 		
 		

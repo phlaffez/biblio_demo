@@ -364,12 +364,13 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 		Auteur auteur=null;
 		List<Auteur> auteurs = new ArrayList<Auteur>();
 				int mes=0;
+				String nn=n.toUpperCase();
 		String requete= "SELECT * FROM auteurs WHERE nom_aut LIKE \'";
 		if(opr == OptionRecherche.CONTIEND)
 		{
 			requete = requete + "%";
 		}
-		requete = requete+n+"%\'";	
+		requete = requete+nn+"%\'";	
 			try
 			{
 				ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
