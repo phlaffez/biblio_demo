@@ -296,6 +296,7 @@ private Color cb;
 			ArrayList<Auteur> auteurs = new ArrayList<Auteur>();
 			String n = champRecherche.getText();
 			//  récupération de ce qu'il faut chercher
+			
 			if(boutonContient.isSelected())
 			{
 				auteurs = (ArrayList<Auteur>)auteurdao.getByNomLike(n, OptionRecherche.CONTIEND);
@@ -315,11 +316,13 @@ private Color cb;
 				model1.removeRow(i);
 			}
 			
+			Object[] data = new Object[table1.getColumnCount()];		
 			// ajout de la selection:
+		
 			
 			if(auteurs.size()>0)
 			{
-				Object[] data = new Object[4];
+						
 				Auteur unAuteur=null;
 				for (int i = 0;i<auteurs.size();i++)
 				{
@@ -330,6 +333,11 @@ private Color cb;
 					data[3]=unAuteur.getAnnee_naiss();
 					model1.addRow(data);
 				}
+								 
+	                table1.repaint();
+	    			 
+				
+				
 			}
 		}
 		

@@ -360,17 +360,26 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr) {
 		
-	//	crééele 23/11/2018
+	//	créée le 23/11/2018
 		Auteur auteur=null;
+		String requete;
 		List<Auteur> auteurs = new ArrayList<Auteur>();
 				int mes=0;
+				if(n.isEmpty())
+				{
+					requete="SELECT * FROM auteurs";
+				}
+				else
+				{
+					
 				String nn=n.toUpperCase();
-		String requete= "SELECT * FROM auteurs WHERE nom_aut LIKE \'";
+		 requete= "SELECT * FROM auteurs WHERE nom_aut LIKE \'";
 		if(opr == OptionRecherche.CONTIEND)
 		{
 			requete = requete + "%";
 		}
 		requete = requete+nn+"%\'";	
+				}
 			try
 			{
 				ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
