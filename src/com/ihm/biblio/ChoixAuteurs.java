@@ -307,12 +307,29 @@ private Color cb;
 			
 			// affichage de la selection dans la Jtable de gauche
 			
-			// je ne suis pas sur que ce soit le plus efficace:
+			// je ne suis pas sur que ce soit le plus efficace:  suppression de l'existant
 			int j = table1.getRowCount();
 			
 			for (int i = j-1;i>=0;i--)
 			{
 				model1.removeRow(i);
+			}
+			
+			// ajout de la selection:
+			
+			if(auteurs.size()>0)
+			{
+				Object[] data = new Object[4];
+				Auteur unAuteur=null;
+				for (int i = 0;i<auteurs.size();i++)
+				{
+					unAuteur = auteurs.get(i);
+					data[0]=unAuteur.getId();
+					data[1]=unAuteur.getNom();
+					data[2]=unAuteur.getPrenom();
+					data[3]=unAuteur.getAnnee_naiss();
+					model1.addRow(data);
+				}
 			}
 		}
 		
