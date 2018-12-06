@@ -1,4 +1,4 @@
-package com.DAO;
+package com.DAO.biblio;
 
 import java.sql.Connection;
 import java.util.List;
@@ -65,3 +65,4 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	}
 
 }
+
