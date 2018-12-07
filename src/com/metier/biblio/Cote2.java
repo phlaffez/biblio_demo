@@ -24,12 +24,12 @@ public class Cote2
        
        // getters et setters
 
-       public int getIdCote1()
+       public int getIdCote2()
        {
     	   return this.idCote2;
        }
        
-       public void setIdCote1(int id)
+       public void setIdCote2(int id)
        {
     	   this.idCote2=id;
        }
