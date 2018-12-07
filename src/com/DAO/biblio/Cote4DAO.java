@@ -3,11 +3,11 @@ package com.DAO.biblio;
 import java.sql.Connection;
 import java.util.List;
 
-import com.metier.biblio.Cote3;
+import com.metier.biblio.Cote4;
 
-public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
+public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 
-	public Cote3DAO(Connection conn) {
+	public Cote4DAO(Connection conn) {
 		super(conn);
 		// TODO Auto-generated constructor stub
 	}
@@ -25,25 +25,25 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	}
 
 	@Override
-	public boolean create(Cote3 obj) {
+	public boolean create(Cote4 obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Cote3 obj) {
+	public boolean update(Cote4 obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(Cote3 obj) {
+	public boolean delete(Cote4 obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Cote3 findId(int id) {
+	public Cote4 findId(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -55,12 +55,9 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	}
 
 	@Override
-	public List<Cote3> selectAll() {
+	public List<Cote4> selectAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
-
-
-
