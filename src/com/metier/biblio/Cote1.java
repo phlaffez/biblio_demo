@@ -14,12 +14,12 @@ public class Cote1{
    }
    public Cote1(int idCote1, String code, String nom){
        this.idCote1=idCote1;
-       this.code=code;
-       this.nom=nom;
+       this.code=code.toUpperCase();
+       this.nom=nom.toUpperCase();
        };
    public Cote1(String code,String no){
-       this.code=code;
-       this.nom=nom;
+       this.code=code.toUpperCase();
+       this.nom=nom.toUpperCase();
        };
        
        // getter et setters
@@ -41,7 +41,7 @@ public class Cote1{
        
        public void setCode(String code)
        {
-    	   this.code=code;
+    	   this.code=code.toUpperCase();
        }
        
        public String getNom()
@@ -51,7 +51,12 @@ public class Cote1{
        
        public void setNom(String nom)
        {
-    	   this.nom = nom;
+    	   this.nom = nom.toUpperCase();
+       }
+       
+       public String toString()
+       {
+    	   return Integer.toString(this.getIdCote1())+" / "+this.getCode()+" / "+this.getNom();
        }
 
 }
