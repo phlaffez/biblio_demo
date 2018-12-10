@@ -129,7 +129,7 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 				requete = requete + "infos = "+"'"+obj.getInfo()+"'";
 				
 	requete = requete  + " WHERE id ="+Integer.toString(obj.getId());			
-	System.out.println(requete);
+//	System.out.println(requete);
 				res = this.connex.createStatement(). executeUpdate(requete);
 				if (res==1)
 				{
