@@ -51,7 +51,7 @@ public class Cote4{
        public String toString()
        {
     	    
-    	    return Integer.toString(this.getIdCote4())+" / "+Integer.toString(this.getCote3())+" / "+Float.toString(this.getCompteur());;
+    	    return Integer.toString(this.getIdCote4())+" / "+Integer.toString(this.getCote3())+" / "+Float.toString(this.getCompteur());
        }
 
 

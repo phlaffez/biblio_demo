@@ -64,6 +64,10 @@ public class Cote2
     	   this.nom = nom;
        }
        
+       public String toString()
+       {
+    	   return Integer.toString(this.getIdCote2())+" / "+Integer.toString(this.getCote1())+" / "+this.getCode()+" / "+this.getNom();
+       }
        
        
 
