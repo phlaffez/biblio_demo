@@ -8,6 +8,7 @@ import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.AuteurGenreDAO;
 import com.DAO.biblio.BddTables;
 import com.DAO.biblio.Cote1DAO;
+import com.DAO.biblio.Cote2DAO;
 import com.DAO.biblio.DAO;
 import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.GenreDAO;
@@ -24,6 +25,7 @@ import com.ihm.biblio.Ordre;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.AuteurGenre;
 import com.metier.biblio.Cote1;
+import com.metier.biblio.Cote2;
 import com.metier.biblio.Genre;
 import com.metier.biblio.Langue;
 import com.metier.biblio.Livre;
@@ -44,9 +46,9 @@ public class essais {
 		Color cf = Color.LIGHT_GRAY;
 		Color cb = Color.RED;
 		int idLivre=0;
-		Cote1 c1;
-		Cote1DAO cote1dao = new Cote1DAO(Mysql_Connect.getInstance());
-		List<Cote1> cotes1 = new ArrayList<Cote1>();
+		Cote2 c2;
+		Cote2DAO cote2dao = new Cote2DAO(Mysql_Connect.getInstance());
+		List<Cote2> cotes2 = new ArrayList<Cote2>();
 		boolean res;
 		
 // ChoixAuteurs ca = new ChoixAuteurs(titre,idLivre, cf,cf2,cb);
@@ -54,13 +56,10 @@ public class essais {
 //		ArrayList<Livre> listeLivres = (ArrayList<Livre>)livredao.selectLivresAuteur(2);
 //		System.out.println(listeLivres.toString());
  
-	//	c1 = cote1dao.findId(1);
+	 c2 = new Cote2();
+	 System.out.println(c2.toString());
 	 
-		cotes1 = (List<Cote1>)cote1dao.getByCodeLike("I", OptionRecherche.CONTIEND);
-		for (int i =0;i<cotes1.size();i++)
-		{
-			System.out.println(cotes1.get(i).toString());
-		}
+	
 		
 			}
 }

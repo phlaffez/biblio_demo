@@ -330,7 +330,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 			
 	}
 	
-	// il faut des recherches par le code en plus des recherches parle nom
+	// il faut des recherches par le code en plus des recherches par le nom
 	
 	public Object getByCode(String n) {
 		// Testée le 11/12/2018  --> OK
@@ -362,7 +362,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 
 	
 	public Object getByCodeLike(String n, OptionRecherche opr) {
-		Testée OK le 11/12/2018
+	//	Testée OK le 11/12/2018
 		Cote1 cote1=null;
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 				int mes=0;
