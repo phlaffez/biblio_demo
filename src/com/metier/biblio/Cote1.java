@@ -17,7 +17,7 @@ public class Cote1{
        this.code=code.toUpperCase();
        this.nom=nom.toUpperCase();
        };
-   public Cote1(String code,String no){
+   public Cote1(String code,String nom){
        this.code=code.toUpperCase();
        this.nom=nom.toUpperCase();
        };

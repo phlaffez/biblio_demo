@@ -21,6 +21,7 @@ import com.ihm.biblio.Fenetre_PP;
 import com.ihm.biblio.Ordre;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.AuteurGenre;
+import com.metier.biblio.Cote1;
 import com.metier.biblio.Genre;
 import com.metier.biblio.Langue;
 import com.metier.biblio.Livre;
@@ -41,10 +42,14 @@ public class essais {
 		Color cf = Color.LIGHT_GRAY;
 		Color cb = Color.RED;
 		int idLivre=0;
- ChoixAuteurs ca = new ChoixAuteurs(titre,idLivre, cf,cf2,cb);
+		Cote1 c1;
+// ChoixAuteurs ca = new ChoixAuteurs(titre,idLivre, cf,cf2,cb);
 //		LivreDAO livredao = new LivreDAO(Mysql_Connect.getInstance());
 //		ArrayList<Livre> listeLivres = (ArrayList<Livre>)livredao.selectLivresAuteur(2);
 //		System.out.println(listeLivres.toString());
+ 
+		c1 = new Cote1("code","nom");
+ System.out.println(c1.toString());
 			}
 }
 		
