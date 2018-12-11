@@ -69,7 +69,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 						{
 						// peut créer la fiche
 						String requete= "INSERT INTO cote1 (code, nom) VALUES (\'"+obj.getCode()+"\',\'"+obj.getNom()+"\')";
-						// je ne comprend pas, ça ne fonctionne pas, or la requete passée directement fonctionne
+						
 						try
 						{
 			//				System.out.println(requete);
@@ -134,8 +134,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 					
 						String requete = "UPDATE Cote1 set code ='"+obj.getCode()+"'";
 						      requete = requete+",nom='"+obj.getNom()+"'";
-						      requete = requete + "WHERE id_cote1 = "+Integer.toString(obj.getIdCote1());
-						// la requete fonctionne en direct mais pas ici ??		
+						      requete = requete + "WHERE id_cote1 = "+Integer.toString(obj.getIdCote1());	
 						res = this.connex.createStatement(). executeUpdate(requete);
 						if(res==1)
 						{

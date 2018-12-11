@@ -46,7 +46,7 @@ public class essais {
 		Color cf = Color.LIGHT_GRAY;
 		Color cb = Color.RED;
 		int idLivre=0;
-		Cote2 c2;
+		Cote2 obj;
 		Cote2DAO cote2dao = new Cote2DAO(Mysql_Connect.getInstance());
 		List<Cote2> cotes2 = new ArrayList<Cote2>();
 		boolean res;
@@ -56,8 +56,13 @@ public class essais {
 //		ArrayList<Livre> listeLivres = (ArrayList<Livre>)livredao.selectLivresAuteur(2);
 //		System.out.println(listeLivres.toString());
  
-	 c2 = new Cote2();
-	 System.out.println(c2.toString());
+	 obj = new Cote2(1,26,"vjkhv","djjj");
+		 
+	 String requete = "UPDATE Cote2 set code ='"+obj.getCode()+"'";
+     requete = requete+",nom='"+obj.getNom()+"'";
+     requete = requete+",cote1 ="+Integer.toString(obj.getCote1());
+     requete = requete + " WHERE id_cote2 = "+Integer.toString(obj.getIdCote2());
+	 System.out.println(requete);
 	 
 	
 		
