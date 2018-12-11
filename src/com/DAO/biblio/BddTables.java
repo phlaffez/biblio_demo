@@ -13,7 +13,12 @@ public enum BddTables {
 	LIVREAUTEURS("livre_auteurs"),
 	PAYS("pays"),
 	RESUMELIVRES("resume_livres"),
-	LOCALISATION("localisation");
+	LOCALISATION("localisation"),
+	COTE1("cote1"),
+	COTE2("cote2"),
+	COTE3("cote3"),
+	COTE4("cote4");
+	
 	
 	private String name = "";
 
