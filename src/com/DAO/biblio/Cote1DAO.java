@@ -57,17 +57,27 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 					}
 					else
 					{
+						// on vérifie la longueur du code:
+						if(obj.getCode().length()>3)
+						{
+							message = "Le code de cotation 1 :+"+obj.getCode()+" a un code trop long";
+							 fen = new FenetreMessage("Cote1DAO","Attention",message,300,300,Color.lightGray,Color.black);
+
+						}
+						else
+						{
 						// peut créer la fiche
 						String requete= "INSERT INTO cote1 (code, nom) VALUES (\'"+obj.getCode()+"\',\'"+obj.getNom()+"\')";
 						// je ne comprend pas, ça ne fonctionne pas, or la requete passée directement fonctionne
 						try
 						{
-							System.out.println(requete);
+			//				System.out.println(requete);
 							res = this.connex.createStatement(). executeUpdate(requete);
 							if (res ==1)
 							{
 								retour = true;
 							}
+						
 						}
 						catch(SQLException e)
 						{
@@ -75,6 +85,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 							System.out.println("Erreur SQL lors de la creation d'un enregistrement cote 1: "+obj.getNom()+" "+obj.getCode());
 							mes=3;
 						}
+					}
 					}
 				}
 				catch (SQLException e)

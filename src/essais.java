@@ -52,9 +52,9 @@ public class essais {
 //		ArrayList<Livre> listeLivres = (ArrayList<Livre>)livredao.selectLivresAuteur(2);
 //		System.out.println(listeLivres.toString());
  
-	//	c1 = new Cote1(0,"code","nom3");
-		c1  = cote1dao.findId(0);
-		System.out.println(c1.toString());
+		c1 = new Cote1(2,"cio","nom3hhnhgn");
+	    res =  cote1dao.update(c1);
+	//	System.out.println(c1.toString());
 		
 			}
 }
