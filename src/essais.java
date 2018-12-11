@@ -14,6 +14,7 @@ import com.DAO.biblio.GenreDAO;
 import com.DAO.biblio.LivreAuteurDAO;
 import com.DAO.biblio.LivreDAO;
 import com.DAO.biblio.LocalisationDAO;
+import com.DAO.biblio.OptionRecherche;
 import com.DAO.biblio.ResumeLivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
 import com.ihm.biblio.ChoixAuteurs;
@@ -45,6 +46,7 @@ public class essais {
 		int idLivre=0;
 		Cote1 c1;
 		Cote1DAO cote1dao = new Cote1DAO(Mysql_Connect.getInstance());
+		List<Cote1> cotes1 = new ArrayList<Cote1>();
 		boolean res;
 		
 // ChoixAuteurs ca = new ChoixAuteurs(titre,idLivre, cf,cf2,cb);
@@ -52,9 +54,13 @@ public class essais {
 //		ArrayList<Livre> listeLivres = (ArrayList<Livre>)livredao.selectLivresAuteur(2);
 //		System.out.println(listeLivres.toString());
  
-		c1 = new Cote1(2,"cio","nom3hhnhgn");
-	    res =  cote1dao.update(c1);
-	//	System.out.println(c1.toString());
+	//	c1 = cote1dao.findId(1);
+	 
+		cotes1 = (List<Cote1>)cote1dao.getByCodeLike("I", OptionRecherche.CONTIEND);
+		for (int i =0;i<cotes1.size();i++)
+		{
+			System.out.println(cotes1.get(i).toString());
+		}
 		
 			}
 }

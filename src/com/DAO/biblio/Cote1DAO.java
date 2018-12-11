@@ -26,6 +26,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	@Override
 	public boolean create(Cote1 obj) {
 		// Ecrite le 07/12/2108
+		// testée le 11/12/2018  -->ok
 		Boolean retour = false;
 		String req;
 		String message;
@@ -111,16 +112,26 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 
 	@Override
 	public boolean update(Cote1 obj) {
-		// TODO Auto-generated method stub
+		// Testée le 11/12/2018  -->ok
 		boolean retour = false;
 		int res;
 		int mes=0;
+		String message = "";
+		FenetreMessage fen;
 		// On ne peut faire d'update que si l'enregistrement existe. 
 				Cote1 cote1 = findId(obj.getIdCote1());
 				if(cote1 != null)
 				{
+					if(obj.getCode().length()>3)
+					{
+						message = "Le code de cotation 1 :+"+obj.getCode()+" a un code trop long";
+						 fen = new FenetreMessage("Cote1DAO","Attention",message,300,300,Color.lightGray,Color.black);
+					}
+					else
+					{
 					try
 					{
+					
 						String requete = "UPDATE Cote1 set code ='"+obj.getCode()+"'";
 						      requete = requete+",nom='"+obj.getNom()+"'";
 						      requete = requete + "WHERE id_cote1 = "+Integer.toString(obj.getIdCote1());
@@ -138,6 +149,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 						System.out.println("Erreur dans la mise à jour de la cote1 "+obj.toString());
 						}
 					}
+					}
 				
 				
 				return retour;
@@ -145,7 +157,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 
 	@Override
 	public boolean delete(Cote1 obj) {
-		// TODO Auto-generated method stub
+		// Testee le 11/12/2018 -->OK
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -179,7 +191,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 
 	@Override
 	public Cote1 findId(int id) {
-		// TODO Auto-generated method stub
+		// Testee le 11/12/2018 --> OK
 		int mes=0;
 		
 		Cote1 cote1 = null;
@@ -207,7 +219,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 
 	@Override
 	public int lastId() {
-		// TODO Auto-generated method stub
+		// Testee le 11/12/2018 -- OK
 		int mes=0;
 		int res=0;
 		String requete = "SELECT * FROM Cote1 ORDER BY id_cote1 DESC LIMIT 1";
@@ -230,7 +242,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 
 	@Override
 	public List<Cote1> selectAll() {
-		// TODO Auto-generated method stub
+	//	Testee le 11/12/2018  --> OK
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 		Cote1 cote1 = null;
 		int mes=0;    // s'il est nécessaire d'afficher des messages
@@ -258,7 +270,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 
 	@Override
 	public Object getByNom(String n) {
-		// TODO Auto-generated method stub
+		// Testée le 11/12/2018  --> OK
 		Cote1 cote1=null;
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 				int mes=0;
@@ -286,7 +298,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr) {
-		// TODO Auto-generated method stub
+		// Testée le 11/12/2018  --> OK
 		Cote1 cote1=null;
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 				int mes=0;
@@ -321,7 +333,8 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	// il faut des recherches par le code en plus des recherches parle nom
 	
 	public Object getByCode(String n) {
-		// TODO Auto-generated method stub
+		// Testée le 11/12/2018  --> OK
+		// je renvoie une liste, bien que le code soit unique. Justepour avoir un truc homogène
 		Cote1 cote1=null;
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 				int mes=0;
@@ -349,7 +362,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 
 	
 	public Object getByCodeLike(String n, OptionRecherche opr) {
-		// TODO Auto-generated method stub
+		Testée OK le 11/12/2018
 		Cote1 cote1=null;
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 				int mes=0;
