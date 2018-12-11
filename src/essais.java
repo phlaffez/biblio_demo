@@ -7,6 +7,7 @@ import java.util.List;
 import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.AuteurGenreDAO;
 import com.DAO.biblio.BddTables;
+import com.DAO.biblio.Cote1DAO;
 import com.DAO.biblio.DAO;
 import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.GenreDAO;
@@ -43,13 +44,18 @@ public class essais {
 		Color cb = Color.RED;
 		int idLivre=0;
 		Cote1 c1;
+		Cote1DAO cote1dao = new Cote1DAO(Mysql_Connect.getInstance());
+		boolean res;
+		
 // ChoixAuteurs ca = new ChoixAuteurs(titre,idLivre, cf,cf2,cb);
 //		LivreDAO livredao = new LivreDAO(Mysql_Connect.getInstance());
 //		ArrayList<Livre> listeLivres = (ArrayList<Livre>)livredao.selectLivresAuteur(2);
 //		System.out.println(listeLivres.toString());
  
-		c1 = new Cote1("code","nom");
- System.out.println(c1.toString());
+	//	c1 = new Cote1(0,"code","nom3");
+		c1  = cote1dao.findId(0);
+		System.out.println(c1.toString());
+		
 			}
 }
 		

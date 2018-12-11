@@ -126,7 +126,7 @@ ENGINE = MYISAM;
 -- Tables pour l'enregistrement des cotes
 
 CREATE TABLE cote1 (
-id_cote1 INT UNSIGNED NOT NULL,
+id_cote1 INT UNSIGNED AUTO_INCREMENT NOT NULL,
 code VARCHAR(3),
 nom VARCHAR(20),
 PRIMARY KEY pk_cote1(id_cote1)
@@ -134,7 +134,7 @@ PRIMARY KEY pk_cote1(id_cote1)
 ENGINE = INNODB;
 
 CREATE TABLE cote2 (
-id_cote2 INT UNSIGNED NOT NULL,
+id_cote2 INT UNSIGNED AUTO_INCREMENT NOT NULL,
 cote1 INT UNSIGNED NOT NULL,
 code VARCHAR(3),
 nom VARCHAR(20),
@@ -144,7 +144,7 @@ PRIMARY KEY pk_cote2(id_cote2),
 ENGINE = INNODB;
 
 CREATE TABLE cote3 (
-id_cote3 INT UNSIGNED NOT NULL,
+id_cote3 INT UNSIGNED AUTO_INCREMENT NOT NULL,
 cote2 INT UNSIGNED NOT NULL,
 code VARCHAR(5),
 nom VARCHAR(20),
@@ -154,7 +154,16 @@ PRIMARY KEY pk_cote3(id_cote3),
 ENGINE = INNODB;
 
 
-
+CREATE TABLE cote4 (
+-- compteur. Je ne mets pas un compteur entier, mais un compteur decimal afin de pouvoir insérer des cotes en cas
+-- de besoin, ie s'il faut par exemple insérr un doublon, ou un épisode oublié dans un roman à épisodes
+id_cote4 INT UNSIGNED NOT NULL,
+cote3 INT UNSIGNED NOT NULL,
+compteur DECIMAL UNSIGNED,
+PRIMARY KEY pk_cote4(id_cote4),
+  FOREIGN KEY fk_idcote3 (cote3) REFERENCES cote3(id_cote3)
+)
+ENGINE = INNODB;
 
 
 
