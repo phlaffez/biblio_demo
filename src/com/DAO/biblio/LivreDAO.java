@@ -24,15 +24,31 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 	@Override
 	public boolean create(Livre obj) {
 		// testé le 07/02/2018 OK
+		// modifié le 12/12/2018 pour ajout du champ cote
+		
+		boolean traiter = false;
 		boolean retour = false; // par défaut. Si le livre existe déjà, on ne la crée pas
 		// la vérification est cependant délicate, car on peut avoir fait des fautes 
 		// d'othographe dans le titre. Il faudra donc remplacerla méthode de vérification 
 		// par quelque chose de plus précis.
 		
 		// chercher si le titre est dans la base de données
-		// getByNom renvoie un objet, donc il faut caster
-		Livre livre = (Livre)getByNom(obj.getNomLivre());
-		if(livre ==null)
+		// getByNom renvoie un objet, donc il faut caster.Cet objet est une liste de livres
+		// il faudra traiter le cas ou le titre est trouvé, savoir si on doit créer un
+		// nouvel enregistrement
+		ArrayList<Livre>livres = (ArrayList<Livre>)getByNom(obj.getNomLivre());
+		System.out.println(livres.size());
+		if(livres.size()==0)
+		{
+			traiter = true;
+		}
+		else
+		{
+			traiter = false;
+			// faire une fenetre pour poser la question d'une nouvelle création d'une fiche au même titre
+		}
+		
+if (traiter)
 		{
 			//on crée seulement si le livre n'est pas déjà présent dans la base
 			String requete = "INSERT INTO livres";
@@ -45,7 +61,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 					requete = requete + "'"+obj.getDatePublication()+"',";
 					requete = requete + "'"+obj.getDateAcquisition()+"',";
 					requete = requete + obj.getUnResume()+",";
-					requete = requete + "'"+obj.getClassement()+"'";
+					requete = requete +obj.getClassement();
 					requete = requete +")";
 							
 							
@@ -55,7 +71,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 			int mes=0;
 			try
 			{
-			 	
+			 	System.out.println(requete);
 			 res = this.connex.createStatement(). executeUpdate(requete);
 			 if(res==1)
 				 {
@@ -377,14 +393,13 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		
 		
 		ArrayList<Auteur> auteurs=null;
-		Livre livre;
+		Livre livre=null;
 		String datePub = "Date de publication non renseignée";
 		String dateAcq = "Date d'acquisition non renseignée";
 		int classe = 0;
 		// a utiliser avec précautions. Que se passe-t-il s'il y a trop de livres
 		// dans la base de données ?
 		List<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
-		Livre unLivre;
 		int mes=0;    // s'il est nécessaire d'afficher des messages
 		String requete = "SELECT * FROM livres WHERE nom_liv = \'"+n+"\'";
 //		System.out.println(requete);

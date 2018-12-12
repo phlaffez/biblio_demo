@@ -194,6 +194,7 @@ public class Livre {
 			s=s+"identificateur langue: "+Integer.toString(this.langue)+"\n";
 			// les deux lignes précédentes pourront faire appel aux classes DAO pour av oir les vrais noms
 			s=s+"date de publication: "+this.datePub+"\n";
+			s=s+"date d'acquisition: "+this.dateAcq+"\n";
 			s=s+"Présence d'un résumé: ";
 			if(this.un_resume) 
 			{

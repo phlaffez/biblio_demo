@@ -56,13 +56,12 @@ public class essais {
 //		ArrayList<Livre> listeLivres = (ArrayList<Livre>)livredao.selectLivresAuteur(2);
 //		System.out.println(listeLivres.toString());
  
-	 obj = new Cote2(1,26,"vjkhv","djjj");
+//	 obj = new Cote2(1,26,"vjkhv","djjj");
 		 
-	 String requete = "UPDATE Cote2 set code ='"+obj.getCode()+"'";
-     requete = requete+",nom='"+obj.getNom()+"'";
-     requete = requete+",cote1 ="+Integer.toString(obj.getCote1());
-     requete = requete + " WHERE id_cote2 = "+Integer.toString(obj.getIdCote2());
-	 System.out.println(requete);
+	Livre l;
+	LivreDAO ldao = new LivreDAO(Mysql_Connect.getInstance());
+	l = new Livre(0,"titre livre2",1,1,"2012-12-12","2018-11-02",false,1,"cote livre",null);
+	ldao.create(l);
 	 
 	
 		
