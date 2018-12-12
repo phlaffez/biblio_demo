@@ -36,9 +36,10 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		{
 			//on crée seulement si le livre n'est pas déjà présent dans la base
 			String requete = "INSERT INTO livres";
-					requete = requete +"(nom_liv,genre,langue,date_pub,date_acq,un_resume,classement)";
+					requete = requete +"(nom_liv,cote,genre,langue,date_pub,date_acq,un_resume,classement)";
 					requete = requete +" VALUES (";
 					requete = requete + "'"+obj.getNomLivre()+"',";
+					requete = requete + "'"+obj.getCote()+"',";
 					requete = requete + Integer.toString(obj.getGenre())+",";
 					requete = requete + Integer.toString(obj.getLangue())+",";
 					requete = requete + "'"+obj.getDatePublication()+"',";
@@ -123,7 +124,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				
 				String requete = "UPDATE  livres SET nom_liv = ";
 				requete = requete 	+obj.getNomLivre()+"',";
-				
+				requete = requete + "cote ="+obj.getCote()+"',";				
 				requete = requete + "genre = "+ Integer.toString(obj.getGenre())+",";
 				requete = requete + "langue ="+Integer.toString(obj.getLangue())+",";
 				requete = requete + "date_pub"+obj.getDatePublication()+"',";
@@ -242,6 +243,8 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				ArrayList<Auteur> auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
 				String titre = res.getString("nom_liv");
 				if(titre==null) titre="";
+				String cote = res.getString("cote");
+				if(cote==null) cote="";
 				int langue = res.getInt("langue");
 				int genre = res.getInt("genre");
 				if(res.getDate("date_pub")!=null)
@@ -272,7 +275,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 					 classe = res.getInt("lieux"); 
 				 }
 				
-				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, cote, auteurs);
 				
 				
 						  
@@ -338,6 +341,8 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				 auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
 				String titre = res.getString("nom_liv");
 				if(titre==null) titre="";
+				String cote = res.getString("cote");
+				if(cote==null) cote="";
 				int langue = res.getInt("langue");
 				int genre = res.getInt("genre");
 				String datePub = res.getDate("date_pub").toString();
@@ -346,7 +351,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				boolean resum = res.getBoolean("un_resume");
 				int classe = res.getInt("lieux");
 				
-				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, cote, auteurs);
 				
 				livres.add(livre);
 			}
@@ -394,6 +399,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				 auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
 				String titre = res.getString("nom_liv");
 				if(titre==null) titre="";
+				String cote = res.getString("cote");
 				int langue = res.getInt("langue");
 				int genre = res.getInt("genre");
 				if(res.getDate("date_pub")!=null)
@@ -412,7 +418,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 						}
 	
 				
-				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, cote,auteurs);
 				livres.add(livre);
 			
 			}
@@ -464,6 +470,8 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 				 auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
 				String titre = res.getString("nom_liv");
 				if(titre==null) titre="";
+				String cote = res.getString("cote");
+				if(cote==null) cote ="";
 				int langue = res.getInt("langue");
 				int genre = res.getInt("genre");
 				if(res.getDate("date_pub")!=null)
@@ -482,7 +490,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 						}
 	
 				
-				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, cote, auteurs);
 				livres.add(livre);
 			
 			}
@@ -525,6 +533,8 @@ public List<Livre> selectLivresAuteur(int idAuteur) {
 				AuteurDAO auteurdao = new AuteurDAO(connex);
 				 auteurs=(ArrayList<Auteur>) auteurdao.selectAuteursLivre(id);
 				String titre = res.getString("nom_liv");
+				String cote = res.getString("cote");
+				if(cote==null) cote ="";
 				int langue = res.getInt("langue");
 				int genre = res.getInt("genre");
 				
@@ -538,7 +548,7 @@ public List<Livre> selectLivresAuteur(int idAuteur) {
 				boolean resum = res.getBoolean("un_resume");
 				int classe = res.getInt("lieux");
 	//			System.out.println(classe);
-				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, auteurs);
+				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, cote, auteurs);
 				livres.add(livre);
 			}
 			res.close();
