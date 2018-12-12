@@ -60,10 +60,10 @@ public class essais {
 		 
 	Livre l;
 	LivreDAO ldao = new LivreDAO(Mysql_Connect.getInstance());
-	l = new Livre(0,"titre livre2",1,1,"2012-12-12","2018-11-02",false,1,"cote livre",null);
-	ldao.create(l);
 	 
-	
+	 l = new Livre(6,"titre livre corrigé",1,1,"2012-12-12","2018-11-02",false,1,"cote livre",null);
+
+ldao.update(l);
 		
 			}
 }

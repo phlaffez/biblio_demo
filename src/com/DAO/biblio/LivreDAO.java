@@ -25,6 +25,8 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 	public boolean create(Livre obj) {
 		// testé le 07/02/2018 OK
 		// modifié le 12/12/2018 pour ajout du champ cote
+		// testée partiellement le 12/12 (cas livre sans homonyme existant, sans auteur
+		// reste à faire le cas avec auteurs, et celui ou il y aurait un titre homonyme dans la BDD
 		
 		boolean traiter = false;
 		boolean retour = false; // par défaut. Si le livre existe déjà, on ne la crée pas
@@ -37,7 +39,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		// il faudra traiter le cas ou le titre est trouvé, savoir si on doit créer un
 		// nouvel enregistrement
 		ArrayList<Livre>livres = (ArrayList<Livre>)getByNom(obj.getNomLivre());
-		System.out.println(livres.size());
+//		System.out.println(livres.size());
 		if(livres.size()==0)
 		{
 			traiter = true;
@@ -71,7 +73,7 @@ if (traiter)
 			int mes=0;
 			try
 			{
-			 	System.out.println(requete);
+//			 	System.out.println(requete);
 			 res = this.connex.createStatement(). executeUpdate(requete);
 			 if(res==1)
 				 {
@@ -79,7 +81,7 @@ if (traiter)
 				 // la première partie est créée
 				 // récupération de l'id
 				 boolean totok = true;
-				 if (obj.getAuteurs().size()!=0)
+				 if (obj.getAuteurs() !=null)
 				 {
 					 int idl = this.lastId();
 					 int ida=0;
@@ -126,6 +128,7 @@ if (traiter)
 	public boolean update(Livre obj) {
 		// testé le 07/02/2018 OK
 		// modifiée le 19/3/2018: doit être retestée (liste des auteurs)
+		// Testéele 12/12/2018 - semble OK
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -137,21 +140,21 @@ if (traiter)
 			{
 
 				
-				
-				String requete = "UPDATE  livres SET nom_liv = ";
+				//  PLEIN DE FAUTES DE GUILLEMETS
+				String requete = "UPDATE  livres SET nom_liv = '";
 				requete = requete 	+obj.getNomLivre()+"',";
-				requete = requete + "cote ="+obj.getCote()+"',";				
+				requete = requete + "cote ='"+obj.getCote()+"',";				
 				requete = requete + "genre = "+ Integer.toString(obj.getGenre())+",";
 				requete = requete + "langue ="+Integer.toString(obj.getLangue())+",";
-				requete = requete + "date_pub"+obj.getDatePublication()+"',";
-				requete = requete + "date_pub"+obj.getDateAcquisition()+"',";
+				requete = requete + "date_pub='"+obj.getDatePublication()+"',";
+				requete = requete + "date_acq='"+obj.getDateAcquisition()+"',";
 				requete = requete + "un_resume = "+obj.getUnResume()+",";
-				requete = requete + "lieux = "+"'"+obj.getClassement()+"'";
+				requete = requete + "classement = "+Integer.toString(obj.getClassement());
 				
 				
 	requete = requete  + " WHERE id ="+Integer.toString(obj.getId());
 				
-				
+	//			System.out.println(requete);
 				
 				
 				
@@ -195,7 +198,8 @@ if (traiter)
 	
 	@Override
 	public boolean delete(Livre obj) {
-		// testé le 30/03/2018  OK
+		// testé le 30/1/03/2018  OK
+		// modifiée le 1/2018 - testée OK
 		// On vérifie l'existence
 		boolean retour = false;
 			Livre livre = findId(obj.getId());
@@ -243,6 +247,7 @@ if (traiter)
 	@Override
 	public Livre findId(int id) {
 		//correction bug le 30/03/2018
+		// modifiée le 12/12/2018 testee OK
 		Livre livre=null;
 		String datePub="00/00/0000";
 		String dateAcq="00/00/0000";
@@ -286,9 +291,9 @@ if (traiter)
 				
 				 resum = res.getBoolean("un_resume");
 				 
-				 if (res.getString("lieux")!=null)
+				 if (res.getString("classement")!=null)
 				 {
-					 classe = res.getInt("lieux"); 
+					 classe = res.getInt("classement"); 
 				 }
 				
 				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, cote, auteurs);
@@ -336,6 +341,8 @@ if (traiter)
 	public List<Livre> selectAll() {
 		
 		// testée le 16/03/2018 - OK
+		// modifié le 1212/2018 
+		
 		
 		ArrayList<Auteur> auteurs=null;
 		Livre livre;
@@ -365,7 +372,7 @@ if (traiter)
 				String dateAcq = res.getDate("date_acq").toString();
 		        if (datePub == null) datePub = "Date de publication non renseignée";
 				boolean resum = res.getBoolean("un_resume");
-				int classe = res.getInt("lieux");
+				int classe = res.getInt("classement");
 				
 				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, cote, auteurs);
 				
@@ -389,7 +396,7 @@ if (traiter)
 
 	@Override
 	public Object getByNom(String n) {
-		// TODO Auto-generated method stub:
+		// modifiée et testée ok le 12/12/2018
 		
 		
 		ArrayList<Auteur> auteurs=null;
@@ -427,9 +434,9 @@ if (traiter)
 				}
 				 
 				boolean resum = res.getBoolean("un_resume");
-				if(res.getString("lieux")!=null)
+				if(res.getString("classement")!=null)
 						{
-					 classe = res.getInt("lieux");
+					 classe = res.getInt("classement");
 						}
 	
 				
@@ -454,7 +461,7 @@ if (traiter)
 
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr) {
-		// TODO Auto-generated method stub:
+		// Modifiée et testée ok le 12/12/2018
 		
 		
 		ArrayList<Auteur> auteurs=null;
@@ -472,7 +479,7 @@ if (traiter)
 		{
 			requete = requete+"%";
 		}
-		requete = requete+n+"\'";
+		requete = requete+n+"%\'";
 //		System.out.println(requete);
 		try
 		{
@@ -499,9 +506,9 @@ if (traiter)
 				}
 				 
 				boolean resum = res.getBoolean("un_resume");
-				if(res.getString("lieux")!=null)
+				if(res.getString("classement")!=null)
 						{
-					 classe = res.getInt("lieux");
+					 classe = res.getInt("classement");
 						}
 	
 				
@@ -526,6 +533,7 @@ if (traiter)
 public List<Livre> selectLivresAuteur(int idAuteur) {
 		
 		// Renvoie les livres d'un auteur donné
+	// TODO  DOI ETRE TESTEE
 		
 		Livre livre;
 		ArrayList<Auteur> auteurs = new ArrayList<Auteur>();
@@ -537,7 +545,7 @@ public List<Livre> selectLivresAuteur(int idAuteur) {
 		String  requete = "SELECT * FROM livres INNER JOIN livre_auteurs ";
 		requete = requete + "ON livres.id = livre_auteurs.id_livre WHERE livre_auteurs.id_auteur = ";
 		requete = requete + Integer.toString(idAuteur);
-			System.out.println(requete);
+//			System.out.println(requete);
 		try
 		{
 			ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
@@ -554,14 +562,14 @@ public List<Livre> selectLivresAuteur(int idAuteur) {
 				int genre = res.getInt("genre");
 				
 				String datePub = "Date de publication non renseignée";
-				System.out.println(datePub);
+//				System.out.println(datePub);
 				if(res.getDate("date_pub")!= null)
 					datePub = res.getDate("date_pub").toString();				
 				String dateAcq = "Date de d'acquisition non renseignée";
 				if(	res.getDate("date_acq")!=null)
 					dateAcq = res.getDate("date_acq").toString();
 				boolean resum = res.getBoolean("un_resume");
-				int classe = res.getInt("lieux");
+				int classe = res.getInt("classement");
 	//			System.out.println(classe);
 				livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, cote, auteurs);
 				livres.add(livre);
