@@ -18,6 +18,7 @@ public class Livre {
 	private String dateAcq;
 	private boolean un_resume;
 	private int classement;
+	private String cote;
 	private List<Auteur> auteurs;
 
 	// constructeurs
@@ -32,11 +33,12 @@ public class Livre {
 		this.dateAcq="";
 		this.un_resume=false;
 		this.classement=0;
+		this.cote="";
 		this.auteurs=null;
 	}
 		
 		public  Livre(int id, String nom_livre, int genre, int langue, String datePub,
-				String dateAcq,	boolean unResume, int classement, ArrayList<Auteur> auteurs)
+				String dateAcq,	boolean unResume, int classement, String cote, ArrayList<Auteur> auteurs)
 		
 		{
 			
@@ -48,6 +50,7 @@ public class Livre {
 			this.dateAcq=dateAcq;
 			this.un_resume = unResume;
 			this.classement = classement;
+			this.cote=cote;
 			this.auteurs=auteurs;
 			
 	}
@@ -138,6 +141,16 @@ public class Livre {
 		}
 		
 		
+		public String getCote()
+		{
+			return this.cote;
+		}
+		
+		public void setCote(String cote)
+		{
+			this.cote = cote;
+		}
+		
 		public void setAuteurs(List<Auteur> auteurs)
 		{
 			this.auteurs = auteurs;
@@ -193,6 +206,8 @@ public class Livre {
 			
 			s=s+"\n";
 			s= s+"Classement: "+this.classement;
+			s=s+"\n";
+			s=s+"Cote: "+this.cote;
 	
 		
 		return s;		

@@ -38,10 +38,11 @@ class LivreTest {
 	@Test
 	void testGetNomLivre() {
 		String nom_livre="Les tribulations d'un chinois en chine";
+		String cote="H.G";
 		String dateAcq = "12/2/1895";
 		String datePub = "13/2/1895";
 		int classement = 1;
-		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, null);
+		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, cote,null);
 		assertTrue("getNomLivre",nom_livre.equals(l.getNomLivre()));
 		
 	}
@@ -83,10 +84,11 @@ class LivreTest {
 	@Test
 	void testGetDatePublication() {
 		String nom_livre="Les tribulations d'un chinois en chine";
+		String cote="H.G";
 		String datePub = "12/2/1895";
 		String dateAcq = "13/2/1895";
 		int classement = 1;
-		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, null);
+		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, cote,null);
 		assertTrue("getDatePub",datePub.equals(l.getDatePublication()));
 		assertTrue("getDateAcq",dateAcq.equals(l.getDateAcquisition()));
 	}
@@ -118,8 +120,35 @@ class LivreTest {
 		String datePub = "12/2/1895";
 		String dateAcq = "13/2/1895";
 		int classement = 1;
-		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, null);
+		String cote="H.G";
+		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, cote,null);
 		assertTrue("getClassement",1==l.getClassement());
+		
+	}
+	
+	@Test
+	void testGetCote() {
+		String nom_livre="Les tribulations d'un chinois en chine";
+		String datePub = "12/2/1895";
+		String dateAcq = "13/2/1895";
+		int classement = 1;
+		String cote="H.G";
+		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, cote,null);
+		assertTrue("getCote",cote.equals(l.getCote()));
+		
+	}
+	
+	@Test
+	void testSetCote() {
+		String nom_livre="Les tribulations d'un chinois en chine";
+		String datePub = "12/2/1895";
+		String dateAcq = "13/2/1895";
+		int classement = 1;
+		String cote="H.G";
+		l = new Livre( 7, nom_livre, 2, 1,  datePub, dateAcq,false, classement, cote,null);
+		cote="H.GLM";
+		l.setCote(cote);
+		assertTrue("getCote",cote.equals(l.getCote()));
 		
 	}
 
