@@ -53,8 +53,10 @@ public class essais {
 		List<Cote3> cotes3 = new ArrayList<Cote3>();
 		boolean res;
 		
-obj = new Cote3();
-System.out.println(obj.toString());
+
+		 cotes3=(List<Cote3>)cote3dao.getByCote2(4);
+
+System.out.println(cotes3);
 		 
 
 		

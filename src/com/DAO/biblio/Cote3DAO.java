@@ -24,7 +24,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	@Override
 	public boolean create(Cote3 obj) {
 		// Ecrite le 13/12/2018
-		// testée le 1
+		// testée le 13/12/2018 ok
 				
 				Boolean retour = false;
 				String req;
@@ -116,7 +116,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	@Override
 	public boolean update(Cote3 obj) {
 		// // écrit le 13/1/2018
-		// testee le 
+		// testee le 13/12/2018  ok
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -163,7 +163,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	public boolean delete(Cote3 obj) {
 		
 		// ecrite le 13/12/2018
-		// testee le
+		// testee le 13/12/2018  ok
 		
 				boolean retour = false;
 				int res;
@@ -201,11 +201,12 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	public Cote3 findId(int id) {
 		
 		// ecrite le 13/12/2018
+		// testee  le 13/12/2018 ok
 		// Testee 
 				int mes=0;
 				
 				Cote3 cote3 = null;
-				String requete= "SELECT * FROM  cote2 WHERE id_cote3 ="+Integer.toString(id);
+				String requete= "SELECT * FROM  cote3 WHERE id_cote3 ="+Integer.toString(id);
 				try
 				{
 					ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
@@ -230,6 +231,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	@Override
 	public int lastId() {
 		// ecrite le 13/12/2018
+		// testee le 13/12/2018  ok
 		int mes=0;
 		int res=0;
 		String requete = "SELECT * FROM Cote3 ORDER BY id_cote3 DESC LIMIT 1";
@@ -253,6 +255,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	@Override
 	public List<Cote3> selectAll() {
 		// ecrite le 13/12/2018
+		// testee le 13/12/2018  ok
 //		Testee le 
 			List<Cote3> cotes3 = new ArrayList<Cote3>();
 			Cote3 cote3 = null;
@@ -282,6 +285,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	@Override
 	public Object getByNom(String n)  {
 		// ecrite ok le 13/12/2018
+		// testee le 13/12/2018  ok
 		Cote3 cote3=null;
 		List<Cote3> cotes3= new ArrayList<Cote3>();
 				int mes=0;
@@ -292,7 +296,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 				while (res.next())
 				{
 
-					cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote3"),res.getString("code"),res.getString("nom"));	
+					cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote2"),res.getString("code"),res.getString("nom"));	
 					cotes3.add(cote3);
 					}
 				res.close();
@@ -309,6 +313,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr)  {
 		// ecrite le 13/12/2018 
+		// testee le 13/12/2018  ok
 		
 		Cote3 cote3=null;
 		List<Cote3> cotes3 = new ArrayList<Cote3>();
