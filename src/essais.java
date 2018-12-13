@@ -56,14 +56,10 @@ public class essais {
 //		ArrayList<Livre> listeLivres = (ArrayList<Livre>)livredao.selectLivresAuteur(2);
 //		System.out.println(listeLivres.toString());
  
-//	 obj = new Cote2(1,26,"vjkhv","djjj");
+		List<Cote2>	 obj2 = (List<Cote2>) cote2dao.getByCote1(1);
+	 System.out.println(obj2);
 		 
-	Livre l;
-	LivreDAO ldao = new LivreDAO(Mysql_Connect.getInstance());
-	 
-	 l = new Livre(6,"titre livre corrigé",1,1,"2012-12-12","2018-11-02",false,1,"cote livre",null);
 
-ldao.update(l);
 		
 			}
 }

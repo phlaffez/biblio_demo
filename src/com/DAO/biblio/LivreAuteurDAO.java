@@ -251,7 +251,7 @@ public class LivreAuteurDAO extends DAO<LivreAuteur> implements DAO_Liaison<Livr
 			requete = "DELETE FROM livre_auteurs WHERE id_livre ="+Integer.toString(id);
 		}
 		boolean retour = false;
-		System.out.println(requete);
+	//	System.out.println(requete);
 		try
 		{
 			res = this.connex.createStatement(). executeUpdate(requete);

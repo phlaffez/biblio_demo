@@ -25,6 +25,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	@Override
 	public boolean create(Cote2 obj) {
 		// Ecrite le 11/12/2108
+		// testée le 13/12/2018 OK
 				
 				Boolean retour = false;
 				String req;
@@ -36,6 +37,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 				//on vérifie que le nom n'est pas déjà enregistré
 				
 				req = "SELECT * FROM cote2 where nom = \'"+obj.getNom()+"\'";
+		//		System.out.println(req);
 				try
 				{
 					res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(req);
@@ -47,6 +49,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 					else
 					{
 						req = "SELECT * FROM cote2 where code = \'"+obj.getCode()+"\'";
+		//				System.out.println(req);
 						try
 						{
 							res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(req);
@@ -70,7 +73,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 								String requete= "INSERT INTO cote2 (cote1,code, nom) VALUES ("+Integer.toString(obj.getCote1())+",'"+obj.getCode()+"\',\'"+obj.getNom()+"\')";
 								try
 								{
-					//				System.out.println(requete);
+									System.out.println(requete);
 									res = this.connex.createStatement(). executeUpdate(requete);
 									if (res ==1)
 									{
@@ -111,6 +114,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	@Override
 	public boolean update(Cote2 obj) {
 		// // écrit le 11/1/2018
+		// testee le 13/12/2018 ok
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -156,6 +160,8 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	@Override
 	public boolean delete(Cote2 obj) {
 		
+		// testee le 13/12/2018 OK
+		
 				boolean retour = false;
 				int res;
 				int mes=0;
@@ -165,7 +171,8 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 						{
 							try
 							{
-								String requete = "DELETE FROM Cote1 WHERE id_cote2 ="+Integer.toString(obj.getIdCote2());
+								String requete = "DELETE FROM Cote2 WHERE id_cote2 ="+Integer.toString(obj.getIdCote2());
+							
 								res = this.connex.createStatement(). executeUpdate(requete);
 								
 								if(res==1)
@@ -189,6 +196,8 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 
 	@Override
 	public Cote2 findId(int id) {
+		
+		// testee le 13/12/2018 OK
 		// Testee 
 				int mes=0;
 				
@@ -217,7 +226,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 
 	@Override
 	public int lastId() {
-		// Testee le 
+		// testee le 13/12/2018 OK
 		int mes=0;
 		int res=0;
 		String requete = "SELECT * FROM Cote2 ORDER BY id_cote2 DESC LIMIT 1";
@@ -268,7 +277,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	
 	@Override
 	public Object getByNom(String n) {
-		// 
+		// teste ok le 13/12/2018
 				Cote2 cote2=null;
 				List<Cote2> cotes2= new ArrayList<Cote2>();
 						int mes=0;
@@ -296,7 +305,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr) {
-		// Testée le 
+		// Testée le 13/12/2018 OK
 				Cote2 cote2=null;
 				List<Cote2> cotes2 = new ArrayList<Cote2>();
 						int mes=0;
@@ -329,6 +338,8 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	
 	
 	public Object getByCote1(int c1) {
+		
+		// testee ok le 13/12/2018
 		// récupération de toutes les cotes 2 sous la cote1 c1
 				Cote2 cote2=null;
 				List<Cote2> cotes2= new ArrayList<Cote2>();
