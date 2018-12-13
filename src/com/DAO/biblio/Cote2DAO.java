@@ -24,7 +24,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 
 	@Override
 	public boolean create(Cote2 obj) {
-		// Ecrite le 11/12/2108
+		// Ecrite le 11/12/2018
 		// testée le 13/12/2018 OK
 				
 				Boolean retour = false;
@@ -73,7 +73,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 								String requete= "INSERT INTO cote2 (cote1,code, nom) VALUES ("+Integer.toString(obj.getCote1())+",'"+obj.getCode()+"\',\'"+obj.getNom()+"\')";
 								try
 								{
-									System.out.println(requete);
+					//				System.out.println(requete);
 									res = this.connex.createStatement(). executeUpdate(requete);
 									if (res ==1)
 									{
@@ -218,7 +218,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 				catch (SQLException e)
 				{
 					mes=2;
-					System.out.println("Problème SQL lors de la recherche de la cote1 id_cote2= "+Integer.toString(id));
+					System.out.println("Problème SQL lors de la recherche de la cote2 id_cote2= "+Integer.toString(id));
 				}
 				
 				return cote2;
