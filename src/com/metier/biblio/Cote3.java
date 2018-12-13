@@ -23,7 +23,7 @@ public class Cote3{
        
        public int getIdCote3()
        {
-    	   return this.hashCode();
+    	   return this.idCote3;
        }
        
        public void setIdCote3(int id)
@@ -41,22 +41,22 @@ public class Cote3{
     	   this.cote2=cote2;
        }
        
-       private String getCode()
+       public String getCode()
        {
     	   return this.code;
        }
        
-       private void setCode(String code)
+       public void setCode(String code)
        {
     	   this.code = code;
        }
        
-       private String getNom()
+       public String getNom()
        {
     	   return this.nom;
        }
        
-       private void setNom(String nom)
+       public void setNom(String nom)
        {
     	   this.nom = nom;
        }
@@ -64,6 +64,6 @@ public class Cote3{
        public String toString()
        {
     	   
-    	    return Integer.toString(this.getIdCote3())+" / "+Integer.toString(this.getCote2())+" / "+this.getCode()+" / "+this.getNom();
+    	    return Integer.toString(this.idCote3)+" / "+Integer.toString(this.cote2)+" / "+this.getCode()+" / "+this.getNom();
        }
 }
