@@ -160,6 +160,8 @@ CREATE TABLE cote4 (
 -- de besoin, ie s'il faut par exemple insérr un doublon, ou un épisode oublié dans un roman à épisodes
 id_cote4 INT UNSIGNED NOT NULL,
 cote3 INT UNSIGNED NOT NULL,
+code VARCHAR(5),
+nom VARCHAR(50),
 compteur DECIMAL UNSIGNED,
 PRIMARY KEY pk_cote4(id_cote4),
   FOREIGN KEY fk_idcote3 (cote3) REFERENCES cote3(id_cote3)

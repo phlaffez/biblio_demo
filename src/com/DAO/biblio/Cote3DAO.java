@@ -213,7 +213,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 					if (res.first())
 					{
 									
-						cote3 = new Cote3(id,res.getInt("cote2"),res.getString("code"),res.getString("nom"));
+						cote3 = new Cote3(id,res.getInt("cote3"),res.getString("code"),res.getString("nom"));
 												  
 						mes=1;
 					}
