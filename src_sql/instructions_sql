@@ -158,7 +158,7 @@ ENGINE = INNODB;
 CREATE TABLE cote4 (
 -- compteur. Je ne mets pas un compteur entier, mais un compteur decimal afin de pouvoir insérer des cotes en cas
 -- de besoin, ie s'il faut par exemple insérr un doublon, ou un épisode oublié dans un roman à épisodes
-id_cote4 INT UNSIGNED NOT NULL,
+id_cote4 INT UNSIGNED AUTO_INCREMENT NOT NULL,
 cote3 INT UNSIGNED NOT NULL,
 code VARCHAR(5),
 nom VARCHAR(50),

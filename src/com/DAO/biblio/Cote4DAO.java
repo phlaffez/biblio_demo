@@ -23,20 +23,20 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 
 	@Override
 	public boolean create(Cote4 obj) {
-		// Ecrite le 13/12/2018
-		// testée le 13/12/2018 ok
+		// Ecrite le 16/12/2018
+		// testée le 
 				
 				Boolean retour = false;
 				String req;
 				String message;
 				int mes;
-				int res;
+				int res=-9999;
 				FenetreMessage fen;
 				ResultSet res1;
 				//on vérifie que le nom n'est pas déjà enregistré
 				
 				req = "SELECT * FROM cote4 where nom = \'"+obj.getNom()+"\'";
-		//		System.out.println(req);
+//				System.out.println(req);
 				try
 				{
 					res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(req);
@@ -48,14 +48,14 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 					else
 					{
 						req = "SELECT * FROM cote4 where code = \'"+obj.getCode()+"\'";
-		//				System.out.println(req);
+	//					System.out.println(req);
 						try
 						{
 							res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(req);
 							if(res1.first())
 							{
 								message = "Le code de cotation 4 :+"+obj.getCode()+" existe déjà";
-								 fen = new FenetreMessage("Cote2DAO","Attention",message,300,300,Color.lightGray,Color.black);
+								 fen = new FenetreMessage("Cote4DAO","Attention",message,300,300,Color.lightGray,Color.black);
 							}
 							else
 							{
@@ -69,12 +69,12 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 								else
 								{
 								// peut créer la fiche
-								String requete= "INSERT INTO cote (cote2,code, nom,compteur) VALUES (";
+								String requete= "INSERT INTO cote4 (cote3,code, nom,compteur) VALUES (";
 								requete = requete +Integer.toString(obj.getCote3())+",'"+obj.getCode()+"\',\'";
-								requete = requete +obj.getNom()+"\'"+Float.toString(obj.getCompteur())+")";
+								requete = requete +obj.getNom()+"\',"+Float.toString(obj.getCompteur())+")";
 								try
 								{
-			//						System.out.println(requete);
+									System.out.println(requete);
 									res = this.connex.createStatement(). executeUpdate(requete);
 									if (res ==1)
 									{
@@ -86,6 +86,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 								{
 									// remplacer par un popup
 									System.out.println("Erreur SQL lors de la creation d'un enregistrement cote 4: "+obj.getNom()+" "+obj.getCode());
+	
 									mes=3;
 								}
 							}

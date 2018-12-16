@@ -55,7 +55,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 							if(res1.first())
 							{
 								message = "Le code de cotation 3 :+"+obj.getCode()+" existe déjà";
-								 fen = new FenetreMessage("Cote2DAO","Attention",message,300,300,Color.lightGray,Color.black);
+								 fen = new FenetreMessage("Cote3DAO","Attention",message,300,300,Color.lightGray,Color.black);
 							}
 							else
 							{
