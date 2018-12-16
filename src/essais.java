@@ -54,10 +54,13 @@ public class essais {
 		Cote4DAO cdao = new Cote4DAO(Mysql_Connect.getInstance());
 		List<Cote4> cotes4 = new ArrayList<Cote4>();
 		boolean res;
-		obj = new Cote4(0,"Test","reference",4,1f);
 		
-		System.out.println(obj.toString());
-		cdao.create(obj);
+		cotes4 = (List<Cote4>) cdao.getByCote3(4);
+		System.out.println(cotes4);
+		
+
+
+		
 
 
 		 

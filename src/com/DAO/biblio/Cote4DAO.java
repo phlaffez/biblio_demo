@@ -24,7 +24,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	@Override
 	public boolean create(Cote4 obj) {
 		// Ecrite le 16/12/2018
-		// testée le 
+		// testée le 16/12/2018 OK
 				
 				Boolean retour = false;
 				String req;
@@ -115,8 +115,8 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 
 	@Override
 	public boolean update(Cote4 obj) {
-		// // écrit le 1/1/2018
-		// testee le 
+		// // écrit le 16/12/2018
+		// testee le 16/12/2018  OK
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -141,6 +141,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 						      requete = requete+",cote3 ="+Integer.toString(obj.getCote3());
 						      requete = requete +",compteur = "+Float.toString(obj.getCompteur());
 						      requete = requete + " WHERE id_cote4 = "+Integer.toString(obj.getIdCote4());	
+		
 						res = this.connex.createStatement(). executeUpdate(requete);
 						if(res==1)
 						{
@@ -164,7 +165,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	public boolean delete(Cote4 obj) {
 		
 		// ecrite le 16/12/2018
-		// testee le 
+		// testee le  16/12/2018  OK
 		
 				boolean retour = false;
 				int res;
@@ -202,7 +203,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	public Cote4 findId(int id) {
 		
 		// ecrite le 16/12/2018
-		// testee  le 
+		// testee  le 16/12/2018  OK
 		// Testee 
 				int mes=0;
 				
@@ -232,7 +233,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	@Override
 	public int lastId() {
 		// ecrite le 16/12/2018
-		// testee le 
+		// testee le 16/12/2018  OK
 		int mes=0;
 		int res=0;
 		String requete = "SELECT * FROM Cote4 ORDER BY id_cote4 DESC LIMIT 1";
@@ -256,7 +257,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	@Override
 	public List<Cote4> selectAll() {
 		// ecrite le 16/12/2018
-		// testee le 
+		// testee le 16/12/2018  OK
 
 			List<Cote4> cotes4 = new ArrayList<Cote4>();
 			Cote4 cote4 = null;
@@ -315,7 +316,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr) {
 		// ecrite le 16/12/2018 
-		// testee le 
+		// testee le 16/12/2018  OK
 		
 		Cote4 cote4=null;
 		List<Cote4> cotes4 = new ArrayList<Cote4>();
@@ -327,6 +328,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 			requete = requete + "%";
 		}
 		requete = requete+nn+"%\'";	
+//		System.out.println(requete);
 				
 			try
 			{
@@ -351,6 +353,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 public Object getByCote3(int c1) {
 		
 		// ecrite le 16/12/2018
+	// testee le 16/12/2018
 		// récupération de toutes les cotes 4 sous la cote3 c1
 	
 				Cote4 cote4=null;
