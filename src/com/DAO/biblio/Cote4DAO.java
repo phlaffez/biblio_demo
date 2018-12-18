@@ -74,7 +74,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 								requete = requete +obj.getNom()+"\',"+Float.toString(obj.getCompteur())+")";
 								try
 								{
-									System.out.println(requete);
+			//						System.out.println(requete);
 									res = this.connex.createStatement(). executeUpdate(requete);
 									if (res ==1)
 									{
