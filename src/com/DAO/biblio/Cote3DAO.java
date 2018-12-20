@@ -33,9 +33,11 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 				int res;
 				FenetreMessage fen;
 				ResultSet res1;
-				//on vérifie que le nom n'est pas déjà enregistré
+				//on vérifie que le nom n'est pas déjà enregistré pour cete cote2
+				// qui est liée à une cote1
 				
 				req = "SELECT * FROM cote3 where nom = \'"+obj.getNom()+"\'";
+				req = req + "AND cote2 = "+Integer.toString(obj.getCote2());
 		//		System.out.println(req);
 				try
 				{
@@ -48,6 +50,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 					else
 					{
 						req = "SELECT * FROM cote3 where code = \'"+obj.getCode()+"\'";
+						req = req + "AND cote2 = "+Integer.toString(obj.getCote2());
 		//				System.out.println(req);
 						try
 						{
