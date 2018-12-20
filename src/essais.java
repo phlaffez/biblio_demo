@@ -23,6 +23,7 @@ import com.dbacces.biblio.Mysql_Connect;
 import com.ihm.biblio.ChoixAuteurs;
 import com.ihm.biblio.DetailAuteur;
 import com.ihm.biblio.Fenetre_PP;
+import com.ihm.biblio.GenereCote;
 import com.ihm.biblio.Ordre;
 import com.metier.biblio.Auteur;
 import com.metier.biblio.AuteurGenre;
@@ -49,13 +50,15 @@ public class essais {
 		Color cf2 = Color.cyan;
 		Color cf = Color.LIGHT_GRAY;
 		Color cb = Color.RED;
-		int idLivre=0;
-		Cote4 obj;
-		Cote4DAO cdao = new Cote4DAO(Mysql_Connect.getInstance());
+		Color ct = Color.BLACK;
+
 		
-	obj = new Cote4(0,"A","B",1,12.55f);
-	cdao.create(obj);
-		System.out.println(obj);
+		String tl="Les misérables";
+		String auteur = "Hugo";
+		int larg=800;
+		int haut = 600;
+		
+		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
 		
 
 
