@@ -18,10 +18,12 @@ import javax.swing.JTextField;
 import com.DAO.biblio.Cote1DAO;
 import com.DAO.biblio.Cote2DAO;
 import com.DAO.biblio.Cote3DAO;
+import com.DAO.biblio.Cote4DAO;
 import com.DAO.biblio.DaoFactoryMySQL;
 import com.metier.biblio.Cote1;
 import com.metier.biblio.Cote2;
 import com.metier.biblio.Cote3;
+import com.metier.biblio.Cote4;
 
 import phl.outils.panneaux.outilsStandards.JButtonOutils;
 
@@ -324,8 +326,30 @@ public class GenereCote extends JFrame{
 		c3 = (Cote3)listeCote3.getItemAt(0);
 		s = this.coteGeneree.getText()+"/"+c3.getCode();
 		this.coteGeneree.setText(s);
+		initCote4(c3.getIdCote3());
 	}
 	
-	
+	private void initCote4(int c3)
+	{
+		// initialisation du Comboxbox listeCote4 en fonction d'une Cote32 déjà choisie c3
+		
+		Cote4DAO c4dao = DaoFactoryMySQL.getCote4DAO();
+		Cote4 c4;
+		ArrayList<Cote4> c4s = (ArrayList<Cote4>)c4dao.getByCote3(c3);
+		String s;
+		
+		
+		// On commence par le vider pour le recharger si on ajoute quelque chose
+		// avec le bouton correspondant
+		listeCote4.removeAllItems();
+		this.listeCote4.setEditable(false);
+		for (int i = 0;i<c4s.size();i++)
+		{
+			listeCote4.addItem(c4s.get(i));
+		}
+		c4 = (Cote4)listeCote4.getItemAt(0);
+		s = this.coteGeneree.getText()+"/"+c4.getCode();
+		this.coteGeneree.setText(s);
+	}	
 	
 }
