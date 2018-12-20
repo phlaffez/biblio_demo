@@ -34,9 +34,10 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 				int res;
 				FenetreMessage fen;
 				ResultSet res1;
-				//on vérifie que le nom n'est pas déjà enregistré
+				//on vérifie que le nom n'est pas déjà enregistré pour cette cote1 
 				
 				req = "SELECT * FROM cote2 where nom = \'"+obj.getNom()+"\'";
+				req = req + "AND cote1 = "+Integer.toString(obj.getCote1());
 		//		System.out.println(req);
 				try
 				{
@@ -49,7 +50,8 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 					else
 					{
 						req = "SELECT * FROM cote2 where code = \'"+obj.getCode()+"\'";
-		//				System.out.println(req);
+						req = req + "AND cote1 = "+Integer.toString(obj.getCote1());
+						System.out.println(req);
 						try
 						{
 							res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(req);

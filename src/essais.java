@@ -58,9 +58,11 @@ public class essais {
 		int larg=800;
 		int haut = 600;
 		
-		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
+	//	GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
 		
-
+		Cote2 c2 = new Cote2(0,1,"007","James Bond");
+		Cote2DAO c2dao = DaoFactoryMySQL.getCote2DAO();
+		c2dao.create(c2);
 
 		
 

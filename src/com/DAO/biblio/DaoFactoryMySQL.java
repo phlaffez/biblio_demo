@@ -61,4 +61,23 @@ public LocalisationDAO getLocalisationDAO()
 	return new LocalisationDAO(Mysql_Connect.getInstance());
 }
 
+public static Cote1DAO getCote1DAO()
+{
+	return new Cote1DAO(Mysql_Connect.getInstance());
+}
+
+public  static Cote2DAO getCote2DAO()
+{
+	return new Cote2DAO(Mysql_Connect.getInstance());
+}
+static 
+public Cote3DAO getCote3DAO()
+{
+	return new Cote3DAO(Mysql_Connect.getInstance());
+}
+
+public  static Cote4DAO getCote4DAO()
+{
+	return new Cote4DAO(Mysql_Connect.getInstance());
+}
 }
