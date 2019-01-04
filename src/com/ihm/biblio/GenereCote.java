@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import com.DAO.biblio.Cote1DAO;
 import com.DAO.biblio.Cote2DAO;
@@ -238,6 +240,8 @@ public class GenereCote extends JFrame{
 		this.listeCote2.addItemListener(new listeCote2Listener());
 		this.listeCote3.addItemListener(new listeCote3Listener());
 		this.listeCote4.addItemListener(new listeCote4Listener());
+		this.champCompteurSais.getDocument().addDocumentListener(new champCompteurListener() );
+	
 	}
 	
 	private void init3()
@@ -436,6 +440,7 @@ public class GenereCote extends JFrame{
 			
 		Cote1	c1 = (Cote1)listeCote1.getItemAt(listeCote1.getSelectedIndex());
 		generationCote();
+		champCompteurSais.setText("");
 		initCote2(c1.getIdCote1());
 			
 			
@@ -451,6 +456,7 @@ public class GenereCote extends JFrame{
 			
 		Cote2	c2 = (Cote2)listeCote2.getItemAt(listeCote2.getSelectedIndex());
 		generationCote();
+		champCompteurSais.setText("");
 		if(c2!=null)
 		{
 		initCote3(c2.getIdCote2());
@@ -473,6 +479,7 @@ public class GenereCote extends JFrame{
 				
 			Cote3	c3 = (Cote3)listeCote3.getItemAt(listeCote3.getSelectedIndex());
 			generationCote();
+			champCompteurSais.setText("");
 			if(c3!=null)
 			{
 			initCote4(c3.getIdCote3());
@@ -494,11 +501,39 @@ public class GenereCote extends JFrame{
 				
 		
 			generationCote();
+			champCompteurSais.setText("");
 				
+				
+			}	
+		}
+		
+		
+		class champCompteurListener implements DocumentListener
+		{
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				generationCote();
 				
 			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				generationCote();
+				
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				generationCote();
+				
+			}
+			
+		}
+
+
 	
-	
-		}	
-	
+		
+		
+		
 }
