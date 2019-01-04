@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.List;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
@@ -155,7 +157,7 @@ public class GenereCote extends JFrame{
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
 		this.listeCote1.setPreferredSize(new Dimension(largelem, hautelem));
-		initCote1();
+		this.listeCote1.addItemListener(new listeCote1Listener());
 		this.paneauCotes.add(this.listeCote1, this.grilleCont);
 		
 		this.grilleCont.gridx=1;
@@ -164,6 +166,7 @@ public class GenereCote extends JFrame{
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
 		this.listeCote2.setPreferredSize(new Dimension(largelem, hautelem));
+		this.listeCote2.addItemListener(new listeCote2Listener());
 		this.paneauCotes.add(this.listeCote2, this.grilleCont);
 		
 		this.grilleCont.gridx=2;
@@ -232,6 +235,7 @@ public class GenereCote extends JFrame{
 		this.coteGeneree.setPreferredSize(new Dimension(largelem*2, hautelem));
 		this.paneauCotes.add(this.coteGeneree, this.grilleCont);
 		this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
+		initCote1();
 	}
 	
 	private void init3()
@@ -269,6 +273,7 @@ public class GenereCote extends JFrame{
 		
 		// On commence par le vider pour le recharger si on ajoute quelque chose
 		// avec le bouton correspondant
+		
 		listeCote1.removeAllItems();
 		this.listeCote1.setEditable(false);
 		for (int i = 0;i<c1s.size();i++)
@@ -294,6 +299,10 @@ public class GenereCote extends JFrame{
 		// avec le bouton correspondant
 		listeCote2.removeAllItems();
 		this.listeCote2.setEditable(false);
+		System.out.println(c2s);
+		if(!c2s.isEmpty()) 
+		{
+			
 		for (int i = 0;i<c2s.size();i++)
 		{
 			listeCote2.addItem(c2s.get(i));
@@ -302,6 +311,11 @@ public class GenereCote extends JFrame{
 		s = this.coteGeneree.getText()+"/"+c2.getCode();
 		this.coteGeneree.setText(s);
 		initCote3(c2.getIdCote2());
+		}
+		else
+		{
+			initCote3(-1);
+		}
 	}
 	
 	
@@ -311,6 +325,7 @@ public class GenereCote extends JFrame{
 		
 		Cote3DAO c3dao = DaoFactoryMySQL.getCote3DAO();
 		Cote3 c3;
+		
 		ArrayList<Cote3> c3s = (ArrayList<Cote3>)c3dao.getByCote2(c2);
 		String s;
 		
@@ -319,6 +334,10 @@ public class GenereCote extends JFrame{
 		// avec le bouton correspondant
 		listeCote3.removeAllItems();
 		this.listeCote3.setEditable(false);
+		if(c2!=-1)
+		{
+		if(!c3s.isEmpty())
+		{
 		for (int i = 0;i<c3s.size();i++)
 		{
 			listeCote3.addItem(c3s.get(i));
@@ -326,7 +345,16 @@ public class GenereCote extends JFrame{
 		c3 = (Cote3)listeCote3.getItemAt(0);
 		s = this.coteGeneree.getText()+"/"+c3.getCode();
 		this.coteGeneree.setText(s);
+		
 		initCote4(c3.getIdCote3());
+		}
+		else
+			initCote4(-1);
+		}
+		else
+		{
+			initCote4(-1);
+		}
 	}
 	
 	private void initCote4(int c3)
@@ -343,6 +371,10 @@ public class GenereCote extends JFrame{
 		// avec le bouton correspondant
 		listeCote4.removeAllItems();
 		this.listeCote4.setEditable(false);
+		if(c3!=-1)
+		{
+		if(!c4s.isEmpty())
+		{
 		for (int i = 0;i<c4s.size();i++)
 		{
 			listeCote4.addItem(c4s.get(i));
@@ -350,6 +382,65 @@ public class GenereCote extends JFrame{
 		c4 = (Cote4)listeCote4.getItemAt(0);
 		s = this.coteGeneree.getText()+"/"+c4.getCode();
 		this.coteGeneree.setText(s);
+		}
+		}
+		
 	}	
+	
+	class listeCote1Listener implements ItemListener
+	{
+
+		@Override
+		public void itemStateChanged(ItemEvent arg0) {
+			
+		Cote1	c1 = (Cote1)listeCote1.getItemAt(listeCote1.getSelectedIndex());
+		initCote2(c1.getIdCote1());
+			
+			
+		}
+		
+	}
+	
+	class listeCote2Listener implements ItemListener
+	{
+
+		@Override
+		public void itemStateChanged(ItemEvent arg0) {
+			
+		Cote2	c2 = (Cote2)listeCote2.getItemAt(listeCote2.getSelectedIndex());
+		if(c2!=null)
+		{
+		initCote3(c2.getIdCote2());
+		}
+		else
+		{
+			initCote3(-1);
+		}
+			
+			
+		}
+		
+		
+		class listeCote3Listener implements ItemListener
+		{
+
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				
+			Cote3	c3 = (Cote3)listeCote3.getItemAt(listeCote3.getSelectedIndex());
+			if(c3!=null)
+			{
+			initCote4(c3.getIdCote3());
+			}
+			else
+			{
+				initCote4(-1);
+			}
+				
+				
+			}
+		}
+		
+	}
 	
 }
