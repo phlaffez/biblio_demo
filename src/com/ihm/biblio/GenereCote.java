@@ -156,8 +156,7 @@ public class GenereCote extends JFrame{
 		this.grilleCont.gridheight=1;
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
-		this.listeCote1.setPreferredSize(new Dimension(largelem, hautelem));
-		this.listeCote1.addItemListener(new listeCote1Listener());
+		this.listeCote1.setPreferredSize(new Dimension(largelem, hautelem));		
 		this.paneauCotes.add(this.listeCote1, this.grilleCont);
 		
 		this.grilleCont.gridx=1;
@@ -166,7 +165,6 @@ public class GenereCote extends JFrame{
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
 		this.listeCote2.setPreferredSize(new Dimension(largelem, hautelem));
-		this.listeCote2.addItemListener(new listeCote2Listener());
 		this.paneauCotes.add(this.listeCote2, this.grilleCont);
 		
 		this.grilleCont.gridx=2;
@@ -236,6 +234,9 @@ public class GenereCote extends JFrame{
 		this.paneauCotes.add(this.coteGeneree, this.grilleCont);
 		this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
 		initCote1();
+		this.listeCote1.addItemListener(new listeCote1Listener());
+		this.listeCote2.addItemListener(new listeCote2Listener());
+		this.listeCote3.addItemListener(new listeCote3Listener());
 	}
 	
 	private void init3()
@@ -281,7 +282,7 @@ public class GenereCote extends JFrame{
 			listeCote1.addItem(c1s.get(i));
 		}
 		c1 = (Cote1)listeCote1.getItemAt(0);
-		this.coteGeneree.setText(c1.getCode());
+	generationCote();
 		initCote2(c1.getIdCote1());
 	}
 	
@@ -299,7 +300,6 @@ public class GenereCote extends JFrame{
 		// avec le bouton correspondant
 		listeCote2.removeAllItems();
 		this.listeCote2.setEditable(false);
-		System.out.println(c2s);
 		if(!c2s.isEmpty()) 
 		{
 			
@@ -309,7 +309,7 @@ public class GenereCote extends JFrame{
 		}
 		c2 = (Cote2)listeCote2.getItemAt(0);
 		s = this.coteGeneree.getText()+"/"+c2.getCode();
-		this.coteGeneree.setText(s);
+		generationCote();
 		initCote3(c2.getIdCote2());
 		}
 		else
@@ -343,8 +343,7 @@ public class GenereCote extends JFrame{
 			listeCote3.addItem(c3s.get(i));
 		}
 		c3 = (Cote3)listeCote3.getItemAt(0);
-		s = this.coteGeneree.getText()+"/"+c3.getCode();
-		this.coteGeneree.setText(s);
+		generationCote();
 		
 		initCote4(c3.getIdCote3());
 		}
@@ -380,12 +379,53 @@ public class GenereCote extends JFrame{
 			listeCote4.addItem(c4s.get(i));
 		}
 		c4 = (Cote4)listeCote4.getItemAt(0);
-		s = this.coteGeneree.getText()+"/"+c4.getCode();
-		this.coteGeneree.setText(s);
+		generationCote();
 		}
 		}
 		
 	}	
+	
+	private void generationCote()
+	{
+		Cote1 c1;
+		Cote2 c2;
+		Cote3 c3;
+		Cote4 c4;
+		String s;
+		// genere la cote etla met dans le champ approprié 
+		c1 = (Cote1)listeCote1.getItemAt(listeCote1.getSelectedIndex());
+		s = c1.getCode();
+		if(this.listeCote2.getComponentCount()!=0)
+		{
+			c2 = (Cote2)listeCote2.getItemAt(listeCote2.getSelectedIndex());
+			if(c2!=null)
+			{
+			s=s+"/"+c2.getCode();
+			if(this.listeCote3.getComponentCount()!=0)
+			{
+				c3 = (Cote3)listeCote3.getItemAt(listeCote3.getSelectedIndex());
+				if(c3!=null) {
+					
+				s=s+"/"+c3.getCode();
+				if(this.listeCote4.getComponentCount()!=0)
+				{
+					c4 = (Cote4)listeCote4.getItemAt(listeCote4.getSelectedIndex());
+					if(c4!=null)
+					{
+					s=s+"/"+c4.getCode()+"/"+this.champCompteurSais.getText();
+							
+				}
+				}
+			}
+			}
+			}
+		}
+		this.coteGeneree.setText(s);
+		
+		
+	}
+	
+	
 	
 	class listeCote1Listener implements ItemListener
 	{
@@ -394,6 +434,7 @@ public class GenereCote extends JFrame{
 		public void itemStateChanged(ItemEvent arg0) {
 			
 		Cote1	c1 = (Cote1)listeCote1.getItemAt(listeCote1.getSelectedIndex());
+		generationCote();
 		initCote2(c1.getIdCote1());
 			
 			
@@ -408,6 +449,7 @@ public class GenereCote extends JFrame{
 		public void itemStateChanged(ItemEvent arg0) {
 			
 		Cote2	c2 = (Cote2)listeCote2.getItemAt(listeCote2.getSelectedIndex());
+		generationCote();
 		if(c2!=null)
 		{
 		initCote3(c2.getIdCote2());
@@ -419,6 +461,7 @@ public class GenereCote extends JFrame{
 			
 			
 		}
+	}
 		
 		
 		class listeCote3Listener implements ItemListener
@@ -428,6 +471,7 @@ public class GenereCote extends JFrame{
 			public void itemStateChanged(ItemEvent arg0) {
 				
 			Cote3	c3 = (Cote3)listeCote3.getItemAt(listeCote3.getSelectedIndex());
+			generationCote();
 			if(c3!=null)
 			{
 			initCote4(c3.getIdCote3());
@@ -439,7 +483,7 @@ public class GenereCote extends JFrame{
 				
 				
 			}
-		}
+		
 		
 	}
 	
