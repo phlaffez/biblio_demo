@@ -14,8 +14,10 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -70,6 +72,7 @@ public class GenereCote extends JFrame{
 	private JComboBox  listeCote3 = new JComboBox();
 	private JComboBox  listeCote4 = new JComboBox();
 	private JTextArea listeCompteur = new JTextArea();     // On mettra ici tous les numeros déjà utilisés avec cette cote	
+	private JScrollPane scroll;
 	private JTextField champCompteurSais= new JTextField();
 	private JTextField coteGeneree= new JTextField();
 	
@@ -225,6 +228,19 @@ public class GenereCote extends JFrame{
 		this.grilleCont.weightx=1;
 		this.AddCote4= new JButtonOutils("Nouveau",largelem,hautelem,Color.orange);
 		this.paneauCotes.add(this.AddCote4, this.grilleCont);
+		
+		this.grilleCont.gridx=4;
+		this.grilleCont.gridy=3;
+		this.grilleCont.gridheight=10;
+		this.grilleCont.gridwidth=1;
+		this.grilleCont.weightx=1;
+		this.listeCompteur = new JTextArea();
+		this.scroll = new JScrollPane(this.listeCompteur);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		this.scroll.setPreferredSize(new Dimension(120,150));
+		this.paneauCotes.add(scroll, this.grilleCont);
+		
+		
 		this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
 		
 		this.grilleCont.gridx=0;
@@ -235,6 +251,7 @@ public class GenereCote extends JFrame{
 		this.coteGeneree.setPreferredSize(new Dimension(largelem*2, hautelem));
 		this.paneauCotes.add(this.coteGeneree, this.grilleCont);
 		this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
+		
 		initCote1();
 		this.listeCote1.addItemListener(new listeCote1Listener());
 		this.listeCote2.addItemListener(new listeCote2Listener());
