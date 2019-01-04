@@ -259,6 +259,7 @@ public class GenereCote extends JFrame{
 		this.listeCote4.addItemListener(new listeCote4Listener());
 		this.champCompteurSais.getDocument().addDocumentListener(new champCompteurListener() );
 	
+		
 	}
 	
 	private void init3()
