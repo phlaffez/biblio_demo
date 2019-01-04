@@ -237,6 +237,7 @@ public class GenereCote extends JFrame{
 		this.listeCote1.addItemListener(new listeCote1Listener());
 		this.listeCote2.addItemListener(new listeCote2Listener());
 		this.listeCote3.addItemListener(new listeCote3Listener());
+		this.listeCote4.addItemListener(new listeCote4Listener());
 	}
 	
 	private void init3()
@@ -483,8 +484,21 @@ public class GenereCote extends JFrame{
 				
 				
 			}
+			
+		}
 		
+		class listeCote4Listener implements ItemListener
+		{
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				
 		
-	}
+			generationCote();
+				
+				
+			}
+	
+	
+		}	
 	
 }
