@@ -591,6 +591,77 @@ public List<Livre> selectLivresAuteur(int idAuteur) {
 	}
 	
 	
+public Object getByCoteLike(String n, OptionRecherche opr) {
+	// créée le 04/01/2019
+	// A TESTER  
+	
+	
+	ArrayList<Auteur> auteurs=null;
+	Livre livre;
+	String datePub = "Date de publication non renseignée";
+	String dateAcq = "Date d'acquisition non renseignée";
+	int classe = 0;
+
+	List<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
+	Livre unLivre;
+	int mes=0;    // s'il est nécessaire d'afficher des messages
+	String requete = "SELECT * FROM livres WHERE cote LIKE \'";
+	if(opr == OptionRecherche.CONTIEND)
+	{
+		requete = requete+"%";
+	}
+	requete = requete+n+"%\'";
+//	System.out.println(requete);
+	try
+	{
+		ResultSet res= this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+		while (res.next())
+		{
+
+			int id = res.getInt("id");
+			LivreAuteurDAO livreauteurdao = new LivreAuteurDAO(connex);
+			 auteurs=(ArrayList<Auteur>) livreauteurdao.getListeByCleLiaison(Cles.id_livre, id);
+			String titre = res.getString("nom_liv");
+			if(titre==null) titre="";
+			String cote = res.getString("cote");
+			if(cote==null) cote ="";
+			int langue = res.getInt("langue");
+			int genre = res.getInt("genre");
+			if(res.getDate("date_pub")!=null)
+			{
+				datePub = res.getDate("date_pub").toString();
+			}
+			if(res.getDate("date_acq")!=null)
+			{
+				dateAcq = res.getDate("date_acq").toString();
+			}
+			 
+			boolean resum = res.getBoolean("un_resume");
+			if(res.getString("classement")!=null)
+					{
+				 classe = res.getInt("classement");
+					}
+
+			
+			livre = new Livre(id,titre,genre,langue,datePub,dateAcq,resum,classe, cote, auteurs);
+			livres.add(livre);
+		
+		}
+		
+		res.close();
+	}
+	catch (SQLException e)
+	{
+		mes=2;
+		System.out.println("Erreur SQL lors de la recherche getByCoteLike dans la table livres");;
+	}
+	
+
+	return livres;
+}
+
+
+
 
 
 }
