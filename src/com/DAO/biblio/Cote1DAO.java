@@ -27,6 +27,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	public boolean create(Cote1 obj) {
 		// Ecrite le 07/12/2108
 		// testée le 11/12/2018  -->ok
+		// modifiée et testée ok le 12/05/2019
 		Boolean retour = false;
 		String req;
 		String message;
@@ -68,7 +69,8 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 						else
 						{
 						// peut créer la fiche
-						String requete= "INSERT INTO cote1 (code, nom) VALUES (\'"+obj.getCode()+"\',\'"+obj.getNom()+"\')";
+						String requete= "INSERT INTO cote1 (code, nom,infos) VALUES (\'"+obj.getCode()+"\',\'"+obj.getNom();
+						requete = requete+"\',\'"+obj.getInfos()+"\')";
 						
 						try
 						{
@@ -113,6 +115,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	@Override
 	public boolean update(Cote1 obj) {
 		// Testée le 11/12/2018  -->ok
+		// modifiée et testée ok le 12/05/2019
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -120,6 +123,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 		FenetreMessage fen;
 		// On ne peut faire d'update que si l'enregistrement existe. 
 				Cote1 cote1 = findId(obj.getIdCote1());
+			
 				if(cote1 != null)
 				{
 					if(obj.getCode().length()>3)
@@ -134,7 +138,9 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 					
 						String requete = "UPDATE Cote1 set code ='"+obj.getCode()+"'";
 						      requete = requete+",nom='"+obj.getNom()+"'";
-						      requete = requete + "WHERE id_cote1 = "+Integer.toString(obj.getIdCote1());	
+						      requete = requete+",infos='"+obj.getInfos()+"'";
+						      requete = requete + "WHERE id_cote1 = "+Integer.toString(obj.getIdCote1());
+	//					      System.out.println(requete);
 						res = this.connex.createStatement(). executeUpdate(requete);
 						if(res==1)
 						{
@@ -157,6 +163,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	@Override
 	public boolean delete(Cote1 obj) {
 		// Testee le 11/12/2018 -->OK
+		// toujours ok après modifs du 02/05/2019
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -191,6 +198,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	@Override
 	public Cote1 findId(int id) {
 		// Testee le 11/12/2018 --> OK
+		// modifiée et testée ok le 02/05/2019
 		int mes=0;
 		
 		Cote1 cote1 = null;
@@ -201,7 +209,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 			if (res.first())
 			{
 							
-				cote1 = new Cote1(id,res.getString("code"),res.getString("nom"));
+				cote1 = new Cote1(id,res.getString("code"),res.getString("nom"),res.getString("infos"));
 										  
 				mes=1;
 			}
@@ -242,6 +250,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	@Override
 	public List<Cote1> selectAll() {
 	//	Testee le 11/12/2018  --> OK
+		// modofiée et testée ok le 02/05/2019
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 		Cote1 cote1 = null;
 		int mes=0;    // s'il est nécessaire d'afficher des messages
@@ -252,7 +261,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 			while (res.next())
 			{
 
-				cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),  res.getString("nom"));	
+				cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),  res.getString("nom"),res.getString("infos"));	
 				cotes1.add(cote1);
 				}
 			res.close();
@@ -270,6 +279,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	@Override
 	public Object getByNom(String n) {
 		// Testée le 11/12/2018  --> OK
+		// modifiée et testée ok le 02/05/2019
 		Cote1 cote1=null;
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 				int mes=0;
@@ -280,7 +290,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 				while (res.next())
 				{
 
-					cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),res.getString("nom"));	
+					cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 					cotes1.add(cote1);
 					}
 				res.close();
@@ -296,8 +306,9 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	}
 
 	@Override
-	public Object getByNomLike(String n, OptionRecherche opr) {
+	public Object getByNomLike(String n,OptionRecherche opr ) {
 		// Testée le 11/12/2018  --> OK
+		// modifiée et testée ok le 02/05/2019
 		Cote1 cote1=null;
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 				int mes=0;
@@ -315,7 +326,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 				while (res.next())
 				{
 
-					cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),res.getString("nom"));	
+					cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 					cotes1.add(cote1);
 					}
 				res.close();
@@ -333,7 +344,8 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	
 	public Object getByCode(String n) {
 		// Testée le 11/12/2018  --> OK
-		// je renvoie une liste, bien que le code soit unique. Justepour avoir un truc homogène
+		// Modifiée et testée le 02/05/2019
+		// je renvoie une liste, bien que le code soit unique. Juste pour avoir un truc homogène
 		Cote1 cote1=null;
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 				int mes=0;
@@ -344,7 +356,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 				while (res.next())
 				{
 
-					cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),res.getString("nom"));	
+					cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 					cotes1.add(cote1);
 					}
 				res.close();
@@ -379,7 +391,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 				while (res.next())
 				{
 
-					cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),res.getString("nom"));	
+					cote1 = new  Cote1(res.getInt("id_cote1"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 					cotes1.add(cote1);
 					}
 				res.close();

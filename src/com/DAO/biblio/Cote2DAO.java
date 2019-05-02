@@ -211,7 +211,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 					if (res.first())
 					{
 									
-						cote2 = new Cote2(id,res.getInt("cote1"),res.getString("code"),res.getString("nom"));
+						cote2 = new Cote2(id,res.getInt("cote1"),res.getString("code"),res.getString("nom"),res.getString("infos"));
 												  
 						mes=1;
 					}
@@ -262,7 +262,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 				while (res.next())
 				{
 
-					cote2 = new  Cote2(res.getInt("id_cote2"),res.getInt("cote1"),res.getString("code"),  res.getString("nom"));	
+					cote2 = new  Cote2(res.getInt("id_cote2"),res.getInt("cote1"),res.getString("code"),  res.getString("nom"),res.getString("infos"));	
 					cotes2.add(cote2);
 					}
 				res.close();
@@ -290,7 +290,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 						while (res.next())
 						{
 
-							cote2 = new  Cote2(res.getInt("id_cote2"),res.getInt("cote1"),res.getString("code"),res.getString("nom"));	
+							cote2 = new  Cote2(res.getInt("id_cote2"),res.getInt("cote1"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 							cotes2.add(cote2);
 							}
 						res.close();
@@ -325,7 +325,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 						while (res.next())
 						{
 
-							cote2 = new  Cote2(res.getInt("id_cote2"),res.getInt("cote1"),res.getString("code"),res.getString("nom"));	
+							cote2 = new  Cote2(res.getInt("id_cote2"),res.getInt("cote1"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 							cotes2.add(cote2);
 							}
 						res.close();
@@ -353,7 +353,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 						while (res.next())
 						{
 
-							cote2 = new  Cote2(res.getInt("id_cote2"),res.getInt("cote1"),res.getString("code"),res.getString("nom"));	
+							cote2 = new  Cote2(res.getInt("id_cote2"),res.getInt("cote1"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 							cotes2.add(cote2);
 							}
 						res.close();

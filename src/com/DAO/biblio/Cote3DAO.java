@@ -216,7 +216,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 					if (res.first())
 					{
 									
-						cote3 = new Cote3(id,res.getInt("cote3"),res.getString("code"),res.getString("nom"));
+						cote3 = new Cote3(id,res.getInt("cote3"),res.getString("code"),res.getString("nom"),res.getString("infos"));
 												  
 						mes=1;
 					}
@@ -270,7 +270,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 				while (res.next())
 				{
 
-					cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote2"),res.getString("code"),  res.getString("nom"));	
+					cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote2"),res.getString("code"),  res.getString("nom"),res.getString("infos"));	
 					cotes3.add(cote3);
 					}
 				res.close();
@@ -299,7 +299,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 				while (res.next())
 				{
 
-					cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote2"),res.getString("code"),res.getString("nom"));	
+					cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote2"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 					cotes3.add(cote3);
 					}
 				res.close();
@@ -335,7 +335,7 @@ public class Cote3DAO extends DAO<Cote3> implements DAO_Noms<Cote3>{
 				while (res.next())
 				{
 
-					cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote2"),res.getString("code"),res.getString("nom"));	
+					cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote2"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 					cotes3.add(cote3);
 					}
 				res.close();
@@ -364,7 +364,7 @@ public Object getByCote2(int c1) {
 						while (res.next())
 						{
 
-							cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote2"),res.getString("code"),res.getString("nom"));	
+							cote3 = new  Cote3(res.getInt("id_cote3"),res.getInt("cote2"),res.getString("code"),res.getString("nom"),res.getString("infos"));	
 							cotes3.add(cote3);
 							}
 						res.close();

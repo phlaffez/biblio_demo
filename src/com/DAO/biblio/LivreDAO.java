@@ -209,7 +209,7 @@ if (traiter)
 		{
 			// rien à faire, mais quand même un popup
 			mes=3;
-			System.out.println("Le livre  id="+Integer.toString(livre.getId())+" "+obj.getNomLivre()+" n'est pas dans la base de donnés");
+			System.out.println("Appel de delete dans livreDAO avec un objet livre null!");
 			System.out.println("Suppression inutile");
 			retour = true;
 		}

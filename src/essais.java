@@ -58,13 +58,19 @@ public class essais {
 		int larg=800;
 		int haut = 600;
 		
-		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
+//		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
 		
 		
 //		Cote2 c2 = new Cote2(0,1,"007","James Bond");
 //		Cote2DAO c2dao = DaoFactoryMySQL.getCote2DAO();
 //		c2dao.create(c2);
 
+		
+//		Cote1 cote1 = new Cote1(4,"PER","Périodiques","Enregistrement des revues et publications périodiques");
+//		System.out.println(cote1.toString());
+		Cote1DAO cote1dao = DaoFactoryMySQL.getCote1DAO();
+		List<Cote1> cote1 = (List<Cote1>) cote1dao.getByCodeLike("PE",OptionRecherche.COMMENCE);
+       System.out.println(cote1.toString());
 		
 System.out.println("Fin essai");
 
