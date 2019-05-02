@@ -66,11 +66,13 @@ public class essais {
 //		c2dao.create(c2);
 
 		
-//		Cote1 cote1 = new Cote1(4,"PER","Périodiques","Enregistrement des revues et publications périodiques");
-//		System.out.println(cote1.toString());
-		Cote1DAO cote1dao = DaoFactoryMySQL.getCote1DAO();
-		List<Cote1> cote1 = (List<Cote1>) cote1dao.getByCodeLike("PE",OptionRecherche.COMMENCE);
-       System.out.println(cote1.toString());
+	//	Cote2 cote2 = new Cote2(12,3,"FIC","Fiction","Revue fiction: revue littéraire de science fiction");
+//		System.out.println(cote2.toString());
+		Cote2DAO cote2dao = DaoFactoryMySQL.getCote2DAO();
+		List<Cote2> cote2 = (List<Cote2>)cote2dao.getByCote1(1);
+
+//		List<Cote1> cote1 = (List<Cote1>) cote1dao.getByCodeLike("PE",OptionRecherche.COMMENCE);
+      System.out.println(cote2.toString());
 		
 System.out.println("Fin essai");
 

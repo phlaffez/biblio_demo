@@ -374,6 +374,7 @@ public class Cote1DAO  extends DAO<Cote1> implements DAO_Noms<Cote1>
 	
 	public Object getByCodeLike(String n, OptionRecherche opr) {
 	//	Testée OK le 11/12/2018
+		// modifiée et testée ok le 02/05/2019
 		Cote1 cote1=null;
 		List<Cote1> cotes1 = new ArrayList<Cote1>();
 				int mes=0;

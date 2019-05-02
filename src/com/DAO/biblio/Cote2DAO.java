@@ -26,6 +26,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	public boolean create(Cote2 obj) {
 		// Ecrite le 11/12/2018
 		// testée le 13/12/2018 OK
+		// modifiée et testée o le 02/05/2019
 				
 				Boolean retour = false;
 				String req;
@@ -51,7 +52,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 					{
 						req = "SELECT * FROM cote2 where code = \'"+obj.getCode()+"\'";
 						req = req + "AND cote1 = "+Integer.toString(obj.getCote1());
-						System.out.println(req);
+			//			System.out.println(req);
 						try
 						{
 							res1 =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(req);
@@ -72,7 +73,8 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 								else
 								{
 								// peut créer la fiche
-								String requete= "INSERT INTO cote2 (cote1,code, nom) VALUES ("+Integer.toString(obj.getCote1())+",'"+obj.getCode()+"\',\'"+obj.getNom()+"\')";
+								String requete= "INSERT INTO cote2 (cote1,code, nom,infos) VALUES ("+Integer.toString(obj.getCote1())+",'"+obj.getCode()+"\',\'"+obj.getNom()+"\',\'"+obj.getInfos();
+										requete = requete +"\')";
 								try
 								{
 					//				System.out.println(requete);
@@ -117,6 +119,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	public boolean update(Cote2 obj) {
 		// // écrit le 11/1/2018
 		// testee le 13/12/2018 ok
+		// modifiée et testée ok le 02/05/2019
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -138,6 +141,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 					
 						String requete = "UPDATE Cote2 set code ='"+obj.getCode()+"'";
 						      requete = requete+",nom='"+obj.getNom()+"'";
+						      requete = requete +",infos='"+obj.getInfos()+"'";
 						      requete = requete+",cote1 ="+Integer.toString(obj.getCote1());
 						      requete = requete + " WHERE id_cote2 = "+Integer.toString(obj.getIdCote2());	
 						res = this.connex.createStatement(). executeUpdate(requete);
@@ -200,6 +204,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	public Cote2 findId(int id) {
 		
 		// testee le 13/12/2018 OK
+		// modifiée et testée ok le 02/05/2019
 		// Testee 
 				int mes=0;
 				
@@ -251,7 +256,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 
 	@Override
 	public List<Cote2> selectAll() {
-//		Testee le 
+//		Testee le 02/05/2019   ok
 			List<Cote2> cotes2 = new ArrayList<Cote2>();
 			Cote2 cote2 = null;
 			int mes=0;    // s'il est nécessaire d'afficher des messages
@@ -280,6 +285,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	@Override
 	public Object getByNom(String n) {
 		// teste ok le 13/12/2018
+		// modifiée et testée ol le 02/05/2019
 				Cote2 cote2=null;
 				List<Cote2> cotes2= new ArrayList<Cote2>();
 						int mes=0;
@@ -308,6 +314,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr) {
 		// Testée le 13/12/2018 OK
+		// modifiée et testée ok le 02/05/2019
 				Cote2 cote2=null;
 				List<Cote2> cotes2 = new ArrayList<Cote2>();
 						int mes=0;
@@ -342,6 +349,7 @@ public class Cote2DAO extends DAO<Cote2> implements DAO_Noms<Cote2>
 	public Object getByCote1(int c1) {
 		
 		// testee ok le 13/12/2018
+		// modifiée et testée ok le 2/05/2019
 		// récupération de toutes les cotes 2 sous la cote1 c1
 				Cote2 cote2=null;
 				List<Cote2> cotes2= new ArrayList<Cote2>();
