@@ -3,6 +3,7 @@ package com.DAO.biblio;
 // Les tables de la base de données
 public enum BddTables {
 
+	AUCUNE("aucune"),
 	AUTEURS("auteurs"),
 	AUTEURS2("auteurs2"),
 	AUTEURLANGUE("auteur_langue"),

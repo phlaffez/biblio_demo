@@ -1,0 +1,60 @@
+package com.ihm.biblio;
+
+import java.awt.Color;
+
+import javax.swing.JFrame;
+
+import com.DAO.biblio.BddTables;
+
+public class addCote extends JFrame{
+
+	// cette classe graphique doit permettre d'ejouter des enregistrements dans les tables
+	// de Cotes
+	// appelée depuis GenereCote
+	
+	private BddTables neoCote;   // la table dans laquelle on ajoute quelque chose
+	private BddTables coteRef;   // la table de niveau inférieur
+	private int refCo;           // la référence à laquelle rattacher la nouvelle cote, dans la
+	                             // table Cote(n-1) pour un ajout en Cote(n), n>=2
+
+	private Color coulFond;          // couleur fond du panneau
+	private Color coulTextPP;        // couleur texte principal
+	private Color coulEntete;        // couleur du fond de l'en tête de la table
+	private Color coulEnteteText;    // couleur du texte de l'en tête de la table
+	private Color coulBoutonFond;     // couleur des boutons
+	private Color coulBoutonText;    // couleur du texte des boutons
+	
+	
+	addCote(BddTables neoC, int i,Color coulFond, Color coulTextPP,Color coulEntete, Color coulEnteteText, Color coulBoutonFond, Color coulBoutonText) 
+	{
+		this.neoCote = neoC;
+		this.refCo = i;
+
+       switch (this.coteRef) {
+       case COTE2:
+    	   this.coteRef=BddTables.COTE1;
+    	   break;
+       case COTE3:
+    	   this.coteRef=BddTables.COTE2;
+    	   break;
+       case COTE4:
+    	   this.coteRef=BddTables.COTE3;
+    	   break;
+    	default: this.coteRef=BddTables.AUCUNE;   
+   
+       }
+       
+       this.coulFond=coulFond;
+       this.coulTextPP=coulTextPP;
+       this.coulEntete= coulEntete;
+       this.coulEnteteText= coulEnteteText;
+   	   this.coulBoutonFond= coulBoutonFond;
+       this.coulBoutonText= coulBoutonText;
+       
+       
+	}
+	
+
+	
+	
+}

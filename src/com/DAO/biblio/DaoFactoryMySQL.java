@@ -33,7 +33,7 @@ public class DaoFactoryMySQL  {
 	  return new LangueDAO(Mysql_Connect.getInstance());
    }
  
- public LivreDAO getLivreDAO()
+ public static LivreDAO getLivreDAO()
     {
 	  return new LivreDAO(Mysql_Connect.getInstance());
    } 

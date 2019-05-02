@@ -130,6 +130,7 @@ CREATE TABLE cote1 (
 id_cote1 INT UNSIGNED AUTO_INCREMENT NOT NULL,
 code VARCHAR(3),
 nom VARCHAR(50),
+infos VARCHAR(255),
 PRIMARY KEY pk_cote1(id_cote1)
 )
 ENGINE = INNODB;
@@ -139,6 +140,7 @@ id_cote2 INT UNSIGNED AUTO_INCREMENT NOT NULL,
 cote1 INT UNSIGNED NOT NULL,
 code VARCHAR(3),
 nom VARCHAR(50),
+infos VARCHAR(255),
 PRIMARY KEY pk_cote2(id_cote2),
   FOREIGN KEY fk_idcote1 (cote1) REFERENCES cote1(id_cote1)
 )
@@ -149,6 +151,7 @@ id_cote3 INT UNSIGNED AUTO_INCREMENT NOT NULL,
 cote2 INT UNSIGNED NOT NULL,
 code VARCHAR(5),
 nom VARCHAR(50),
+infos VARCHAR(255),
 PRIMARY KEY pk_cote3(id_cote3),
   FOREIGN KEY fk_idcote2 (cote2) REFERENCES cote2(id_cote2)
 )

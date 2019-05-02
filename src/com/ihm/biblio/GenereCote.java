@@ -26,10 +26,13 @@ import com.DAO.biblio.Cote2DAO;
 import com.DAO.biblio.Cote3DAO;
 import com.DAO.biblio.Cote4DAO;
 import com.DAO.biblio.DaoFactoryMySQL;
+import com.DAO.biblio.LivreDAO;
+import com.DAO.biblio.OptionRecherche;
 import com.metier.biblio.Cote1;
 import com.metier.biblio.Cote2;
 import com.metier.biblio.Cote3;
 import com.metier.biblio.Cote4;
+import com.metier.biblio.Livre;
 
 import phl.outils.panneaux.outilsStandards.JButtonOutils;
 
@@ -447,6 +450,41 @@ public class GenereCote extends JFrame{
 		
 		
 	}
+	
+	
+	private void initCompteur()
+	{
+		// vide le champs listeCompteur et la liste de float correspondant
+		// recherche dans la base de données les valeurs correspondantes
+		LivreDAO ldao = DaoFactoryMySQL.getLivreDAO();
+		String cav = listeCote1.getItemAt(listeCote1.getSelectedIndex())+"/";
+		cav = cav + listeCote2.getItemAt(listeCote2.getSelectedIndex())+"/";
+		cav = cav + listeCote3.getItemAt(listeCote3.getSelectedIndex())+"/";
+		cav = cav + listeCote4.getItemAt(listeCote4.getSelectedIndex())+"/";
+		ArrayList<Livre> livres = (ArrayList<Livre>)ldao.getByCoteLike(cav, OptionRecherche.COMMENCE);
+		if(livres.size()>0)
+		{
+			
+		}
+		else
+		{
+			
+		}
+		
+		
+		// à cote1/cote2/cote3/cote4 correspondant, et les copie
+		// dans le camps et dans la liste
+		// met à jour les variables compt1 et compt2 et mret compt2 comme proposition
+	}
+	
+	private boolean verifieCompteur()
+	
+	{
+		// vérifie que ce que l'utilisateur a choisi est valide (un float pas encore utilisé)
+		return false;
+	}
+	
+	
 	
 	
 	
