@@ -6,16 +6,19 @@ public class Cote1{
     private int idCote1;
     private String code;
     private String nom;
+    private String infos;
 
    public Cote1(){
        this.idCote1=0;
        this.code="";
        this.nom="";
+       this.infos="";
    }
-   public Cote1(int idCote1, String code, String nom){
+   public Cote1(int idCote1, String code, String nom, String infos){
        this.idCote1=idCote1;
        this.code=code.toUpperCase();
        this.nom=nom.toUpperCase();
+       this.infos=infos;
        };
    public Cote1(String code,String nom){
        this.code=code.toUpperCase();
@@ -54,9 +57,20 @@ public class Cote1{
     	   this.nom = nom.toUpperCase();
        }
        
+       public String getInfos() {
+    	   return this.infos;
+       }
+       
+       public void setInfos(String infos)
+       {
+    	   this.infos = infos;
+       }
+       
+       
+       
        public String toString()
        {
-    	   return Integer.toString(this.getIdCote1())+" / "+this.getCode()+" / "+this.getNom();
+    	   return Integer.toString(this.getIdCote1())+" / "+this.getCode()+" / "+this.getNom()+" / "+this.infos;
        }
 
 }

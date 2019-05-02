@@ -8,12 +8,14 @@ public class Cote2
     private int cote1;
     private String code;
     private String nom;
+    private String infos;
 
    public Cote2(){
        this.idCote2=0;
        this.cote1=0;
        this.code="";
        this.nom="";
+       this.infos="";
    }
    public Cote2(int idCote2, int cote1, String code, String nom){
        this.idCote2=idCote2;
@@ -64,9 +66,18 @@ public class Cote2
     	   this.nom = nom;
        }
        
+       public String getInfos() {
+    	   return this.infos;
+       }
+       
+       public void setInfos(String infos)
+       {
+    	   this.infos = infos;
+       }
+       
        public String toString()
        {
-    	   return Integer.toString(this.getIdCote2())+" / "+Integer.toString(this.getCote1())+" / "+this.getCode()+" / "+this.getNom();
+    	   return Integer.toString(this.getIdCote2())+" / "+Integer.toString(this.getCote1())+" / "+this.getCode()+" / "+this.getNom()+" / "+this.infos;
        }
        
        
