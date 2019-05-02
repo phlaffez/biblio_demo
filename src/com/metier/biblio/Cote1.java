@@ -20,9 +20,10 @@ public class Cote1{
        this.nom=nom.toUpperCase();
        this.infos=infos;
        };
-   public Cote1(String code,String nom){
+   public Cote1(String code,String nom,String infos){
        this.code=code.toUpperCase();
        this.nom=nom.toUpperCase();
+       this.infos = infos;
        };
        
        // getter et setters

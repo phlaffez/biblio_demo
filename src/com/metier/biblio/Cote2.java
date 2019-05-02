@@ -17,11 +17,12 @@ public class Cote2
        this.nom="";
        this.infos="";
    }
-   public Cote2(int idCote2, int cote1, String code, String nom){
+   public Cote2(int idCote2, int cote1, String code, String nom, String infos){
        this.idCote2=idCote2;
        this.cote1=cote1;
        this.code=code;
        this.nom=nom;
+       this.infos = infos;
        };
        
        // getters et setters
