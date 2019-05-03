@@ -9,7 +9,7 @@ import com.metier.biblio.Cote4;
 
 class Cote4Test {
 	
-	Cote4 c=new Cote4(1,"code","A",1,15.0f);
+	Cote4 c=new Cote4(1,"code","A",1,15.0f,"cc");
 
 	@Test
 	void testGetCode() {
@@ -36,5 +36,20 @@ class Cote4Test {
 		c.setNom(nom);
 		assertTrue("get nom",nom.equals(c.getNom()));
 	}
+	
+	
+	@Test
+	void testGetInfos() {
+		String nom = "cc";
+		assertTrue("get infos",nom.equals(c.getInfos()));
+	}
+
+	@Test
+	void testSetInfos() {
+		String nom = "B";
+		c.setInfos(nom);
+		assertTrue("set infos",nom.equals(c.getInfos()));
+	}
+	
 
 }

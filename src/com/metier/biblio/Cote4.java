@@ -12,6 +12,7 @@ public class Cote4{
     private float compteur;
     private String code;
     private String nom;
+    private String infos;
 
    public Cote4(){
        this.idCote4=0;
@@ -19,14 +20,16 @@ public class Cote4{
        this.compteur=0.0f;
        this.nom="";
        this.code="";
+       this.infos="";
        
    }
-   public Cote4(int idCote4, String code, String nom, int cote3, float compteur){
+   public Cote4(int idCote4, String code, String nom, int cote3, float compteur,String infos){
        this.idCote4=idCote4;
        this.cote3=cote3;
        this.compteur=compteur;
        this.nom=nom;
        this.code=code;
+       this.infos=infos;
        };
        
        // getters et setters
@@ -87,6 +90,18 @@ public class Cote4{
     	    
     	    return Integer.toString(this.getIdCote4())+" / "+this.code+" / "+this.nom+" / "+Integer.toString(this.getCote3())+" / "+Float.toString(this.getCompteur());
        }
+       
+       
+       public String getInfos()
+       {
+    	   return this.infos;
+       }
+       
+       public void setInfos(String infos)
+       {
+    	   this.infos = infos;
+       }
+       
 
 
 }
