@@ -165,6 +165,7 @@ id_cote4 INT UNSIGNED AUTO_INCREMENT NOT NULL,
 cote3 INT UNSIGNED NOT NULL,
 code VARCHAR(5),
 nom VARCHAR(50),
+infos VARCHAR(255),
 compteur DECIMAL(7,5) UNSIGNED,
 PRIMARY KEY pk_cote4(id_cote4),
   FOREIGN KEY fk_idcote3 (cote3) REFERENCES cote3(id_cote3)
