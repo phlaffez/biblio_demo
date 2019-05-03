@@ -58,7 +58,12 @@ public class essais {
 		int larg=800;
 		int haut = 600;
 		
-		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
+//		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
+		
+		Cote4DAO c4dao = DaoFactoryMySQL.getCote4DAO();
+		List<Cote4> c4 = (List<Cote4>)c4dao.getByCote3(7);
+		
+		System.out.println(c4.toString());
 		
 		
 

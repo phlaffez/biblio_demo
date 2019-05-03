@@ -25,6 +25,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	public boolean create(Cote4 obj) {
 		// Ecrite le 16/12/2018
 		// testée le 16/12/2018 OK
+		// modifiée et testéele 03/05/2019
 				
 				Boolean retour = false;
 				String req;
@@ -73,9 +74,11 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 								else
 								{
 								// peut créer la fiche
-								String requete= "INSERT INTO cote4 (cote3,code, nom,compteur) VALUES (";
+								String requete= "INSERT INTO cote4 (cote3,code, nom,compteur,infos) VALUES (";
 								requete = requete +Integer.toString(obj.getCote3())+",'"+obj.getCode()+"\',\'";
-								requete = requete +obj.getNom()+"\',"+Float.toString(obj.getCompteur())+")";
+								requete = requete +obj.getNom()+"\',"+Float.toString(obj.getCompteur())+",'"+obj.getInfos();
+								requete = requete +"')";
+					//			System.out.println(requete);
 								try
 								{
 			//						System.out.println(requete);
@@ -121,6 +124,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	public boolean update(Cote4 obj) {
 		// // écrit le 16/12/2018
 		// testee le 16/12/2018  OK
+		// modifiée et testée le 03/05/2019
 		boolean retour = false;
 		int res;
 		int mes=0;
@@ -144,6 +148,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 						      requete = requete+",nom='"+obj.getNom()+"'";
 						      requete = requete+",cote3 ="+Integer.toString(obj.getCote3());
 						      requete = requete +",compteur = "+Float.toString(obj.getCompteur());
+						      requete = requete+",infos ='"+obj.getInfos()+"'";
 						      requete = requete + " WHERE id_cote4 = "+Integer.toString(obj.getIdCote4());	
 		
 						res = this.connex.createStatement(). executeUpdate(requete);
@@ -208,7 +213,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 		
 		// ecrite le 16/12/2018
 		// testee  le 16/12/2018  OK
-		// Testee 
+		// modifiée et testée le 3/05/2019
 				int mes=0;
 				
 				Cote4 cote4 = null;
@@ -219,7 +224,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 					if (res.first())
 					{
 									
-						cote4 = new Cote4(id,res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"));
+						cote4 = new Cote4(id,res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"),res.getString("infos"));
 												  
 						mes=1;
 					}
@@ -262,6 +267,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	public List<Cote4> selectAll() {
 		// ecrite le 16/12/2018
 		// testee le 16/12/2018  OK
+		// modifiée et testée le 03/05/2019
 
 			List<Cote4> cotes4 = new ArrayList<Cote4>();
 			Cote4 cote4 = null;
@@ -273,7 +279,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 				while (res.next())
 				{
 
-					cote4 = new  Cote4(res.getInt("id_cote4"),res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"));	
+					cote4 = new  Cote4(res.getInt("id_cote4"),res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"),res.getString("infos"));	
 					cotes4.add(cote4);
 					}
 				res.close();
@@ -291,7 +297,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	@Override
 	public Object getByNom(String n) {
 		// ecrite ok le 16/12/2018
-		// testee le 
+		// modifiée et testée le 03/05/2019
 		Cote4 cote4=null;
 		List<Cote4> cotes4= new ArrayList<Cote4>();
 				int mes=0;
@@ -302,7 +308,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 				while (res.next())
 				{
 
-					cote4 = new  Cote4(res.getInt("id_cote4"),res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"));	
+					cote4 = new  Cote4(res.getInt("id_cote4"),res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"),res.getString("infos"));	
 					cotes4.add(cote4);
 					}
 				res.close();
@@ -321,7 +327,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 	public Object getByNomLike(String n, OptionRecherche opr) {
 		// ecrite le 16/12/2018 
 		// testee le 16/12/2018  OK
-		
+		// modifiée et testée le 03/05/2019
 		Cote4 cote4=null;
 		List<Cote4> cotes4 = new ArrayList<Cote4>();
 				int mes=0;
@@ -340,7 +346,7 @@ public class Cote4DAO extends DAO<Cote4> implements DAO_Noms<Cote4>{
 				while (res.next())
 				{
 
-					cote4 = new  Cote4(res.getInt("id_cote4"),res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"));	
+					cote4 = new  Cote4(res.getInt("id_cote4"),res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"),res.getString("infos"));	
 					cotes4.add(cote4);
 					}
 				res.close();
@@ -370,7 +376,8 @@ public Object getByCote3(int c1) {
 						while (res.next())
 						{
 
-							cote4 = new  Cote4(res.getInt("id_cote4"),res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"));	
+							cote4 = new  Cote4(res.getInt("id_cote4"),res.getString("code"),res.getString("nom"),res.getInt("cote3"),res.getFloat("compteur"),res.getString("infos"));
+							
 							cotes4.add(cote4);
 							}
 						res.close();
