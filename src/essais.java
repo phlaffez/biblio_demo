@@ -20,6 +20,7 @@ import com.DAO.biblio.LocalisationDAO;
 import com.DAO.biblio.OptionRecherche;
 import com.DAO.biblio.ResumeLivreDAO;
 import com.dbacces.biblio.Mysql_Connect;
+import com.ihm.biblio.AddCote;
 import com.ihm.biblio.ChoixAuteurs;
 import com.ihm.biblio.DetailAuteur;
 import com.ihm.biblio.Fenetre_PP;
@@ -60,10 +61,9 @@ public class essais {
 		
 //		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
 		
-		Cote4DAO c4dao = DaoFactoryMySQL.getCote4DAO();
-		List<Cote4> c4 = (List<Cote4>)c4dao.getByCote3(7);
 		
-		System.out.println(c4.toString());
+		AddCote adc = new AddCote(BddTables.COTE1, 0, cf, ct,cf2, ct, cb, ct,600,400); 
+		
 		
 		
 

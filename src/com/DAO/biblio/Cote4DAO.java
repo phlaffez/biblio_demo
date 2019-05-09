@@ -364,6 +364,7 @@ public Object getByCote3(int c1) {
 		
 		// ecrite le 16/12/2018
 	// testee le 16/12/2018
+	// modifiée et testée le 03/05/2019
 		// récupération de toutes les cotes 4 sous la cote3 c1
 	
 				Cote4 cote4=null;

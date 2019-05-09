@@ -107,6 +107,7 @@ public class GenereCote extends JFrame{
 		this.setBackground(this.colfond);
 		this.setForeground(colTexte);
 		this.setTitle(this.titreFen);
+		
 		init1();
 		init2();
 		init3();
