@@ -73,6 +73,7 @@ public class AddCote extends JFrame{
 	private JLabel labelInfo = new JLabel("Infos:");
 	private JTextField infoSais = new JTextField();
 	private JLabel labelNom = new JLabel("Nom:");
+	private JLabel LabelCode = new JLabel("Codes:");
 	private JTextField nomSais = new JTextField();
 	
 	
@@ -272,8 +273,8 @@ public class AddCote extends JFrame{
 	{
 		// panneau de champs de saisie
 		Dimension dimo = new Dimension(50,25);
-		Dimension dimo2 = new Dimension(150,25);
-		Dimension dimo3 = new Dimension(300,25);
+		Dimension dimo2 = new Dimension(100,25);
+		Dimension dimo3 = new Dimension(200,25);
 		
 		this.panneauCentral.setBackground(Color.WHITE);
 		grille = new  GridBagLayout();
@@ -284,23 +285,30 @@ public class AddCote extends JFrame{
 		this.grilleCont.gridheight=1;
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
+		this.LabelCode.setPreferredSize(dimo);
+		this.panneauCentral.add(this.LabelCode,this.grilleCont);
+		this.grilleCont.gridx=1;
+		this.grilleCont.gridy=0;
+		this.grilleCont.gridheight=1;
+		this.grilleCont.gridwidth=1;
+		this.grilleCont.weightx=1;
 		c1.setPreferredSize(dimo);
 		this.panneauCentral.add(this.c1, this.grilleCont);
-		this.grilleCont.gridx=1;
+		this.grilleCont.gridx=2;
 		this.grilleCont.gridy=0;
 		this.grilleCont.gridheight=1;
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
 		c2.setPreferredSize(dimo);
 		this.panneauCentral.add(this.c2, this.grilleCont);
-		this.grilleCont.gridx=2;
+		this.grilleCont.gridx=3;
 		this.grilleCont.gridy=0;
 		this.grilleCont.gridheight=1;
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
 		c3.setPreferredSize(dimo);
 		this.panneauCentral.add(this.c3, this.grilleCont);
-		this.grilleCont.gridx=3;
+		this.grilleCont.gridx=4;
 		this.grilleCont.gridy=0;
 		this.grilleCont.gridheight=1;
 		this.grilleCont.gridwidth=1;
@@ -317,8 +325,8 @@ public class AddCote extends JFrame{
 		this.grilleCont.gridx=1;
 		this.grilleCont.gridy=1;
 		this.grilleCont.gridheight=1;
-		this.grilleCont.gridwidth=1;
-		this.grilleCont.weightx=1;
+		this.grilleCont.gridwidth=2;
+		this.grilleCont.weightx=3;
 		this.nomSais.setPreferredSize(dimo2);
 		this.panneauCentral.add(this.nomSais, this.grilleCont);
 		this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
@@ -326,12 +334,12 @@ public class AddCote extends JFrame{
 		this.grilleCont.gridy=2;
 		this.grilleCont.gridheight=1;
 		this.grilleCont.gridwidth=1;
-		this.grilleCont.weightx=1;
+		this.grilleCont.weightx=2.5;
 		this.panneauCentral.add(this.labelInfo, this.grilleCont);
 		this.grilleCont.gridx=1;
 		this.grilleCont.gridy=2;
 		this.grilleCont.gridheight=1;
-		this.grilleCont.gridwidth=1;
+		this.grilleCont.gridwidth=3;
 		this.grilleCont.weightx=1;
 		this.infoSais.setPreferredSize(dimo3);
 		this.panneauCentral.add(this.infoSais, this.grilleCont);
