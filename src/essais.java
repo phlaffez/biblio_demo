@@ -62,7 +62,7 @@ public class essais {
 //		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
 		
 		
-		AddCote adc = new AddCote(BddTables.COTE2, 4, cf, ct,cf2, ct, cb, ct,600,400); 
+		AddCote adc = new AddCote(BddTables.COTE3, 15, cf, ct,cf2, ct, cb, ct,600,400); 
 		
 		
 		

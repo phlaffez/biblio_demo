@@ -486,6 +486,9 @@ public class AddCote extends JFrame{
 			    	   dispose();
 			    	   break;
 			       case COTE3:
+			    	   cote3 = new Cote3(id, refCo, code.toString(), nom.toString(), infos.toString());
+			    	   cote3dao.create(cote3);
+			    	   dispose();
 			    	   break;
 			       case COTE4:
 			    	   break;
