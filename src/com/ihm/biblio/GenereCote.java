@@ -276,6 +276,12 @@ public class GenereCote extends JFrame{
 	private void init4()
 	{
 		// mise en place du panneau de boutons
+		
+		this.bOK = new JButtonOutils("Valider",100,50,Color.orange);
+		this.bAnnule = new JButtonOutils("Annuler",100,50,Color.orange);
+		this.panneauBoutons = new JPanel();
+		this.panneauBoutons.add(this.bAnnule);
+		this.panneauBoutons.add(this.bOK);
 	}
 	
 	private void init5()
@@ -287,6 +293,7 @@ public class GenereCote extends JFrame{
 		this.panneau.setLayout(new BorderLayout());
 		this.panneau.add(this.panneauTitre,BorderLayout.NORTH);
 		this.panneau.add(this.paneauCotes,BorderLayout.CENTER);
+		this.panneau.add(this.panneauBoutons, BorderLayout.SOUTH);
 		
 		this.setVisible(true);
 	}
