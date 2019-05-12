@@ -110,6 +110,7 @@ public class GenereCote extends JFrame{
 		
 		init1();
 		init2();
+		initCompteur();
 		init3();
 		init4();
 		init5();
@@ -455,17 +456,23 @@ public class GenereCote extends JFrame{
 	
 	private void initCompteur()
 	{
+		int j=0;
 		// vide le champs listeCompteur et la liste de float correspondant
 		// recherche dans la base de données les valeurs correspondantes
 		LivreDAO ldao = DaoFactoryMySQL.getLivreDAO();
-		String cav = listeCote1.getItemAt(listeCote1.getSelectedIndex())+"/";
-		cav = cav + listeCote2.getItemAt(listeCote2.getSelectedIndex())+"/";
-		cav = cav + listeCote3.getItemAt(listeCote3.getSelectedIndex())+"/";
-		cav = cav + listeCote4.getItemAt(listeCote4.getSelectedIndex())+"/";
+		String cav = coteGeneree.getText();
+		System.out.println(cav);
 		ArrayList<Livre> livres = (ArrayList<Livre>)ldao.getByCoteLike(cav, OptionRecherche.COMMENCE);
+		listeCompteur.setText("");
 		if(livres.size()>0)
 		{
-			
+			for (int i =0; i<livres.size();i++)
+			{
+				j=livres.get(i).getCote().lastIndexOf('/');
+				System.out.println(j);
+				listeCompteur.append(livres.get(i).getCote().substring(j+1));
+				listeCompteur.append("\n");
+			}
 		}
 		else
 		{
@@ -558,6 +565,7 @@ public class GenereCote extends JFrame{
 				
 		
 			generationCote();
+			initCompteur();
 			champCompteurSais.setText("");
 				
 				

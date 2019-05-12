@@ -59,10 +59,10 @@ public class essais {
 		int larg=800;
 		int haut = 600;
 		
-//		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
+		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
 		
 		
-		AddCote adc = new AddCote(BddTables.COTE4, 8, cf, ct,cf2, ct, cb, ct,600,400); 
+//		AddCote adc = new AddCote(BddTables.COTE4, 8, cf, ct,cf2, ct, cb, ct,600,400); 
 		
 		
 		
