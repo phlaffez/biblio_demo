@@ -23,6 +23,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import com.DAO.biblio.BddTables;
 import com.DAO.biblio.Cote1DAO;
 import com.DAO.biblio.Cote2DAO;
 import com.DAO.biblio.Cote3DAO;
@@ -48,6 +49,12 @@ public class GenereCote extends JFrame{
 	private Color colfond;
 	private Color colTexte;
 	private Color colEtiq;
+	private BddTables aCoter;   // soit LIVRES soit REVUES (pour plus tard
+	                            // et peut être aussi les articles
+	
+	// objets à coter:
+	
+	private Livre livre = null;
 	
 	// nom fenetre:
 	private String nomFenetre;
@@ -97,6 +104,7 @@ public class GenereCote extends JFrame{
 	public GenereCote(String tl,String au, int l,int h, Color cf, Color ct, Color fet)
 	{
 		// Il s'agit d'un constructeur pour les tests.
+		this.aCoter = BddTables.AUCUNE;
 		this.titreLivre=tl;
 		this.largeur = l;
 		this.hauteur=h;
@@ -123,8 +131,11 @@ public class GenereCote extends JFrame{
 	
 	public GenereCote(Livre livre, int l,int h, Color cf, Color ct, Color fet)
 	{
+
 		ArrayList<Auteur> listau;
 		// Il s'agit d'un constructeur pour attribuer une cote à un livre
+		this.aCoter=BddTables.LIVRES;
+		this.livre=livre;
 		this.titreLivre=livre.getNomLivre();
 		this.largeur = l;
 		this.hauteur=h;
@@ -169,6 +180,7 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 	
 //	public GenereCote(Periodique  perio, int l,int h, Color cf, Color ct, Color fet)	
 	// sera à faire quand j'ajouterai les périodiques dans la base de données
+	// this.aCoter = BddTables.REVUES;
 	
 
 	private void init1()
@@ -450,7 +462,7 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 	
 	private void initCote4(int c3)
 	{
-		// initialisation du Comboxbox listeCote4 en fonction d'une Cote32 déjà choisie c3
+		// initialisation du Comboxbox listeCote4 en fonction d'une Cote3 déjà choisie c3
 		
 		Cote4DAO c4dao = DaoFactoryMySQL.getCote4DAO();
 		Cote4 c4;
@@ -525,7 +537,7 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 		// recherche dans la base de données les valeurs correspondantes
 		LivreDAO ldao = DaoFactoryMySQL.getLivreDAO();
 		String cav = coteGeneree.getText();
-		System.out.println(cav);
+	//	System.out.println(cav);
 		ArrayList<Livre> livres = (ArrayList<Livre>)ldao.getByCoteLike(cav, OptionRecherche.COMMENCE);
 		listeCompteur.setText("");
 		if(livres.size()>0)
@@ -533,7 +545,7 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 			for (int i =0; i<livres.size();i++)
 			{
 				j=livres.get(i).getCote().lastIndexOf('/');
-				System.out.println(j);
+		//		System.out.println(j);
 				listeCompteur.append(livres.get(i).getCote().substring(j+1));
 				listeCompteur.append("\n");
 			}
@@ -682,21 +694,56 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				LivreDAO livredao = DaoFactoryMySQL.getLivreDAO();
+				// Il faut vérifier qu'on a quelque chose dans le champ numéro et que c'est un nombre
 				
-				// on vérifie si la cote n'existe pas déjà dans la base de données
-				String cote = coteGeneree.getText();
-				ArrayList<Livre> liv= (ArrayList<Livre>) livredao.getByCoteLike(cote, OptionRecherche.EST);
-				if(liv.isEmpty())
+				String s= champCompteurSais.getText();
+				if(s.length()==0)
 				{
-
+					// ici ce n'est pas bon -- > message
 				}
-	
+				else
+					
+				{
+					try
+					{
+						float f = Float.parseFloat(s);
+						// on vérifie si la cote n'existe pas déjà dans la base de données
+						String cote = coteGeneree.getText();
+						ArrayList<Livre> liv= (ArrayList<Livre>) livredao.getByCoteLike(cote, OptionRecherche.EST);
+						if(liv.isEmpty())
+						{
+		                  // La cote est libre
+						  livre.setCote(cote);     // on met l'objet à jour
+				//		  livredao.update(livre);  // on met à jour l'enregistrement dans la table livres.
+			   // on met à jour le compteur de cote 4 si nécessaire:
+						  
+						  // recuperer l'objet cote4
+						  Cote4 cote4 = (Cote4) listeCote4.getSelectedItem();
+						  System.out.println(cote4.toString());
+						  // verifier si le nouveau numéro est au dessus
+						  // si oui mettre à jour l'objet cote4 puis la table
+						  
+		
+						  // afficher un message de succès
+						  // libérer la fenêtre. Il faudrait qu'une mise à jour aie lieu sur la fiche appelant (fiche livre)
+						 }
+					}
+					catch (NumberFormatException nfe) 
+					{
+						// message d'erreur car champ non numérique
+					}
+										
+					
+		
+					
+					
+					
+					
+					// si elle existe, on informe
+					// si elle est libre, on insère la cote dans la base de données et on germe la fenêtre
+				}
 				
 				
-				
-				
-				// si elle existe, on informe
-				// si elle est libre, on insère la cote dans la base de données et on germe la fenêtre
 				
 			}
 			
