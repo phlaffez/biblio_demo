@@ -59,7 +59,13 @@ public class essais {
 		int larg=800;
 		int haut = 600;
 		
-		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
+		
+		
+ArrayList<Auteur> auteurs;
+auteurs = null;
+		Livre livre = new Livre(10,"Les misérables",2,1,"12/11/1885","01/02/1998",false,1,"",null);
+//		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
+		GenereCote gc=new GenereCote(livre,larg,haut,cf,ct,cf2);
 		
 		
 //		AddCote adc = new AddCote(BddTables.COTE4, 8, cf, ct,cf2, ct, cb, ct,600,400); 

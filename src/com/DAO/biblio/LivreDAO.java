@@ -600,17 +600,25 @@ public Object getByCoteLike(String n, OptionRecherche opr) {
 	Livre livre;
 	String datePub = "Date de publication non renseignée";
 	String dateAcq = "Date d'acquisition non renseignée";
+	String requete;
 	int classe = 0;
 
 	List<Livre> livres = new ArrayList<Livre>();  // ce qui sera renvoyé
 	Livre unLivre;
 	int mes=0;    // s'il est nécessaire d'afficher des messages
-	String requete = "SELECT * FROM livres WHERE cote LIKE \'";
+	if (opr == OptionRecherche.EST)
+	{
+		requete= "SELECT * FROM livres WHERE cote =\'"+n+"\'";
+	}
+	else
+	{
+	requete = "SELECT * FROM livres WHERE cote LIKE \'";
 	if(opr == OptionRecherche.CONTIEND)
 	{
 		requete = requete+"%";
 	}
 	requete = requete+n+"%\'";
+	}
 //	System.out.println(requete);
 	try
 	{

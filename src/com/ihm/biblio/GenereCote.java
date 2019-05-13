@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import com.DAO.biblio.Cote4DAO;
 import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.LivreDAO;
 import com.DAO.biblio.OptionRecherche;
+import com.metier.biblio.Auteur;
 import com.metier.biblio.Cote1;
 import com.metier.biblio.Cote2;
 import com.metier.biblio.Cote3;
@@ -93,6 +96,7 @@ public class GenereCote extends JFrame{
 		
 	public GenereCote(String tl,String au, int l,int h, Color cf, Color ct, Color fet)
 	{
+		// Il s'agit d'un constructeur pour les tests.
 		this.titreLivre=tl;
 		this.largeur = l;
 		this.hauteur=h;
@@ -115,6 +119,57 @@ public class GenereCote extends JFrame{
 		init4();
 		init5();
 	}
+	
+	
+	public GenereCote(Livre livre, int l,int h, Color cf, Color ct, Color fet)
+	{
+		ArrayList<Auteur> listau;
+		// Il s'agit d'un constructeur pour attribuer une cote à un livre
+		this.titreLivre=livre.getNomLivre();
+		this.largeur = l;
+		this.hauteur=h;
+		this.colfond=cf;
+		this.colTexte=ct;
+		this.colEtiq = fet;
+		if(livre.getAuteurs()!=null)
+		{
+		 listau = (ArrayList<Auteur>) livre.getAuteurs();
+		}
+		else
+		{
+			listau = new ArrayList<Auteur> ();
+		}
+		
+		if (listau.size()==1)
+				{
+		this.auteur = listau.get(0).getNom()+" "+listau.get(0).getPrenom();
+				}
+		if (listau.size()==0)
+		{
+this.auteur = "Inconnu";
+if (listau.size()>=1)
+{
+this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
+}
+		}
+	
+		
+		this.setSize(this.largeur, this.hauteur);
+		this.setBackground(this.colfond);
+		this.setForeground(colTexte);
+		this.setTitle(this.titreFen);
+		
+		init1();
+		init2();
+		initCompteur();
+		init3();
+		init4();
+		init5();
+	}
+	
+//	public GenereCote(Periodique  perio, int l,int h, Color cf, Color ct, Color fet)	
+	// sera à faire quand j'ajouterai les périodiques dans la base de données
+	
 
 	private void init1()
 	{
@@ -280,6 +335,8 @@ public class GenereCote extends JFrame{
 		this.bOK = new JButtonOutils("Valider",100,50,Color.orange);
 		this.bAnnule = new JButtonOutils("Annuler",100,50,Color.orange);
 		this.panneauBoutons = new JPanel();
+		this.bOK.addActionListener(new bOKListener());
+		this.bAnnule.addActionListener(new bAnnuleListener());
 		this.panneauBoutons.add(this.bAnnule);
 		this.panneauBoutons.add(this.bOK);
 	}
@@ -604,7 +661,48 @@ public class GenereCote extends JFrame{
 		}
 
 
+		class bAnnuleListener implements ActionListener
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+		//		System.out.println("Bouton annuler pressé");
+				dispose();
+				
+			}
+			
+		}
+		
+		
+		class bOKListener implements ActionListener 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				LivreDAO livredao = DaoFactoryMySQL.getLivreDAO();
+				
+				// on vérifie si la cote n'existe pas déjà dans la base de données
+				String cote = coteGeneree.getText();
+				ArrayList<Livre> liv= (ArrayList<Livre>) livredao.getByCoteLike(cote, OptionRecherche.EST);
+				if(liv.isEmpty())
+				{
+
+				}
 	
+				
+				
+				
+				
+				// si elle existe, on informe
+				// si elle est libre, on insère la cote dans la base de données et on germe la fenêtre
+				
+			}
+			
+		}
+		
+		
 		
 		
 		
