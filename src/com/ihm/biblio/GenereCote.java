@@ -708,13 +708,16 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 					addcote = new AddCote(BddTables.COTE1,0, colfond, colTexte,colfond, colTexte, Color.RED, colTexte,600,400); 
 					break;
 				case "Add2":
-					System.out.println("bouton 2");
+					Cote1 c1  = (Cote1) listeCote1.getSelectedItem();
+					addcote = new AddCote(BddTables.COTE2,c1.getIdCote1(), colfond, colTexte,colfond, colTexte, Color.RED, colTexte,600,400);
 					break;
 			    case "Add3":
-					System.out.println("bouton 3");
+			    	Cote2 c2  = (Cote2) listeCote2.getSelectedItem();
+					addcote = new AddCote(BddTables.COTE3,c2.getIdCote2(), colfond, colTexte,colfond, colTexte, Color.RED, colTexte,600,400);
 					break;
 			    case "Add4":
-					System.out.println("bouton 4");
+			    	Cote3 c3  = (Cote3) listeCote3.getSelectedItem();
+					addcote = new AddCote(BddTables.COTE4,c3.getIdCote3(), colfond, colTexte,colfond, colTexte, Color.RED, colTexte,600,400);
 					break;
 					
 				}
