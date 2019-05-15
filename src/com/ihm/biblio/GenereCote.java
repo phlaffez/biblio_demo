@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -275,6 +276,8 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
 		this.AddCote1= new JButtonOutils("Nouveau",largelem,hautelem,Color.orange);
+		this.AddCote1.setName("Add1");
+		this.AddCote1.addActionListener(new bAddCotesListener());
 		this.paneauCotes.add(this.AddCote1, this.grilleCont);
 		
 		this.grilleCont.gridx=1;
@@ -283,6 +286,8 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
 		this.AddCote2= new JButtonOutils("Nouveau",largelem,hautelem,Color.orange);
+		this.AddCote2.setName("Add2");
+		this.AddCote2.addActionListener(new bAddCotesListener());
 		this.paneauCotes.add(this.AddCote2, this.grilleCont);
 		
 		this.grilleCont.gridx=2;
@@ -291,6 +296,8 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 		this.grilleCont.gridwidth=1;
 		this.grilleCont.weightx=1;
 		this.AddCote3= new JButtonOutils("Nouveau",largelem,hautelem,Color.orange);
+		this.AddCote3.setName("Add3");
+		this.AddCote3.addActionListener(new bAddCotesListener());
 		this.paneauCotes.add(this.AddCote3, this.grilleCont);
 		
 		this.grilleCont.gridx=3;
@@ -300,6 +307,8 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 		this.grilleCont.weightx=1;
 		this.AddCote4= new JButtonOutils("Nouveau",largelem,hautelem,Color.orange);
 		this.paneauCotes.add(this.AddCote4, this.grilleCont);
+		this.AddCote4.setName("Add4");
+		this.AddCote4.addActionListener(new bAddCotesListener());
 		
 		this.grilleCont.gridx=4;
 		this.grilleCont.gridy=3;
@@ -687,6 +696,37 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 		}
 		
 		
+		class bAddCotesListener implements ActionListener {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				AddCote addcote;
+				String str =((JButtonOutils)arg0.getSource()).getName();
+				switch (str){
+				case "Add1":
+					addcote = new AddCote(BddTables.COTE1,0, colfond, colTexte,colfond, colTexte, Color.RED, colTexte,600,400); 
+					break;
+				case "Add2":
+					System.out.println("bouton 2");
+					break;
+			    case "Add3":
+					System.out.println("bouton 3");
+					break;
+			    case "Add4":
+					System.out.println("bouton 4");
+					break;
+					
+				}
+			
+				
+			}
+			
+		}
+		
+		
+		
+		
 		class bOKListener implements ActionListener 
 		{
 
@@ -694,6 +734,7 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				LivreDAO livredao = DaoFactoryMySQL.getLivreDAO();
+				JFrame frame=new JFrame() ;
 				// Il faut vérifier qu'on a quelque chose dans le champ numéro et que c'est un nombre
 				
 				String s= champCompteurSais.getText();
@@ -719,17 +760,25 @@ this.auteur = listau.get(0).getNom()+" "+listau.get(1).getNom()+" ...";
 						  
 						  // recuperer l'objet cote4
 						  Cote4 cote4 = (Cote4) listeCote4.getSelectedItem();
-						  System.out.println(cote4.toString());
 						  // verifier si le nouveau numéro est au dessus
 						  // si oui mettre à jour l'objet cote4 puis la table
+						  if(f>cote4.getCompteur())
+						  {
+							  cote4.setCompteur(f);
+							  Cote4DAO c4dao = DaoFactoryMySQL.getCote4DAO();
+						//	  c4dao.update(cote4);
+						  }
+						 
 						  
 		
 						  // afficher un message de succès
-						  // libérer la fenêtre. Il faudrait qu'une mise à jour aie lieu sur la fiche appelant (fiche livre)
+						  JOptionPane.showMessageDialog(frame, "Cote insérée.");
+						  dispose();
 						 }
 					}
 					catch (NumberFormatException nfe) 
 					{
+						JOptionPane.showMessageDialog(frame, "Le dernier champ de la cote doit être un nombre entier","Erreur",JOptionPane.ERROR_MESSAGE);
 						// message d'erreur car champ non numérique
 					}
 										

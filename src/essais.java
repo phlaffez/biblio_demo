@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.DAO.biblio.AuteurDAO;
 import com.DAO.biblio.AuteurGenreDAO;
 import com.DAO.biblio.BddTables;
@@ -72,7 +75,7 @@ auteurs = null;
 		
 		
 		
-		
+			
 
 		
 System.out.println("Fin essai");
