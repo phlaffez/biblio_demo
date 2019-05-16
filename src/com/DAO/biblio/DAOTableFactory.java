@@ -57,8 +57,8 @@ public static JTable getTable(Connection conn, BddTables table)
 	
 		else if(table.equals(BddTables.LIVRES))
 		{
-			 requete = "SELECT id, nom_liv, date_pub, lieux FROM "+table;
-//			 System.out.println(requete);
+			 requete = "SELECT id, nom_liv, date_pub, classement FROM "+table;
+	//		 System.out.println(requete);
 			nbcol=4;
 			titre = new String[4];
 			titre[0]="Id";
@@ -109,7 +109,6 @@ public static JTable getTable(Connection conn, BddTables table)
 				 data[0][i]="";
 			 }
 		}
-		
 		
 		model = new ModelTablePhl(data,titre);
 		tab = new JTable(model)	{
