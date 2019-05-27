@@ -1,0 +1,18 @@
+if(b1)
+			{
+				// on crée l'objet, on l'envoie dans la base de données et on redonne la main au programme appelant
+				// création objet
+				
+				switch (neoCote) {
+			       case COTE1:
+			    	   cote1 = new Cote1(id,code.toString(),nom.toString(),infos.toString());
+			    	   System.out.println(cote1.toString());
+			       break;
+			       case COTE2:
+				       break;
+			       case COTE3:
+				       break;
+			       case COTE4:
+				       break;
+			}
+			}

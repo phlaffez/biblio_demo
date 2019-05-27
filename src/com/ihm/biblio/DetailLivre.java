@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.DAO.biblio.AuteurDAO;
+import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.GenreDAO;
 import com.DAO.biblio.LangueDAO;
 import com.DAO.biblio.LivreAuteurDAO;
@@ -90,6 +91,7 @@ private Livre obj;
 		private Langue langue;
 		private Pays pays;
 		private LivreAuteurDAO livreAuteurdao = new LivreAuteurDAO(Mysql_Connect.getInstance());
+		private LivreDAO livredao = DaoFactoryMySQL.getLivreDAO();
 
 		
 		
@@ -596,6 +598,21 @@ private Livre obj;
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
+			
+			// controle des saisies
+			
+			// création de l'objet Livre
+			
+			
+			obj = new Livre();     // utiliser le constructeur complet
+			// enregistrement de la nouvelle fiche livre
+			
+			// livredao.create(obj);
+			// cote
+	//		GenereCote generecote = new GenereCote(obj,800,600,Color.CYAN,Color.BLACK,Color.LIGHT_GRAY);
+			
+			// fermeture
+			// dispose();
 			
 		}
 	}
