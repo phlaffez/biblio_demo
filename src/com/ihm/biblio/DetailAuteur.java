@@ -294,6 +294,7 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 		this.grilleCont.weightx=2;
 		this.grilleCont.fill=GridBagConstraints.BOTH;
 		this.jsc = new JScrollPane(this.infoChamp);
+		this.jsc.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 		this.pan.add(this.jsc,this.grilleCont);
 		this.grilleCont.gridwidth = GridBagConstraints.REMAINDER;
