@@ -165,6 +165,8 @@ public class DetailAuteur extends IhmDetailFiche<Auteur,AuteurDAO>{
 		this.naissChamp.setText("0"); 
 		this.decChamp.setText("0");
         this.infoChamp.setText("");
+        this.infoChamp.setLineWrap(true);
+        this.infoChamp.setWrapStyleWord(true);
         editable(true);
 	}
 
@@ -481,6 +483,8 @@ protected void remplit() {
 	this.naissChamp.setText(Integer.toString(this.obj.getAnnee_naiss()));
 	this.decChamp.setText(Integer.toString(this.obj.getAnnee_deces()));
     this.infoChamp.setText(obj.getInfo());
+    this.infoChamp.setLineWrap(true);
+    this.infoChamp.setWrapStyleWord(true);
     if((this.ordre==Ordre.CREATION)|(this.ordre==Ordre.MODIFICATION))
     {
     	editable(true);
