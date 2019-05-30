@@ -11,6 +11,7 @@ import com.metier.biblio.Auteur;
 import com.metier.biblio.Genre;
 import com.metier.biblio.Livre;
 import com.metier.biblio.LivreAuteur;
+import com.mysql.jdbc.PreparedStatement;
 
 import phl.outils.panneaux.outilsStandards.FenetreMessage;
 
@@ -29,8 +30,10 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 	@Override
 	public boolean create(Auteur obj) {
 		// testé le 16/03/2018 - OK
+		// modifiée le 30/0/2019 pour remlacer larequete par un preparedstatment
 		boolean retour = false; // par défaut. Si l'auteur existe déjà, on ne le crée pas
 		// On fait la distinction avec nom, prenom et annee de naissance
+		int mes = 0;
 		
 		// chercher si l'auteur est dans la base de données 
 		// getByNomPrenom renvoie un objet, donc il faut caster
@@ -54,38 +57,19 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 		
 		else
 		{
+			java.sql.PreparedStatement pstmt = this.connex.prepareStatement("INSERT INTO auteurs (nom_aut,prenom_aut,pays_aut,annee_naiss, annee_deces,infos) VALUES(?,?,?,?,?,?)");
+			pstmt.setString(1, obj.getNom());			
+			pstmt.setString(2, obj.getPrenom());
+			pstmt.setInt(3, obj.getId_pays());
+			pstmt.setInt(4, obj.getAnnee_naiss());
+			pstmt.setInt(5, obj.getAnnee_deces());
+			pstmt.setString(6, obj.getInfo());
 			
-			String requete = "INSERT INTO auteurs";
-					requete = requete +"(nom_aut,prenom_aut,pays_aut,annee_naiss, annee_deces,infos)";
-					requete = requete +" VALUES (";
-					requete = requete + "'"+obj.getNom()+"',\'";
-					requete = requete + obj.getPrenom()+"\',";
-					requete = requete + Integer.toString(obj.getId_pays())+",";
-					requete = requete + ""+obj.getAnnee_naiss()+",";
-					requete = requete + obj.getAnnee_deces()+",";
-					requete = requete + "'"+obj.getInfo()+"'";
-					requete = requete +")";
-					System.out.println(requete);
-							
-							
-						
-							
-			int res = 0;
-			int mes=0;
 			try
 			{
-			 	
-			 res = this.connex.createStatement(). executeUpdate(requete);
-			 if(res==1)
-				 {
-				 
-				 // la première partie est créée
-				 // récupération de l'id
-			
-				 retour = true ;
-				 mes=1;
-				 }
-		}
+			  pstmt.executeUpdate();
+					retour = true;
+			}
 			catch (SQLException e)
 			{
 				// remplacer par un popup
@@ -105,7 +89,12 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 		return retour;
 	}
 	
-	
+
+		
+		
+		
+		
+		
 
 	@Override
 	public boolean update(Auteur obj) {

@@ -667,6 +667,7 @@ class CreerListener implements ActionListener{
 		// insertion d'une nouvelle valeur dans la base de données
 		 // création de l'objet Auteur
 		Auteur aut = (Auteur)creeObjet(0);
+		System.out.println(aut.toString());
 				// insertiondans la base de données:
 		AuteurDAO autdao = DaoFactoryMySQL.getAuteurDAO();
 		boolean ok1 =autdao.create(aut);

@@ -5,12 +5,17 @@
 3) Créer une méthode permetant de récupérer une liste d'objets à partir d'une tablede liaison pour une valeur donnée (par exemple tous les auteurs
 d'un livre, tous les livres d'un auteur, d'un genre, etc.) Même remarque que ci dessus. DAO_Liaison méthode ne devra pas renvoyer des couples de la table de liaison mis des objets utiles (Livres, Auteurs, etc.)
 
-4) Modififier les méthodes de livre pourl'utiliser
+4) Modififier les méthodes de livre pour l'utiliser
 
 4) modifier la méthode update de a classe livre pour utiliser cette métode
 
 5) revoir toutes les classes pour une bonne gestion des codes d'erreurs, exceptions. Créer une classe spécifique pour leur affichage en popups
 
-6) implémenter la classe AuteurDAO 
 
-7) Il faut réflechir aux requetes qu'il faudre pouvoir faire, et comment les faire. Ajouter des vues ? De nouvelles interface ? 
+7) Il faut réflechir aux requetes qu'il faudrait pouvoir faire, et comment les faire. Ajouter des vues ? De nouvelles interface ? 
+
+8) URGENT: Traitement du champs info pour qu'il puisse être enregistré dans la base de données
+tout le temps et pas seulement parfois, et ajouter une information dans le auteurdao.create
+quand on  un probleme à l'insertion, et à la modification d'un enregistrement.
+
+9) pouvoir trier les lignes des tables
