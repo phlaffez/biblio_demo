@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.metier.biblio.Auteur;
@@ -24,6 +25,7 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 	@Override
 	public boolean create(Livre obj) {
 		// testé le 07/02/2018 OK
+		// modifiée le 31/05/2019 : remplacement de la requete par un preparedStatment
 		// modifié le 12/12/2018 pour ajout du champ cote
 		// testée partiellement le 12/12 (cas livre sans homonyme existant, sans auteur
 		// reste à faire le cas avec auteurs, et celui ou il y aurait un titre homonyme dans la BDD
@@ -52,31 +54,30 @@ public class LivreDAO  extends DAO<Livre> implements DAO_Noms<Livre>{
 		
 if (traiter)
 		{
-			//on crée seulement si le livre n'est pas déjà présent dans la base
-			String requete = "INSERT INTO livres";
-					requete = requete +"(nom_liv,cote,genre,langue,date_pub,date_acq,un_resume,classement)";
-					requete = requete +" VALUES (";
-					requete = requete + "'"+obj.getNomLivre()+"',";
-					requete = requete + "'"+obj.getCote()+"',";
-					requete = requete + Integer.toString(obj.getGenre())+",";
-					requete = requete + Integer.toString(obj.getLangue())+",";
-					requete = requete + "'"+obj.getDatePublication()+"',";
-					requete = requete + "'"+obj.getDateAcquisition()+"',";
-					requete = requete + obj.getUnResume()+",";
-					requete = requete +obj.getClassement();
-					requete = requete +")";
-							
-							
+	
+								
 						
 							
 			int res = 0;
 			int mes=0;
 			try
 			{
-//			 	System.out.println(requete);
-			 res = this.connex.createStatement(). executeUpdate(requete);
-			 if(res==1)
-				 {
+				  
+				java.sql.PreparedStatement pstmt = this.connex.prepareStatement("INSERT INTO livres"
+						+ " (nom_liv,cote,genre,langue,date_pub,date_acq,un_resume,classement VALUES(?,?,?,?,?,?,?,?)");
+						//on crée seulement si le livre n'est pas déjà présent dans la base
+				pstmt.setString(1, obj.getNomLivre());	
+				pstmt.setString(2, obj.getCote());
+				pstmt.setInt(3,obj.getGenre());
+				pstmt.setInt(4,obj.getLangue());
+				pstmt.setString(5, obj.getDatePublication());
+				pstmt.setString(6, obj.getDateAcquisition());
+				pstmt.setBoolean(7, obj.getUnResume());
+				pstmt.setInt(8, obj.getClassement());
+				
+				System.out.println(pstmt.toString());
+				pstmt.executeUpdate();
+						retour = true;
 				 
 				 // la première partie est créée
 				 // récupération de l'id
@@ -94,7 +95,7 @@ if (traiter)
 					     totok = (totok & livreAuteurDAO.create(livreAuteur));
 					     
 					 }
-				 }
+				 
 					// création des enregistrements dans AuteurLivre
 				 if (totok == false)
 				 {
@@ -105,17 +106,19 @@ if (traiter)
 				 retour = true & totok;
 				 mes=1;
 				 }
-		}
+		
+			}
 			catch (SQLException e)
 			{
 				// remplacer par un popup
 				System.out.println("Erreur SQL lors de la création du livre: "+obj.getNomLivre());
 				mes=2;
 			}
-		}
 		
+		}
 		// ici mettre un popup si mes=0 (livre existant) ou 2 (pb SQL)
 		return retour;
+		
 	}
 	
 	
