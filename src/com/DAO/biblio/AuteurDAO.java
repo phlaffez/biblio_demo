@@ -108,23 +108,22 @@ public class AuteurDAO  extends DAO<Auteur> implements DAO_Noms<Auteur>, DAO_Nom
 		{
 			try
 			{
-				String requete = "UPDATE  auteurs SET nom_aut = ";
-				requete = requete 	+"'"+obj.getNom()+"',";
+
 				
-				requete = requete + "prenom_aut = '"+ obj.getPrenom()+"',";
-				requete = requete + "pays_aut ="+Integer.toString(obj.getId_pays())+",";
-				requete = requete + "annee_naiss ="+obj.getAnnee_naiss()+",";
-				requete = requete + "annee_deces = "+obj.getAnnee_deces()+",";
-				requete = requete + "infos = "+"'"+obj.getInfo()+"'";
+				java.sql.PreparedStatement pstmt = this.connex.prepareStatement
+						("UPDATE  auteurs SET nom_aut =?,prenom_aut =?,pays_aut =?,annee_naiss =?,annee_deces =?,infos =? WHERE id =?");
+				pstmt.setString(1, obj.getNom());			
+				pstmt.setString(2, obj.getPrenom());
+				pstmt.setInt(3, obj.getId_pays());
+				pstmt.setInt(4, obj.getAnnee_naiss());
+				pstmt.setInt(5, obj.getAnnee_deces());
+				pstmt.setString(6, obj.getInfo());
+				pstmt.setInt(7,obj.getId());
 				
-	requete = requete  + " WHERE id ="+Integer.toString(obj.getId());			
-//	System.out.println(requete);
-				res = this.connex.createStatement(). executeUpdate(requete);
-				if (res==1)
-				{
-					retour = true;
-					mes=1;
-				}
+			//	System.out.println(pstmt.toString());
+				  pstmt.executeUpdate();
+						retour = true;
+				
 			}
 			
 			catch (SQLException de)
