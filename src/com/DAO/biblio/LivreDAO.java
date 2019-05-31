@@ -75,7 +75,7 @@ if (traiter)
 				pstmt.setBoolean(7, obj.getUnResume());
 				pstmt.setInt(8, obj.getClassement());
 				
-				System.out.println(pstmt.toString());
+//				System.out.println(pstmt.toString());
 				pstmt.executeUpdate();
 						retour = true;
 				 
