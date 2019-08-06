@@ -80,4 +80,9 @@ public  static Cote4DAO getCote4DAO()
 {
 	return new Cote4DAO(Mysql_Connect.getInstance());
 }
+
+public static CouleursDAO getCouleursDAO()
+{
+	return new CouleursDAO(Mysql_Connect.getInstance());
+}
 }
