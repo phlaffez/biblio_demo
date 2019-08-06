@@ -141,7 +141,7 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 	@Override
 	public Couleurs findId(int id) {
 		// ecrite le 06/08/2019
-		// testee le
+		// testee le 06/08/2019
 		Couleurs couleur=null;
 		int mes=0;
 		String requete= "SELECT * FROM couleurs WHERE id ="+Integer.toString(id);
@@ -168,7 +168,7 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 	public int lastId() {
 		
 		// créé le 06/08/2019
-		// testé le
+		// testé le 06/08/2019
 		int res = -1;  // ce qui sera retourné si on ne trouve pas 
 		int mes=0;
 		String requete = "SELECT * FROM couleurs ORDER BY id DESC LIMIT 1";
@@ -224,7 +224,7 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 	@Override
 	public Object getByNom(String n) {
 		// créé le 06/08/2019
-		// testé le
+		// testé le 06/08/2019
 		
 		
 		Couleurs couleur=null;

@@ -14,6 +14,7 @@ import com.DAO.biblio.Cote1DAO;
 import com.DAO.biblio.Cote2DAO;
 import com.DAO.biblio.Cote3DAO;
 import com.DAO.biblio.Cote4DAO;
+import com.DAO.biblio.CouleursDAO;
 import com.DAO.biblio.DAO;
 import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.GenreDAO;
@@ -35,6 +36,7 @@ import com.metier.biblio.Cote1;
 import com.metier.biblio.Cote2;
 import com.metier.biblio.Cote3;
 import com.metier.biblio.Cote4;
+import com.metier.biblio.Couleurs;
 import com.metier.biblio.Genre;
 import com.metier.biblio.Langue;
 import com.metier.biblio.Livre;
@@ -50,28 +52,13 @@ public class essais {
 	public static void main(String[] args) {
 		
 
-		String titre = "test";
-		Color cf2 = Color.cyan;
-		Color cf = Color.LIGHT_GRAY;
-		Color cb = Color.RED;
-		Color ct = Color.BLACK;
-
+		Couleurs couleur;
+		DaoFactoryMySQL factory = new DaoFactoryMySQL();
+		int id;
+		CouleursDAO couldao = factory.getCouleursDAO();
 		
-		String tl="Les misérables";
-		String auteur = "Hugo";
-		int larg=800;
-		int haut = 600;
-		
-		
-		
-ArrayList<Auteur> auteurs;
-auteurs = null;
-		Livre livre = new Livre(10,"Les misérables",2,1,"12/11/1885","01/02/1998",false,1,"",null);
-//		GenereCote gc=new GenereCote(tl,auteur,larg,haut,cf,ct,cf2);
-		GenereCote gc=new GenereCote(livre,larg,haut,cf,ct,cf2);
-		
-		
-//		AddCote adc = new AddCote(BddTables.COTE4, 8, cf, ct,cf2, ct, cb, ct,600,400); 
+		couleur = (Couleurs)couldao.getByNom("BLEU");
+		System.out.println(couleur.toString());
 		
 		
 		

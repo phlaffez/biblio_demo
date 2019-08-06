@@ -48,6 +48,7 @@ public class Couleurs {
 	
 	public String toString()
 	{
+		// testé le 06/08/2019  OK
 		String l=Integer.toString(this.id)+" : "+this.nom;
 		return l;
 	}
