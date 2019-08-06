@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.metier.biblio.Couleurs;
 import com.metier.biblio.Pays;
 
 public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
@@ -19,39 +20,43 @@ public class PaysDAO extends DAO<Pays> implements DAO_Noms<Pays>{
 
 	@Override
 	public boolean create(Pays obj) {
-		// testé le 07/02/2018 OK
-		boolean retour = false; // par défaut. Si le pays existe déjà, on ne la crée pas
-		// mettre la langue en majuscules
-		obj.setNom(obj.getNom().toUpperCase());
-		// chercher si elle est dans la base de données
-		// getByNom renvoie un objet, donc il faut caster
-		Pays pays = (Pays)getByNom(obj.getNom());
-		if(pays ==null)
-		{
-			//on crée seulement si le pays n'est pas déjà présent
-			String requete = "INSERT INTO pays (nom_p) VALUES (\'"+obj.getNom()+"\')";
-			int res = 0;
-			int mes=0;
-			try
-			{
-			 	
-			 res = this.connex.createStatement(). executeUpdate(requete);
-			 if(res==1)
-				 {
-				 retour = true;
-				 mes=1;
-				 }
-		}
-			catch (SQLException e)
-			{
-				// remplacer par un popup
-				System.out.println("Erreur SQL lors de la création du Pays: "+obj.getNom());
-				mes=2;
-			}
-		}
-		
-		// ici mettre un popup si mes=0 (pays existant) ou 2 (pb SQL)
-		return retour;
+		// reecrit le 08/08/2019 suite à effcementpr erreur ! 
+				// testé le 
+						boolean retour = false; // par défaut. Si pays  existe déjà, on ne la crée pas
+						// mettre le pays en  en majuscules
+						obj.setNom(obj.getNom().toUpperCase());
+						// chercher si il est dans la base de données
+						// getByNom renvoie un objet, donc il faut caster
+						Pays pays = (Pays)getByNom(obj.getNom());
+						if(pays ==null)
+						{
+							//on crée seulement si le pays   n'est pas déjà présent
+							String requete = "INSERT INTO pays (nom) VALUES (\'"+obj.getNom()+"\')";
+							int res = 0;
+							int mes=0;
+							try
+							{
+							 	
+							 res = this.connex.createStatement(). executeUpdate(requete);
+							 if(res==1)
+								 {
+								 retour = true;
+								 mes=1;
+								 }
+						}
+							catch (SQLException e)
+							{
+								// remplacer par un popup
+								System.out.println("Erreur SQL lors de la création du pays: "+obj.getNom());
+								mes=2;
+							}
+						}
+						
+						// ici mettre un popup si mes=0 (pays existant) ou 2 (pb SQL)
+						return retour;	
+				
+				
+
 	}
 	
 	

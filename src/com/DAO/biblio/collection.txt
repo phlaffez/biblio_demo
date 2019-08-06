@@ -1,0 +1,186 @@
+
+
+-- couleurs de timbres (dominante) ou de pièces
+    CREATE TABLE couleurs (
+  id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom VARCHAR(30) NOT NULL UNIQUE,
+  PRIMARY KEY pk_couleurs(id)
+  )
+  ENGINE = INNODB;
+
+  DELIMITER |
+CREATE TRIGGER before_insert_couleurs BEFORE INSERT ON couleurs
+FOR EACH ROW
+BEGIN
+    SET NEW.nom = UPPER(NEW.nom);
+  END; |
+    DELIMITER ;
+
+    DELIMITER |
+CREATE TRIGGER before_update_couleurs BEFORE UPDATE ON couleurs
+FOR EACH ROW
+BEGIN
+    SET NEW.nom = UPPER(NEW.nom);
+  END; |
+    DELIMITER ;
+
+
+
+
+
+    -- Monnaies (unité monnétaire) 
+    CREATE TABLE monnaie (
+  id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom VARCHAR(30) NOT NULL UNIQUE,
+  abrev VARCHAR(30) NOT NULL UNIQUE,
+  PRIMARY KEY pk_monnaies(id)
+  )
+  ENGINE = INNODB;
+
+  DELIMITER |
+CREATE TRIGGER before_insert_monnaies BEFORE INSERT ON monnaies
+FOR EACH ROW
+BEGIN
+    SET NEW.nom = UPPER(NEW.nom);
+    SET NEW.abrev = LOWER(NEW.abrev);
+  END; |
+    DELIMITER ;
+
+    DELIMITER |
+CREATE TRIGGER before_update_monnaies BEFORE UPDATE ON monnaies
+FOR EACH ROW
+BEGIN
+    SET NEW.nom = UPPER(NEW.nom);
+    SET NEW.abrev = LOWER(NEW.abrev);
+  END; |
+    DELIMITER ;
+
+
+-- Table des différents genre de stockage (albums, classeurs  de stock, cartes de tock, etc.)
+
+CREATE TABLE genrestock (
+
+id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+nom  VARCHAR (20),
+remarques TEXT,
+PRIMARY KEY pk_genrestock(id) )
+
+ENGINE = INNODB
+
+
+    DELIMITER |
+CREATE TRIGGER before_update_genrestock BEFORE UPDATE ON genrestock
+FOR EACH ROW
+BEGIN
+    SET NEW.nom = UPPER(NEW.nom);
+  END; |
+    DELIMITER ;
+
+
+--  Table des différents stockages
+
+CREATE TABLE albums (
+id  INT UNSIGNED AUTO_INCREMENT NOT NULL,
+genre INT UNSIGNED NOT NULL,
+nom VARCHAR(50) NOT NULL,
+lieu INT UNSIGNED NOT NULL ,                  -- Lien vers la table de localisaition
+PRIMARY KEY pk_albums(id), 
+FOREIGN KEY fk_genrestock(genre) REFERENCES genrestock(id),
+FOREIGN KEY fk_localisation(lieu) REFERENCES localisation (id)
+)
+
+ENGINE INNODB
+
+
+
+CREATE TABLE catyvert (
+
+id INT UNSIGNED AUTO_INCREMENT ,
+catalogue VARCHAR (20),     -- nom du catalogue, ex france
+categorie VARCHAR(20) ,     -- nom de catégorie ex taxe
+infos     VARCHAR(200),
+PRIMARY KEY pk_catyvert(id)
+)
+
+ENGINE INNODB
+
+
+DELIMITER |
+CREATE TRIGGER before_update_catyvert BEFORE UPDATE ON  catyvert 
+FOR EACH ROW
+BEGIN
+    SET NEW.catalogue = UPPER(NEW.catalogue);
+     SET NEW.categorie = UPPER(NEW.categorie);
+  END; |
+    DELIMITER ;
+
+
+
+DELIMITER |
+CREATE TRIGGER before_insert_catyvert BEFORE INSERT ON  catyvert 
+FOR EACH ROW
+BEGIN
+    SET NEW.catalogue = UPPER(NEW.catalogue);
+     SET NEW.categorie = UPPER(NEW.categorie);
+  END; |
+    DELIMITER ;
+
+
+    -- Table timbres
+
+    CREATE TABLE timbres (
+id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+numYT INT,                       -- numero Yvert et tellier, sans obligation -- 0 si inconnu
+num_catyvert INT UNSIGNED ,    -- numero du catalogue + rubrique dans la table catyvert
+varia VARCHAR (10),                  -- type dans le numéro
+  nom VARCHAR(20),                   -- Le nom du timbre ou de la série
+  faciale FLOAT,
+  pays INT UNSIGNED NOT NULL,
+  flouz INT UNSIGNED NOT NULL,              -- monnaies du timbre
+  couleur INT UNSIGNED NOT NULL,
+  photo VARCHAR(250),                -- chemin depuis le repertoire de photo vers la photo du timbre
+  dossier BOOLEAN,                    -- false à la création. Passer à true si on fait des photos agrandies pour étude stockée
+                                     -- dans un sous dossier du repertoire ci dessus
+anneea INT,                          -- année d'acquisition / enregistrement
+anneee INT,                          -- année d'emission
+anneec INT,                         -- année de calcul de valeur
+nbval INT,                         -- Nombre de cotes ayant servi à établir la valeur du timbre
+valeur FLOAT,                       -- valeur calculée
+valinit FLOAT,                     -- coût d'acquisition
+stock INT UNSIGNED NOT NULL,        -- Le numéro de l'album, du classeur ou de la boite de stockage
+page VARCHAR(20),                   -- numéro de page décimal, avec 5 chiffres genre 2.15.3.2.25
+ligne INT,
+colonne INT,                          -- Ligne sur laquelle est le timbre et colonne
+
+
+  PRIMARY KEY pk_timbres(id),
+  INDEX ind_nom(nom),
+
+  FOREIGN KEY fk_pays(pays) REFERENCES pays(id),
+  FOREIGN KEY fk_flouz(flouz) REFERENCES monnaies(id),
+  FOREIGN KEY fk_couleur(couleur) REFERENCES couleurs(id),
+  FOREIGN KEY fk_stock(stock) REFERENCES albums(id),
+  FOREIGN KEY fk_catyvert(num_catyvert) REFERENCES catyvert(id)
+  )
+  
+ENGINE = INNODB;
+
+
+-- je prepare les triggers mais finalement je ne vois rien à y mettre
+
+DELIMITER |
+CREATE TRIGGER before_update_timbres BEFORE UPDATE ON  timbres
+FOR EACH ROW
+BEGIN
+
+    DELIMITER ;
+
+
+
+DELIMITER |
+CREATE TRIGGER before_insert_timbre BEFORE INSERT ON  timbres
+FOR EACH ROW
+BEGIN
+
+  END; |
+    DELIMITER ;

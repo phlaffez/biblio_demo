@@ -18,7 +18,8 @@ public enum BddTables {
 	COTE1("cote1"),
 	COTE2("cote2"),
 	COTE3("cote3"),
-	COTE4("cote4");
+	COTE4("cote4"),
+	COULEURS("couleurs");
 	
 	
 	private String name = "";
