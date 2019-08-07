@@ -57,7 +57,7 @@ public class essais {
 		int id;
 		CouleursDAO couldao = factory.getCouleursDAO();
 		
-		couleur = new Couleurs("CITRONS");
+		couleur = new Couleurs(25,"CITRON");
 		couldao.update(couleur);
 		System.out.println(couleur.toString());
 		
