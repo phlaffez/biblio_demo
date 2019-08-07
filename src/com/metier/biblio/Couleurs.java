@@ -5,7 +5,7 @@ package com.metier.biblio;
  * ***************************************************
  *                                                   *
  *                     Couleurs de timbres           *
- *                                                   *
+ *  classe testée ok le 07/08/2019                   *
  * ***************************************************             
  */
 public class Couleurs {
