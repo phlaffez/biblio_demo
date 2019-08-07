@@ -23,7 +23,7 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 		
 		
 		// ecrit le 01/08/2019
-		// testé le 
+		// testé le 07/08/2019 - Fonctionne
 				boolean retour = false; // par défaut. Si la couleur  existe déjà, on ne la crée pas
 				// mettre la couleur en majuscules
 				obj.setNom(obj.getNom().toUpperCase());
