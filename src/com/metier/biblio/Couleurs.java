@@ -24,6 +24,12 @@ public class Couleurs {
 		this.nom=nom;
 	}
 	
+	public Couleurs( String nom) 
+	{
+		this.id=0;
+		this.nom=nom;
+	}
+	
 	// getters et setters
 	
 	public int getId()
