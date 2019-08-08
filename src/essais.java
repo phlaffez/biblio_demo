@@ -11,13 +11,14 @@ import com.metier.biblio.Couleurs;
 import com.metier.biblio.Monnaies;
 
 import phl.outils.panneaux.outilsStandards.FenetreMessage;
+import test.metier.biblio.GenreStock;
 
 public class essais {
 
 	public static void main(String[] args) {
 		
 
-
+/*
 		Monnaies monnaie;
 		
 		ArrayList<Monnaies> monnaies = new ArrayList<Monnaies>();
@@ -38,7 +39,16 @@ for (int i = 0; i<couleurs.size();i++)
 }
 		
 
-
+*/
+		
+		
+		GenreStock gs;
+		
+		gs = new GenreStock(2, "album","albums pour exposition");
+		System.out.println(gs.toString());
+		
+		
+		
 		
 System.out.println("Fin essai");
 
