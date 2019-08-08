@@ -64,7 +64,7 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 	@Override
 	public boolean update(Couleurs obj) {
 		//  ecrit le 06/08/2019
-		// testé le
+		// testé le  07/08/2019  OK
 		
 				boolean retour = false;
 				int res;
@@ -97,7 +97,7 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 
 	@Override
 	public boolean delete(Couleurs obj) {
-		// testé le 
+		// testé le  07/08/2019  OK
 		// On vérifie l'existance
 		boolean retour = false;
 			Couleurs couleur = findId(obj.getId());
@@ -192,7 +192,7 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 	@Override
 	public List<Couleurs> selectAll() {
 		// créé le 06/08/2019
-		// testé le
+		// testé le 07/08/2019  OK
 		
 		
 		List<Couleurs> couleurs = new ArrayList<Couleurs>();  // ce qui sera renvoyé
@@ -251,8 +251,8 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr) {
-		// ecrit le
-		// teste le
+		// ecrit le 06/08/2019
+		// teste le ?? Il y a des problèmes de cast que je dois résoudre pour pouvoir avancer !
 		
 		
 		Couleurs couleur=null;
