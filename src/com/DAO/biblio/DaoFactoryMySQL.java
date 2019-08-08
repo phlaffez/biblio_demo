@@ -2,6 +2,7 @@ package com.DAO.biblio;
 
 import com.dbacces.biblio.Mysql_Connect;
 
+
 public class DaoFactoryMySQL  {
 
 	public DaoFactoryMySQL() {
@@ -84,5 +85,10 @@ public  static Cote4DAO getCote4DAO()
 public static CouleursDAO getCouleursDAO()
 {
 	return new CouleursDAO(Mysql_Connect.getInstance());
+}
+
+public static MonnaiesDAO getMonnaiesDAO()
+{
+	return new MonnaiesDAO(Mysql_Connect.getInstance());
 }
 }
