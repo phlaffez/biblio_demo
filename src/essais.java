@@ -3,8 +3,10 @@
 
 import java.util.ArrayList;
 
+import com.DAO.biblio.CouleursDAO;
 import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.MonnaiesDAO;
+import com.DAO.biblio.OptionRecherche;
 import com.metier.biblio.Couleurs;
 import com.metier.biblio.Monnaies;
 
@@ -17,17 +19,25 @@ public class essais {
 
 
 		Monnaies monnaie;
+		
 		ArrayList<Monnaies> monnaies = new ArrayList<Monnaies>();
-		MonnaiesDAO monnaiedao = new DaoFactoryMySQL().getMonnaiesDAO();
+		ArrayList<Couleurs> couleurs = new ArrayList<Couleurs>();
+		DaoFactoryMySQL usine = new DaoFactoryMySQL();
+		MonnaiesDAO monnaiedao = usine.getMonnaiesDAO();
+		CouleursDAO couleurdao = usine.getCouleursDAO();
 	monnaies = (ArrayList<Monnaies>)monnaiedao.selectAll();
 	
+	monnaie = (Monnaies)monnaiedao.getByNom("FRANC");
 	
-for (int i = 0; i<monnaies.size();i++)
+	monnaies = (ArrayList<Monnaies>) monnaiedao.getByNomLike("n", OptionRecherche.CONTIEND);
+	couleurs = (ArrayList<Couleurs>) couleurdao.getByNomLike("V", OptionRecherche.CONTIEND);
+		
+for (int i = 0; i<couleurs.size();i++)
 {
-	System.out.println(monnaies.get(i).toString());
+	System.out.println(couleurs.get(i).toString());
 }
 		
-			
+
 
 		
 System.out.println("Fin essai");

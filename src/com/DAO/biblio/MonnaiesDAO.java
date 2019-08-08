@@ -119,14 +119,64 @@ public class MonnaiesDAO extends DAO<Monnaies> implements DAO_Noms<Couleurs>{
 
 	@Override
 	public Object getByNom(String n) {
-		// TODO Auto-generated method stub
-		return null;
+		// créé le 08/08/2019
+		// testé le 08/08/2019
+		
+		
+		Monnaies obj=null;
+		n=n.toUpperCase();
+		int mes=0;
+		String requete= "SELECT * FROM monnaies WHERE nom =\'"+n+"\'";
+		try
+		{
+			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+			if (res.first())
+			{
+				obj = new Monnaies(res.getInt("id"),n,res.getString("abrev"));
+				mes=1;
+			}
+		}
+		catch (SQLException e)
+		{
+			mes=2;
+			// popup à mettre
+			System.out.println("Problème SQL lors de la recherche de la Monnaie "+n);
+		}
+		return obj;
 	}
 
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr) {
-		// TODO Auto-generated method stub
-		return null;
+		// ecrit le 08/08/2019
+				// teste le 08/08/2019
+				
+				
+				Monnaies obj=null;
+				List<Monnaies> objs = new ArrayList<Monnaies>();  // ce qui sera renvoyé
+				n=n.toUpperCase();
+				int mes=0;
+				String requete= "SELECT * FROM monnaies WHERE nom LIKE\'";
+				if(opr==OptionRecherche.CONTIEND)
+				{
+					requete = requete + "%";
+				}
+				requete = requete+n+"%\'";
+				try
+				{
+					ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
+					while (res.next())
+					{
+						obj = new Monnaies(res.getInt("id"),res.getString("nom"),res.getString("abrev"));
+						objs.add(obj);
+					}
+				}
+				catch (SQLException e)
+				{
+					mes=2;
+					// popup à mettre
+					System.out.println("Problème SQL lors de la recherche de la Monnaie "+n);
+				}
+				return objs;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.metier.biblio.Couleurs;
+import com.metier.biblio.Monnaies;
 import com.metier.biblio.Pays;
 
 public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
@@ -251,11 +252,11 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 
 	@Override
 	public Object getByNomLike(String n, OptionRecherche opr) {
-		// ecrit le 06/08/2019
-		// teste le ?? Il y a des problèmes de cast que je dois résoudre pour pouvoir avancer !
+		// ecrit le 08/08/2019
+		// teste le 08/08/2019		
 		
-		
-		Couleurs couleur=null;
+		Couleurs obj=null;
+		List<Couleurs> objs = new ArrayList<Couleurs>();  // ce qui sera renvoyé
 		n=n.toUpperCase();
 		int mes=0;
 		String requete= "SELECT * FROM couleurs WHERE nom LIKE\'";
@@ -267,19 +268,19 @@ public class CouleursDAO extends DAO<Couleurs> implements DAO_Noms<Couleurs>{
 		try
 		{
 			ResultSet res =  this.connex.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY).executeQuery(requete);
-			if (res.first())
+			while (res.next())
 			{
-				couleur = new Couleurs(res.getInt("id"),n);
-				mes=1;
+				obj = new Couleurs(res.getInt("id"),res.getString("nom"));
+				objs.add(obj);
 			}
 		}
 		catch (SQLException e)
 		{
 			mes=2;
 			// popup à mettre
-			System.out.println("Problème SQL lors de la recherche de la couleur "+n);
+			System.out.println("Problème SQL lors de la recherche de la Couleur "+n);
 		}
-		return couleur;
+		return objs;
 
 
 }
