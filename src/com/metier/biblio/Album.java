@@ -8,7 +8,7 @@ import test.metier.biblio.GenreStock;
  * ***************************************************
  *                                                   *
  *                     Albums et stocks              *
- *  classe testée ok le                    *
+ *  classe testée ok le 18/08/2019                   *
  * ***************************************************   
  */
 
