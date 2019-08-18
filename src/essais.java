@@ -7,6 +7,7 @@ import com.DAO.biblio.CouleursDAO;
 import com.DAO.biblio.DaoFactoryMySQL;
 import com.DAO.biblio.MonnaiesDAO;
 import com.DAO.biblio.OptionRecherche;
+import com.metier.biblio.Album;
 import com.metier.biblio.Couleurs;
 import com.metier.biblio.Monnaies;
 
@@ -39,13 +40,16 @@ for (int i = 0; i<couleurs.size();i++)
 }
 		
 
-*/
-		
 		
 		GenreStock gs;
 		
 		gs = new GenreStock(2, "album","albums pour exposition");
 		System.out.println(gs.toString());
+		
+		*/
+Album album = new Album(2,"test",3);
+
+System.out.println(album.toString());
 		
 		
 		

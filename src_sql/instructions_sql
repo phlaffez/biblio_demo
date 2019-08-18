@@ -423,7 +423,7 @@ id INT UNSIGNED AUTO_INCREMENT NOT NULL,
 numYT INT,                       -- numero Yvert et tellier, sans obligation -- 0 si inconnu
 num_catyvert INT UNSIGNED ,    -- numero du catalogue + rubrique dans la table catyvert
 varia VARCHAR (10),                  -- type dans le numéro
-  nom VARCHAR(20),                   -- Le nom du timbre ou de la série
+  nom VARCHAR(40),                   -- Le nom du timbre ou de la série
   faciale FLOAT,
   pays INT UNSIGNED NOT NULL,
   flouz INT UNSIGNED NOT NULL,              -- monnaies du timbre

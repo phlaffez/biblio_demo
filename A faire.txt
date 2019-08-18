@@ -19,3 +19,22 @@ tout le temps et pas seulement parfois, et ajouter une information dans le auteu
 quand on  un probleme à l'insertion, et à la modification d'un enregistrement.
 
 9) pouvoir trier les lignes des tables
+
+
+
+
+
+
+
+/*
+ * ***************************************************
+ *                                                   *
+ *                     Albums et stocks              *
+ *  classe testée ok le                    *
+ * ***************************************************   
+ */
+
+
+	
+	
+}
